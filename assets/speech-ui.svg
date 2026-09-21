@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="340" height="240" viewBox="0 0 340 240">
+  <rect width="340" height="240" fill="#f7f8fa"/>
+  <rect x="16" y="16" width="308" height="208" rx="10" fill="#ffffff" stroke="#e5e7eb"/>
+  <rect x="30" y="32" width="120" height="12" rx="6" fill="#dbeafe"/>
+  <!-- 波形 -->
+  <g fill="#2563eb">
+    <rect x="34" y="118" width="6" height="22" rx="3"/>
+    <rect x="46" y="100" width="6" height="40" rx="3"/>
+    <rect x="58" y="86" width="6" height="54" rx="3"/>
+    <rect x="70" y="104" width="6" height="36" rx="3"/>
+    <rect x="82" y="76" width="6" height="64" rx="3"/>
+    <rect x="94" y="98" width="6" height="42" rx="3"/>
+    <rect x="106" y="112" width="6" height="28" rx="3"/>
+    <rect x="118" y="90" width="6" height="50" rx="3"/>
+    <rect x="130" y="106" width="6" height="34" rx="3"/>
+    <rect x="142" y="82" width="6" height="58" rx="3"/>
+    <rect x="154" y="100" width="6" height="40" rx="3"/>
+    <rect x="166" y="116" width="6" height="24" rx="3"/>
+    <rect x="178" y="92" width="6" height="48" rx="3"/>
+    <rect x="190" y="108" width="6" height="32" rx="3"/>
+    <rect x="202" y="84" width="6" height="56" rx="3"/>
+    <rect x="214" y="102" width="6" height="38" rx="3"/>
+    <rect x="226" y="114" width="6" height="26" rx="3"/>
+    <rect x="238" y="96" width="6" height="44" rx="3"/>
+    <rect x="250" y="110" width="6" height="30" rx="3"/>
+    <rect x="262" y="88" width="6" height="52" rx="3"/>
+    <rect x="274" y="106" width="6" height="34" rx="3"/>
+    <rect x="286" y="120" width="6" height="20" rx="3"/>
+  </g>
+  <!-- 情感标签条 -->
+  <rect x="30" y="172" width="64" height="10" rx="5" fill="#eef2f7"/>
+  <g>
+    <rect x="30" y="190" width="40" height="22" rx="6" fill="#eff6ff"/>
+    <rect x="76" y="190" width="40" height="22" rx="6" fill="#2563eb"/>
+    <rect x="122" y="190" width="40" height="22" rx="6" fill="#eff6ff"/>
+    <rect x="168" y="190" width="40" height="22" rx="6" fill="#eff6ff"/>
+    <rect x="214" y="190" width="40" height="22" rx="6" fill="#eff6ff"/>
+    <rect x="260" y="190" width="40" height="22" rx="6" fill="#eff6ff"/>
+  </g>
+</svg>

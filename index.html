@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仵星 · 个人作品集 | AI 应用开发 × 低代码实施</title>
+<meta name="description" content="仵星 — 2027届人工智能专业本科应届生。AI 应用开发 / 低代码实施 / 全栈基础。果蔬成熟度检测、语音情感识别、大模型应用、Coze 智能体等项目作品集。">
+<!--
+  ════════════════════════════════════════════════════════════
+  仵星 · 求职向个人作品集（单页应用）
+  · 修改文字内容：直接搜索对应中文文案编辑本文件即可
+  · 修改配色/间距：编辑 css/style.css 顶部 :root 变量
+  · 替换项目截图：把图片放进 assets/，替换对应 <img src>
+  · 站点数据均来自真实项目源码评审，详见《项目代码评审摘要》
+  ════════════════════════════════════════════════════════════
+-->
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ═════════ ① 导航栏 ═════════ -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">仵星<em>.</em>portfolio</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="active">首页</a></li>
+      <li><a href="#about">关于</a></li>
+      <li><a href="#exp">实习</a></li>
+      <li><a href="#campus">校园</a></li>
+      <li><a href="#proj">项目</a></li>
+      <li><a href="#skills">技能</a></li>
+      <li><a href="#contact">联系</a></li>
+    </ul>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<!-- ═════════ ② Hero 首屏 ═════════ -->
+<section id="home" class="hero">
+  <img class="avatar" src="assets/avatar.jpg" alt="仵星证件照">
+  <h1>仵星</h1>
+  <div class="role">2027 届本科应届生 · 人工智能专业 · 意向城市：上海</div>
+  <div class="chips">
+    <span class="chip">AI 应用开发</span>
+    <span class="chip">低代码实施</span>
+    <span class="chip">全栈基础</span>
+    <span class="chip">数赛国奖</span>
+  </div>
+  <p class="intro">
+    专注 AI 工程落地：从视觉检测、语音情感到大模型应用与低代码系统实施，
+    擅长把算法能力与真实业务需求转化为可运行、可交付的系统。
+  </p>
+  <div class="btn-row">
+    <a class="btn primary" href="assets/resume.pdf" download="仵星-简历.pdf">下载简历 ↓</a>
+    <a class="btn ghost" href="https://github.com/wuxingai666" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+  <div class="city-hint">📍 base 上海 · 可到岗实习/校招入职</div>
+</section>
+
+<!-- ═════════ ③ 关于我 ═════════ -->
+<section id="about" class="shade">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">01 — About</div>
+      <h2 class="sec-title">关于我</h2>
+    </div>
+    <div class="about-grid">
+      <div class="info-card reveal"><h4>教育背景</h4><p>长春大学旅游学院<br>人工智能专业 · 本科（2027 届）</p></div>
+      <div class="info-card reveal"><h4>学业表现</h4><p>GPA 3.66 / 4.0<br>专业排名 5 / 39（前 12%）</p></div>
+      <div class="info-card reveal"><h4>核心奖项</h4>
+        <ul class="award-list">
+          <li>2024 全国大学生数学竞赛 · 国家级三等奖</li>
+          <li>校级人工智能创新大赛 · 二等奖</li>
+          <li>连续两年校级三等奖学金</li>
+          <li>校第十四届校队篮球赛 · 季军</li>
+          <li>中国吉林第二届全国龙舟邀请赛 · 亚军</li>
+        </ul>
+      </div>
+      <div class="info-card reveal"><h4>个人简介</h4>
+        <p class="bio">21 岁 · 身高 183 cm · 体重 80 kg<br>
+        爱好：篮球（校队）、龙舟<br>
+        <span class="bio-note">性格：踏实负责、执行力强，善于沟通协作与多任务推进</span></p>
+      </div>
+    </div>
+
+    <!-- 核心能力概览：一句话讲清"我能做什么" -->
+    <div class="cap-list">
+      <div class="cap-item reveal"><span class="no">1</span>
+        <div><h5>AI 应用开发</h5><p>视觉检测（YOLOv8）、语音情感识别（HuBERT+Whisper）、大模型 API 工程化接入</p></div></div>
+      <div class="cap-item reveal"><span class="no">2</span>
+        <div><h5>低代码平台实施</h5><p>致远 V8 平台表单搭建、审批流程配置、UAT 测试与客户交付（实习实战）</p></div></div>
+      <div class="cap-item reveal"><span class="no">3</span>
+        <div><h5>全栈开发基础</h5><p>FastAPI 后端 + Vue3 前端 + SQLite/SQL，具备独立完成小型系统的能力</p></div></div>
+      <div class="cap-item reveal"><span class="no">4</span>
+        <div><h5>AI 辅助工程</h5><p>熟练使用 Codex、Claude 等 AI 智能体辅助开发、调试与项目自动化搭建</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ ④ 实习经历 ═════════ -->
+<section id="exp">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">02 — Experience</div>
+      <h2 class="sec-title">实习经历</h2>
+      <p class="sec-sub">STAR 结构：情境 · 任务 · 行动 · 结果，全部来自在项目中的真实工作内容。</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-head"><h4>实施工程师实习生</h4><span class="meta">2026.07 — 至今</span></div>
+        <div class="org">致远互联（北京）· 招商局金融科技 OA 低代码实施项目（驻场中国数联）</div>
+        <ul>
+          <li><b>业务搭建：</b>基于致远 V8 低代码平台独立搭建业务表单与审批流程，配置多级审批节点流转逻辑与字段级权限，覆盖客户核心 OA 业务模块。</li>
+          <li><b>数据处理：</b>编写 SQL 完成业务数据的清洗、校验与批量导入，定位并修复字段映射与数据一致性问题，保障上线数据质量。</li>
+          <li><b>需求对接：</b>驻场对接客户部门负责人与分管领导，将零散业务诉求转化为可落地的表单 / 流程方案，输出需求确认文档并跟踪变更。</li>
+          <li><b>测试交付：</b>编写 UAT 测试用例覆盖正常 / 异常 / 边界场景，跟进缺陷闭环；与客户、招商金科方协同完成 OA 模块验收与交付。</li>
+          <li><b>协同成果：</b>在央国企合规框架下完成模块交付，积累了低代码平台搭建、工作流编排、跨方协同与项目交付的完整实战经验。</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="tag">低代码平台搭建</span><span class="tag">工作流编排</span>
+          <span class="tag">SQL 数据处理</span><span class="tag">需求对接</span>
+          <span class="tag">UAT 测试</span><span class="tag">驻场协同交付</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ ⑤ 校园经历 ═════════ -->
+<section id="campus" class="shade">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">03 — Campus</div>
+      <h2 class="sec-title">校园经历</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-head"><h4>校团委社团团建委员会副主任</h4><span class="meta">在校期间</span></div>
+        <div class="org">校团委 · 社团团建部</div>
+        <!-- TODO：以下三条可补充真实数字（活动场次/覆盖社团数/参与人数），面试更有说服力 -->
+        <ul>
+          <li>统筹社团团建活动的策划与落地：负责活动方案设计、流程管控与人员分工，协调多个社团资源联合开展校级团建活动。</li>
+          <li>负责团建材料梳理与制度建设：规范活动审批、材料归档与日常对接流程，提升部门组织运转效率。</li>
+          <li>跨部门沟通与多任务并行：对接校团委各部门与各社团负责人，在活动筹备与执行中处理突发问题，保障活动按期推进。</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="tag">组织协调</span><span class="tag">项目推进</span>
+          <span class="tag">跨部门沟通</span><span class="tag">多任务管理</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ ⑥ 项目作品 ═════════ -->
+<section id="proj">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">04 — Projects</div>
+      <h2 class="sec-title">项目作品</h2>
+      <p class="sec-sub">按含金量排序，全部描述基于项目真实源码评审输出——架构、功能、量化指标可在面试中展开。</p>
+    </div>
+
+    <div class="proj-list">
+
+      <!-- P1 果蔬成熟度智能检测系统 -->
+      <article class="proj-card reveal">
+        <div class="proj-top">
+          <div class="proj-media">
+            <img src="assets/fruit-sample.png" alt="果蔬成熟度检测系统识别样例">
+          </div>
+          <div class="proj-body">
+            <div class="proj-head"><h4>果蔬成熟度智能检测系统</h4><span class="badge">P1 · 核心项目</span></div>
+            <p>基于 YOLOv8 + ResNet50 的果蔬检测与成熟度分类桌面系统。自建 8000+ 张标注数据集，
+               支持图片 / 视频 / 摄像头 / 批量目录四种推理模式，检测结果实时呈现于可视化表格，并可导出标注后的检测视频。</p>
+            <ul class="hl">
+              <li>双模型架构：YOLOv8 目标检测定位果实区域 + ResNet50 成熟度分类，综合识别准确率 93%。</li>
+              <li>工程化桌面端：PyQt5 + OpenCV 构建 GUI，QThread 后台线程执行推理避免界面卡顿，GPU / CPU 环境自适应。</li>
+              <li>结果可视化与交互：检测框绘制、目标下拉筛选、置信度 / IOU 阈值实时调节、检测视频后台导出与进度反馈。</li>
+            </ul>
+            <div class="proj-foot">
+              <div class="tags">
+                <span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">YOLOv8</span>
+                <span class="tag">ResNet50</span><span class="tag">OpenCV</span><span class="tag">PyQt5</span>
+              </div>
+              <div class="proj-links"><span class="local-tag">本地项目 · 未开源</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- P2 BOSS直聘自动化投递助手（原名恢复，工程化风控口径） -->
+      <article class="proj-card reveal">
+        <div class="proj-top">
+          <div class="proj-media">
+            <img src="assets/boss-dash.svg" alt="BOSS直聘自动化投递助手运行界面示意">
+          </div>
+          <div class="proj-body">
+            <div class="proj-head"><h4>BOSS直聘自动化投递助手</h4><span class="badge gray">P2 · 开源 MIT</span></div>
+            <p>浏览器脚本 + FastAPI 后端 + 实时看板三层架构的求职辅助工具：基于大模型 API 生成个性化招呼语与对话回复，
+               投递记录持久化存储，并通过 SSE 实时推送至监控看板。</p>
+            <ul class="hl">
+              <li>页面交互层：Tampermonkey 用户脚本实现滚动加载、焦点 / 键入 / 点击事件模拟，多选择器方案适配不同页面结构。</li>
+              <li>智能对话引擎：接入 DeepSeek API，结合职位上下文生成招呼语与多轮回复，支持失败重试。</li>
+              <li>数据与看板：SQLAlchemy + SQLite 持久化投递日志与每日统计，SSE 实时推送，看板呈现今日 / 累计数据与投递明细。</li>
+              <li>四层风控策略：分级等待与随机化间隔、频控弹窗识别、连续异常熔断、拟人化操作序列，控制自动化运行频率。</li>
+            </ul>
+            <div class="proj-note">※ 仅作技术学习与个人求职辅助用途，内置限速与熔断以控制运行频率、降低对平台的影响。</div>
+            <div class="proj-foot" style="margin-top:12px">
+              <div class="tags">
+                <span class="tag">JavaScript</span><span class="tag">Tampermonkey</span><span class="tag">FastAPI</span>
+                <span class="tag">SQLite</span><span class="tag">SSE</span><span class="tag">LLM API</span>
+              </div>
+              <div class="proj-links"><a href="https://github.com/wuxingai666/boss-automation" target="_blank" rel="noopener">GitHub ↗ 开源仓库</a></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- P3 中文语音情感识别系统（毕业设计） -->
+      <article class="proj-card reveal">
+        <div class="proj-top">
+          <div class="proj-media">
+            <img src="assets/speech-ui.svg" alt="中文语音情感识别系统界面示意">
+          </div>
+          <div class="proj-body">
+            <div class="proj-head"><h4>中文语音情感识别系统</h4><span class="badge gray">P3 · 毕业设计</span></div>
+            <p>声学 + 语义双通道的语音情感识别系统：HuBERT 声学分类、Whisper 语音识别与 DeepSeek 语义分析并行，
+               动态加权融合输出情感结论，Vue3 前端完成录音、可视化与语音播报全流程。</p>
+            <ul class="hl">
+              <li>声学模型：基于 HuBERT 预训练模型微调情感分类器，CASIA 中文情感语音数据集（1200 条 · 6 类情感），准确率 79.6%。</li>
+              <li>多模态融合：ASR 转写 + LLM 语义分析 + 声学特征动态加权 Late Fusion，兼顾声学表现与语义信息。</li>
+              <li>全栈交付：FastAPI 分层后端（api / models / services）+ Vue3 + Element Plus + ECharts 前端 + Web Speech 语音播报。</li>
+            </ul>
+            <div class="proj-foot">
+              <div class="tags">
+                <span class="tag">Python</span><span class="tag">HuBERT</span><span class="tag">faster-whisper</span>
+                <span class="tag">DeepSeek</span><span class="tag">FastAPI</span><span class="tag">Vue3</span>
+              </div>
+              <div class="proj-links"><span class="local-tag">本地项目 · 毕业设计</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- P4 网页记账本系统 -->
+      <article class="proj-card reveal">
+        <div class="proj-top">
+          <div class="proj-media">
+            <img src="assets/ledger-ui.svg" alt="网页记账本系统界面示意">
+          </div>
+          <div class="proj-body">
+            <div class="proj-head"><h4>网页记账本系统</h4><span class="badge gray">P4 · 已上线</span></div>
+            <p>单文件 HTML 实现的轻量记账应用，零依赖部署于 GitHub Pages。围绕日常 / 大额 / 固定三类支出设计数据结构
+               与预算占用逻辑，提供完整的增删改查与统计可视化能力。</p>
+            <ul class="hl">
+              <li>业务建模：三类支出分类与可用预算（availableBudget）计算规则设计，固定支出不计入当期占用额度。</li>
+              <li>数据持久化：localStorage 分表存储，含数据结构版本迁移与旧数据兼容处理。</li>
+              <li>增量式迭代：从 v1 持续演进至 v3.1，以「// 优化-xxx」注释规范标注每次改动，保证可回溯、可回退。</li>
+            </ul>
+            <div class="proj-foot">
+              <div class="tags">
+                <span class="tag">HTML/CSS/JS</span><span class="tag">localStorage</span>
+                <span class="tag">ECharts</span><span class="tag">GitHub Pages</span>
+              </div>
+              <div class="proj-links">
+                <a href="https://wuxingai666.github.io/xiaozhangben/" target="_blank" rel="noopener">在线访问 ↗</a>
+                <a href="https://github.com/wuxingai666/xiaozhangben" target="_blank" rel="noopener" style="margin-left:14px">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- P5 低代码平台智能体搭建（Coze 平台，用户提供方向） -->
+      <article class="proj-card reveal">
+        <div class="proj-top">
+          <div class="proj-media">
+            <img src="assets/coze-agent.svg" alt="Coze 智能体搭建示意">
+          </div>
+          <div class="proj-body">
+            <div class="proj-head"><h4>低代码平台智能体搭建</h4><span class="badge gray">Coze 平台</span></div>
+            <p>基于 Coze 低代码 AI 应用开发平台，面向真实业务场景搭建可对话的智能体：
+               通过知识库接入与检索增强（RAG）注入领域资料，配置插件实现外部能力调用，
+               并以工作流编排复杂多步任务，形成可多轮对话、可交付的业务助手。</p>
+            <ul class="hl">
+              <li>知识库 + RAG：上传业务文档构建知识库，开启检索增强，让回答基于自有资料、降低幻觉。</li>
+              <li>插件与工具：接入平台插件与外部 API，扩展联网搜索、数据查询等能力边界。</li>
+              <li>工作流编排：用可视化节点串联「意图识别 → 知识检索 → 大模型生成 → 结果回流」的复杂链路。</li>
+            </ul>
+            <div class="proj-foot">
+              <div class="tags">
+                <span class="tag">Coze</span><span class="tag">智能体</span><span class="tag">RAG</span>
+                <span class="tag">工作流编排</span><span class="tag">提示词工程</span>
+              </div>
+              <div class="proj-links"><span class="local-tag">Coze 平台项目</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- P6 自动化工作流搭建（Coze 平台，用户提供方向） -->
+      <article class="proj-card reveal">
+        <div class="proj-top">
+          <div class="proj-media">
+            <img src="assets/coze-workflow.svg" alt="Coze 工作流搭建示意">
+          </div>
+          <div class="proj-body">
+            <div class="proj-head"><h4>自动化工作流搭建</h4><span class="badge gray">Coze 平台</span></div>
+            <p>在 Coze 平台以可视化方式编排自动化工作流，将重复业务动作抽象为节点链路，
+               支持条件分支、循环、API 接入与定时触发，降低人工操作成本、提升流程稳定性。</p>
+            <ul class="hl">
+              <li>节点编排：用开始 / 大模型 / 代码 / 知识库 / 插件等节点串联端到端流程。</li>
+              <li>条件与分支：基于输入参数配置条件判断与分支路由，处理多场景业务分支。</li>
+              <li>集成与触发：对接外部 API 与数据源，配置定时或事件触发，实现无人值守运行。</li>
+            </ul>
+            <div class="proj-foot">
+              <div class="tags">
+                <span class="tag">Coze</span><span class="tag">工作流编排</span><span class="tag">API 集成</span>
+                <span class="tag">自动化</span><span class="tag">条件分支</span>
+              </div>
+              <div class="proj-links"><span class="local-tag">Coze 平台项目</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- P7 预留：RAG 全栈开发项目（后续补全） -->
+      <article class="proj-card reserve reveal">
+        <div class="proj-top">
+          <div class="proj-media">
+            <img src="assets/rag-reserved.svg" alt="RAG 全栈项目预留位">
+          </div>
+          <div class="proj-body">
+            <div class="proj-head"><h4>RAG 全栈开发项目</h4><span class="badge outline">敬请期待</span></div>
+            <p class="reserve-text">该位置已为「RAG 全链路开发」相关项目预留（检索增强生成 + 向量库 + 后端服务 + 前端交互的全栈实现）。
+               项目内容整理中，后续由本人补全并上线展示。</p>
+            <div class="proj-foot">
+              <div class="tags">
+                <span class="tag">RAG</span><span class="tag">向量检索</span><span class="tag">全栈</span>
+              </div>
+              <div class="proj-links"><span class="local-tag">待补全</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ ⑦ 技能栈 ═════════ -->
+<section id="skills" class="shade">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">05 — Skills</div>
+      <h2 class="sec-title">技能栈</h2>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-card reveal">
+        <h4>AI 核心能力</h4>
+        <div class="tags">
+          <span class="tag hot">Python</span><span class="tag hot">PyTorch</span>
+          <span class="tag">YOLO / ResNet 视觉算法</span><span class="tag hot">RAG 全链路开发</span>
+          <span class="tag">大模型 API 工程落地</span><span class="tag hot">智能体工作流编排</span>
+          <span class="tag">低代码平台搭建</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h4>AI 辅助开发</h4>
+        <div class="tags">
+          <span class="tag hot">Codex</span><span class="tag hot">Claude</span>
+          <span class="tag">AI 智能体辅助全栈开发</span><span class="tag">AI 辅助调试与自动化搭建</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h4>工程与部署</h4>
+        <div class="tags">
+          <span class="tag">FastAPI</span><span class="tag">SQL / SQLite</span><span class="tag">Git</span>
+          <span class="tag">Linux 基础</span><span class="tag">Docker 简易部署</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h4>前端基础</h4>
+        <div class="tags">
+          <span class="tag">HTML / CSS / JavaScript</span><span class="tag">Vue3 基础</span>
+          <span class="tag">界面开发与接口联调</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ ⑧ 联系方式 ═════════ -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">06 — Contact</div>
+      <h2 class="sec-title">联系方式</h2>
+    </div>
+    <p class="tip reveal">正在寻找 2027 届校招 / 实习机会（意向城市：上海），欢迎邮件或电话联系。</p>
+    <div class="channels reveal">
+      <a class="channel" href="mailto:842081814@qq.com">✉️ <span><span class="k">邮箱 · </span>842081814@qq.com</span></a>
+      <a class="channel" href="tel:19843956389">📱 <span><span class="k">电话 · </span>19843956389</span></a>
+      <a class="channel" href="https://github.com/wuxingai666" target="_blank" rel="noopener">🐙 <span><span class="k">GitHub · </span>wuxingai666</span></a>
+      <span class="channel">📍 <span><span class="k">意向城市 · </span>上海</span></span>
+    </div>
+    <div class="btn-row reveal">
+      <a class="btn primary" href="mailto:842081814@qq.com">发邮件 →</a>
+      <a class="btn ghost" href="assets/resume.pdf" download="仵星-简历.pdf">下载简历 ↓</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 仵星 · 求职向个人作品集 · Powered by GitHub Pages</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 /* ============================================================
    仵星 · 个人作品集  main.js
-   四件事：移动端右滑侧边栏 / 滚动渐显 / 导航高亮 + 滚动收缩 + 进度条 / 回到顶部
+   五件事：移动端右滑侧边栏 / 滚动渐显（板块内 100ms 错落）/ 导航高亮 + 滚动收缩 + 进度条 / 回到顶部 / 锚点平滑滚动（500ms）
    纯原生 JS，无依赖；尊重 prefers-reduced-motion
    ============================================================ */
 
@@ -23,15 +23,29 @@ navLinks.querySelectorAll('a').forEach(a =>
   a.addEventListener('click', () => setMenu(false)));      // 点击菜单项后自动收回
 document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
-// ── 2. 滚动渐显（IntersectionObserver，仅触发一次） ────────
+// 视口放大到桌面端（>767px）时，若侧边栏仍处于打开态则自动收起，避免旋转 / 缩放后卡在打开态
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 767 && navLinks.classList.contains('open')) setMenu(false);
+});
+
+// ── 2. 滚动渐显（按板块内元素顺序 100ms 错落；仅触发一次） ────────
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const reveals = document.querySelectorAll('.reveal');
+
 if (reduceMotion) {
   reveals.forEach(el => el.classList.add('in'));            // 减少动画：直接显示
 } else {
+  // 预先计算每个板块内 .reveal 的错落延迟（同板块第 i 个 → i×100ms）
+  document.querySelectorAll('section').forEach(sec => {
+    [...sec.querySelectorAll('.reveal')].forEach((el, i) => { el.dataset.delay = i * 100; });
+  });
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }  // 只触发一次
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      el.style.transitionDelay = (el.dataset.delay || 0) + 'ms';   // 注入错落延迟
+      el.classList.add('in');
+      io.unobserve(el);                                     // 只触发一次
     });
   }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
   // 延后两帧再开始观察：先让元素以 opacity:0 完成首帧绘制，
@@ -71,7 +85,32 @@ function onScroll() {
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-// 回到顶部：平滑滚动（尊重减少动画）
-toTop.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+// ── 4. 平滑滚动（锚点跳转 500ms / 回到顶部） ───────────────
+// ease-out cubic，时长 500ms；尊重减少动画时直接跳
+function smoothScrollTo(targetY, duration = 500) {
+  if (reduceMotion) { window.scrollTo(0, targetY); return; }
+  const startY = window.scrollY;
+  const dist   = targetY - startY;
+  const start  = performance.now();
+  (function step(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);                 // ease-out：先快后慢
+    window.scrollTo(0, startY + dist * eased);
+    if (t < 1) requestAnimationFrame(step);
+  })(performance.now());
+}
+
+// 锚点跳转：全局平滑滚动 500ms（固定导航高 72px，跳转预留偏移）
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href').slice(1);
+    const target = id ? document.getElementById(id) : null;
+    if (!target) return;                                  // 空锚点（#）放行默认
+    e.preventDefault();
+    const y = target.getBoundingClientRect().top + window.scrollY - 72;
+    smoothScrollTo(Math.max(0, y), 500);
+  });
 });
+
+// 回到顶部
+toTop.addEventListener('click', () => smoothScrollTo(0, 500));

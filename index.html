@@ -42,7 +42,7 @@
 
 <!-- ═════════ ② Hero 首屏（只放职业信息） ═════════ -->
 <section id="home" class="hero">
-  <img class="avatar" src="assets/avatar.jpg" alt="仵星证件照">
+  <img class="avatar" src="assets/avatar.jpg" alt="仵星证件照" width="108" height="108" fetchpriority="high" decoding="async">
   <h1 class="reveal">仵星</h1>
   <div class="role reveal">2027 届本科应届生 · 人工智能专业 · 意向城市：上海</div>
   <div class="chips reveal">
@@ -175,7 +175,7 @@
       <article class="proj-card core reveal">
         <div class="proj-top">
           <div class="proj-media">
-            <img src="assets/fruit-sample.jpg" srcset="assets/fruit-sample-480.jpg 480w, assets/fruit-sample.jpg 800w" sizes="(max-width: 767px) 100vw, 50vw" alt="果蔬成熟度检测系统识别样例" loading="lazy">
+            <img src="assets/fruit-sample.jpg" srcset="assets/fruit-sample-480.jpg 480w, assets/fruit-sample.jpg 800w" sizes="(max-width: 768px) 100vw, 50vw" alt="果蔬成熟度检测系统识别样例" loading="lazy" decoding="async">
           </div>
           <div class="proj-body">
             <div class="proj-head">
@@ -207,12 +207,11 @@
         </div>
       </article>
 
-      <!-- 核心项目 P2：BOSS 直聘自动化投递助手（横向大卡，跨整行，已开源 → 右上角 GitHub） -->
+      <!-- 核心项目 P2：BOSS 直聘自动化投递助手（横向大卡，跨整行，已开源 → 卡片右下角 GitHub 按钮） -->
       <article class="proj-card core reveal">
         <div class="proj-top">
           <div class="proj-media">
-            <img src="assets/boss-dash.svg" alt="BOSS 直聘自动化投递助手运行界面示意" loading="lazy">
-            <a class="gh-top" href="https://github.com/wuxingai666/boss-automation" target="_blank" rel="noopener">↗ GitHub</a>
+            <img src="assets/boss-dash.svg" alt="BOSS 直聘自动化投递助手运行界面示意" loading="lazy" decoding="async">
           </div>
           <div class="proj-body">
             <div class="proj-head">
@@ -233,12 +232,14 @@
               <div class="pc-item"><b>成效 →</b>多次页面改版下仍可稳定运行，结合限速与熔断将自动化对平台影响控制在低水平，仅用于个人求职辅助。</div>
             </div>
             <div class="proj-note">※ 仅作技术学习与个人求职辅助用途，内置限速与熔断以控制运行频率、降低对平台的影响。</div>
-            <div class="proj-foot" style="margin-top:12px">
+            <div class="proj-foot last">
               <div class="tags">
                 <span class="tag">JavaScript</span><span class="tag">Tampermonkey</span><span class="tag">FastAPI</span>
                 <span class="tag">SQLite</span><span class="tag">SSE</span><span class="tag">LLM API</span>
               </div>
-              <div class="proj-links"><a href="https://github.com/wuxingai666/boss-automation" target="_blank" rel="noopener">GitHub ↗ 开源仓库</a></div>
+              <div class="proj-links">
+                <a class="gh-btn" href="https://github.com/wuxingai666/boss-automation" target="_blank" rel="noopener">GitHub ↗ 开源仓库</a>
+              </div>
             </div>
           </div>
         </div>
@@ -248,7 +249,7 @@
       <article class="proj-card normal reveal">
         <div class="proj-top">
           <div class="proj-media">
-            <img src="assets/speech-ui.svg" alt="中文语音情感识别系统界面示意" loading="lazy">
+            <img src="assets/speech-ui.svg" alt="中文语音情感识别系统界面示意" loading="lazy" decoding="async">
           </div>
           <div class="proj-body">
             <div class="proj-head"><h4>中文语音情感识别系统</h4><span class="badge gray">P3 · 毕业设计</span></div>
@@ -274,12 +275,11 @@
         </div>
       </article>
 
-      <!-- 普通项目 P4：网页记账本系统（纵向标准卡，已上线 → 右上角 GitHub） -->
+      <!-- 普通项目 P4：网页记账本系统（纵向标准卡，已上线 → 卡片右下角 GitHub 按钮） -->
       <article class="proj-card normal reveal">
         <div class="proj-top">
           <div class="proj-media">
-            <img src="assets/ledger-ui.svg" alt="网页记账本系统界面示意" loading="lazy">
-            <a class="gh-top" href="https://github.com/wuxingai666/xiaozhangben" target="_blank" rel="noopener">↗ GitHub</a>
+            <img src="assets/ledger-ui.svg" alt="网页记账本系统界面示意" loading="lazy" decoding="async">
           </div>
           <div class="proj-body">
             <div class="proj-head"><h4>网页记账本系统</h4><span class="badge gray">P4 · 已上线</span></div>
@@ -293,7 +293,7 @@
               <div class="tags"><span class="tag">HTML / CSS / JS</span><span class="tag">localStorage</span><span class="tag">ECharts</span><span class="tag">GitHub Pages</span></div>
               <div class="proj-links">
                 <a href="https://wuxingai666.github.io/xiaozhangben/" target="_blank" rel="noopener">在线访问 ↗</a>
-                <a href="https://github.com/wuxingai666/xiaozhangben" target="_blank" rel="noopener" style="margin-left:12px">GitHub ↗</a>
+                <a class="gh-btn" href="https://github.com/wuxingai666/xiaozhangben" target="_blank" rel="noopener">GitHub ↗</a>
               </div>
             </div>
           </div>
@@ -304,7 +304,7 @@
       <article class="proj-card normal reveal">
         <div class="proj-top">
           <div class="proj-media">
-            <img src="assets/coze-agent.svg" alt="Coze 智能体搭建示意" loading="lazy">
+            <img src="assets/coze-agent.svg" alt="Coze 智能体搭建示意" loading="lazy" decoding="async">
           </div>
           <div class="proj-body">
             <div class="proj-head"><h4>低代码平台智能体搭建</h4><span class="badge gray">Coze 平台</span></div>
@@ -326,7 +326,7 @@
       <article class="proj-card normal reveal">
         <div class="proj-top">
           <div class="proj-media">
-            <img src="assets/coze-workflow.svg" alt="Coze 工作流搭建示意" loading="lazy">
+            <img src="assets/coze-workflow.svg" alt="Coze 工作流搭建示意" loading="lazy" decoding="async">
           </div>
           <div class="proj-body">
             <div class="proj-head"><h4>自动化工作流搭建</h4><span class="badge gray">Coze 平台</span></div>
@@ -410,10 +410,10 @@
     </div>
     <p class="tip reveal">2027 年 6 月毕业入职（意向城市：上海），欢迎邮件或电话联系。</p>
     <div class="channels reveal">
-      <a class="channel" href="mailto:842081814@qq.com">✉️ <span><span class="k">邮箱 · </span>842081814@qq.com</span></a>
-      <a class="channel" href="tel:19843956389">📱 <span><span class="k">电话 · </span>19843956389</span></a>
-      <a class="channel" href="https://github.com/wuxingai666" target="_blank" rel="noopener">🐙 <span><span class="k">GitHub · </span>wuxingai666</span></a>
-      <span class="channel">📍 <span><span class="k">意向城市 · </span>上海</span></span>
+      <a class="channel" href="mailto:842081814@qq.com"><span class="ci">✉️</span><span class="ct"><span class="k">邮箱</span><span class="v">842081814@qq.com</span></span></a>
+      <a class="channel" href="tel:19843956389"><span class="ci">📱</span><span class="ct"><span class="k">电话</span><span class="v">19843956389</span></span></a>
+      <a class="channel" href="https://github.com/wuxingai666" target="_blank" rel="noopener"><span class="ci">🐙</span><span class="ct"><span class="k">GitHub</span><span class="v">wuxingai666</span></span></a>
+      <span class="channel static"><span class="ci">📍</span><span class="ct"><span class="k">意向城市</span><span class="v">上海</span></span></span>
     </div>
     <div class="btn-row reveal">
       <a class="btn primary" href="mailto:842081814@qq.com">发邮件 →</a>

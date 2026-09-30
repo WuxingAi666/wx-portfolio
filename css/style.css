@@ -324,9 +324,9 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
   .gh-top{top:10px;right:10px}
   .channel{width:100%;justify-content:flex-start;min-height:48px}
 
-  /* 移动端：去除位移动效，保留淡入；触控按下反馈由 :active 提供 */
-  .reveal{transform:none}
-  .reveal.in{transform:none}
+  /* 移动端：保留轻量进入动效（轻微上移 + 淡入），流畅不夸张，滚动时下方内容清晰“出现” */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
   .to-top{right:16px;bottom:16px}
 }
 @media(max-width:767px){

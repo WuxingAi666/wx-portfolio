@@ -14,6 +14,7 @@
   --accent-deep:#1d4ed8;
   --accent-soft:#eff6ff;
   --border:#e6e8ec;
+  --divider:#e5e7eb;           /* 板块分隔线专用色（贯穿内容区） */
   --maxw:1200px;            /* PC 端限宽，左右对称留白 */
   --radius:14px;
   --shadow:0 14px 34px rgba(15,23,42,.08);
@@ -22,7 +23,10 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
+/* 锚点平滑滚动由 JS 统一接管（500ms ease-out）。
+   这里不要再写 scroll-behavior:smooth——它会让 JS 每帧 scrollTo 都重启一次原生平滑动画，
+   两者叠加会把滚动拖慢到 2s 以上且定位偏移。scroll-padding-top 保留，用于原生跳转兜底。 */
+html{scroll-padding-top:72px}
 body{
   font-family:-apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
   color:var(--text);background:var(--bg);line-height:1.7;
@@ -30,7 +34,8 @@ body{
 }
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;
+  border-top:1px solid var(--divider)}            /* 板块分隔线：左右贯穿内容区 */
 
 /* ---------- 顶部阅读进度条 ---------- */
 #progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:120;transition:width .1s linear}
@@ -40,11 +45,11 @@ img{display:block;max-width:100%}
    ============================================================ */
 header.nav{
   position:sticky;top:0;z-index:100;
-  background:transparent;                            /* 顶部：透明 */
+  background:transparent;                            /* 顶部：透明（视觉上融入首屏） */
   border-bottom:1px solid transparent;
   transition:background .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease),padding .3s var(--ease),backdrop-filter .3s var(--ease);
 }
-header.nav.scrolled{                                 /* 滚动后：半透明白 + 模糊 + 阴影 + 收缩 */
+header.nav.scrolled{                                 /* 滚动超过 80px：半透明白 + 模糊 + 阴影 + 收缩 */
   background:rgba(255,255,255,.88);
   backdrop-filter:saturate(180%) blur(12px);
   -webkit-backdrop-filter:saturate(180%) blur(12px);
@@ -80,8 +85,11 @@ header.nav.scrolled .nav-inner{padding:16px 32px}    /* 高度 64px → 56px */
 .menu-btn.open span:nth-child(2){opacity:0}
 .menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-/* 侧边栏遮罩（移动端） */
-.nav-overlay{position:fixed;inset:0;background:rgba(15,23,42,.4);z-index:105;
+/* 侧边栏遮罩（移动端）
+   注意：z-index 必须低于 header.nav（100）。header 是 sticky 且带 z-index，
+   会建立独立层叠上下文——其内部侧边栏写 z-index:110 也无法越过 header 层级，
+   遮罩若设为 105 会盖住整个 header，导致菜单项无法点击。这里取 95：高于页面内容、低于导航栏。 */
+.nav-overlay{position:fixed;inset:0;background:rgba(15,23,42,.4);z-index:95;
   opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s var(--ease)}
 
 /* ============================================================
@@ -108,17 +116,25 @@ header.nav.scrolled .nav-inner{padding:16px 32px}    /* 高度 64px → 56px */
 .btn.primary:hover{transform:scale(1.02);box-shadow:0 10px 22px rgba(37,99,235,.3)}   /* 轻微缩放 1.02 + 背景平滑过渡 */
 .btn.ghost{border:1px solid var(--border);color:var(--text);background:#fff}
 .btn.ghost:hover{transform:scale(1.02);border-color:var(--accent);color:var(--accent)}
+/* 点击回弹：按下瞬间回缩，松开由 transition 弹回（150ms 即时反馈） */
+.btn:active{transform:scale(.97);transition-duration:.15s}
+.btn.primary:active{background:var(--accent-deep);box-shadow:0 4px 10px rgba(37,99,235,.24)}
+.btn.ghost:active{background:var(--accent-soft);border-color:var(--accent)}
+
+/* GPU 加速提示：参与 transform 过渡的元素提升到独立合成层，避免重排抖动 */
+.proj-card,.btn,.to-top,.info-card,.skill-card{backface-visibility:hidden}
 
 /* ============================================================
    区块通用
    ============================================================ */
-section{padding:80px 0;border-top:1px solid var(--border)}  /* 板块间 80px 留白 + 1px 分隔线 */
-section.shade{background:var(--surface)}                         /* 浅灰底板块，保留顶部分隔线 */
+section{padding:80px 0}                             /* 板块间 80px 上下留白（分隔线由 .wrap 承担） */
+section.shade{background:var(--surface)}            /* 浅灰底板块，保留顶部分隔线 */
 #home{border-top:0}
+#home .wrap{border-top:0}                           /* 首屏顶部不加分隔线 */
 .sec-head{position:relative;padding-left:18px;margin-bottom:44px}
-.sec-head::before{content:"";position:absolute;left:0;top:5px;width:4px;height:30px;border-radius:2px;background:var(--accent)}
+.sec-head::before{content:"";position:absolute;left:0;top:4px;width:2px;height:24px;border-radius:2px;background:var(--accent)}  /* 2px 主题色竖线 */
 .sec-no{font-size:16px;font-weight:800;color:var(--accent);margin-right:10px;letter-spacing:1px;vertical-align:middle}
-.sec-title{display:inline;font-size:30px;font-weight:800;letter-spacing:.5px;vertical-align:middle}
+.sec-title{display:inline;font-size:20px;font-weight:700;letter-spacing:.5px;vertical-align:middle}  /* 标题 20px 加粗 */
 .sec-sub{color:var(--muted);font-size:14.5px;margin-top:14px;max-width:660px;line-height:1.7}
 
 /* ---------- 关于我 ---------- */
@@ -167,9 +183,10 @@ section.shade{background:var(--surface)}                         /* 浅灰底板
 .proj-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start;grid-auto-flow:dense}
 .proj-card{background:var(--bg);border:1px solid var(--border);border-radius:16px;overflow:hidden;
   transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
-.proj-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}   /* 抬升 4px + 柔和阴影 */
-.proj-card.core{grid-column:span 2;border-color:#c7d6f5;background:linear-gradient(180deg,#fbfdff,#fff)}
-.proj-card.core:hover{box-shadow:0 18px 40px rgba(37,99,235,.14)}
+.proj-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}   /* 抬升 4px + 柔和阴影（250ms） */
+.proj-card.core{grid-column:span 2;border-color:#c7d6f5;background:linear-gradient(180deg,#fbfdff,#fff)}  /* 极浅主题色填充 */
+/* 核心项目：抬升幅度与阴影略大于普通卡片，视觉权重更突出 */
+.proj-card.core:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(37,99,235,.16)}
 .proj-card.normal{grid-column:span 1}
 .proj-card.reserve{grid-column:span 1;opacity:.95}
 
@@ -183,6 +200,7 @@ section.shade{background:var(--surface)}                         /* 浅灰底板
 .proj-card:hover .proj-media img{transform:scale(1.03)}   /* 图片轻微放大（克制） */
 
 .proj-body{padding:24px 28px}
+.proj-card.core .proj-body{padding:30px 34px}             /* 核心项目：内边距加大 */
 .proj-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
 .proj-head h4{font-size:19px}
 .proj-card.normal .proj-head h4{font-size:17px}
@@ -207,11 +225,14 @@ section.shade{background:var(--surface)}                         /* 浅灰底板
 .local-tag{font-size:12px;font-weight:600;color:#64748b;background:#f1f5f9;border:1px solid #e2e8f0;
   padding:4px 12px;border-radius:99px;display:inline-flex;align-items:center}
 .local-note{display:block;margin-top:6px;font-size:11.5px;color:#9ca3af}
-/* 开源卡片右上角 GitHub 按钮 */
-.gh-top{position:absolute;top:12px;right:12px;z-index:3;background:rgba(17,24,39,.82);color:#fff;
-  font-size:12px;font-weight:600;padding:6px 12px;border-radius:99px;backdrop-filter:blur(4px);
-  transition:background .2s var(--ease),transform .2s var(--ease)}
-.gh-top:hover{background:var(--accent);transform:translateY(-1px)}
+/* 项目卡片 GitHub 按钮：统一样式 + 统一位置（卡片右下角），悬停效果一致 */
+.proj-links{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gh-btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+  color:#fff;background:#111827;border:1px solid #111827;padding:7px 14px;border-radius:99px;
+  transition:background .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease)}
+.gh-btn:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(37,99,235,.24);text-decoration:none}
+.proj-foot.last{margin-top:12px}          /* 卡片底部有补充说明时，底部区上移留白 */
 
 /* 开发中占位卡（折叠式迷你卡片，弱化处理） */
 .proj-card.reserve{border-style:dashed;background:var(--surface)}
@@ -232,32 +253,39 @@ section.shade{background:var(--surface)}                         /* 浅灰底板
 .skill-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .skill-card h4{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:9px}
 .skill-card h4::before{content:"";width:4px;height:16px;background:var(--accent);border-radius:2px}
-.skill-card .tags .tag{font-size:13px;padding:5px 13px}
-/* 技能熟练度四阶：颜色深浅区分（精通 → 熟练 → 掌握 → 了解） */
+/* 技能熟练度四阶：同一蓝色系深浅梯度（精通 → 熟练 → 掌握 → 了解），一眼可辨 */
 .skill-card .tags .tag{padding:5px 13px;font-size:13px}
-.tag.l4{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}      /* 精通 */
-.tag.l3{background:var(--accent-soft);border-color:#dbeafe;color:var(--accent)}             /* 熟练 */
-.tag.l2{background:#f1f5f9;border-color:#e2e8f0;color:#475569}                              /* 掌握 */
-.tag.l1{background:#fafbfc;border-color:#eef0f2;color:#94a3b8}                              /* 了解 */
-/* 熟练度图例 */
+.tag.l4{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}      /* 精通 · 实蓝 */
+.tag.l3{background:#dbeafe;border-color:#bfdbfe;color:var(--accent-deep)}                    /* 熟练 · 蓝 60% */
+.tag.l2{background:#eff6ff;border-color:#dbeafe;color:var(--accent)}                         /* 掌握 · 蓝 25% */
+.tag.l1{background:#f8fafc;border-color:#e8edf5;color:#94a3b8}                               /* 了解 · 蓝 8% */
+/* 熟练度图例（色块与标签配色一一对应） */
 .skill-legend{display:flex;flex-wrap:wrap;gap:16px;margin:0 0 22px;font-size:12.5px;color:var(--muted)}
 .skill-legend span{display:inline-flex;align-items:center}
 .skill-legend i{display:inline-block;width:13px;height:13px;border-radius:4px;margin-right:6px}
 .skill-legend .lg4{background:var(--accent)}
-.skill-legend .lg3{background:var(--accent-soft);border:1px solid #dbeafe}
-.skill-legend .lg2{background:#f1f5f9;border:1px solid #e2e8f0}
-.skill-legend .lg1{background:#fafbfc;border:1px solid #eef0f2}
+.skill-legend .lg3{background:#dbeafe;border:1px solid #bfdbfe}
+.skill-legend .lg2{background:#eff6ff;border:1px solid #dbeafe}
+.skill-legend .lg1{background:#f8fafc;border:1px solid #e8edf5}
 
 /* ============================================================
    联系方式
    ============================================================ */
 .contact{text-align:center}
 .contact .channels{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:6px 0 28px}
-.channel{display:flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:10px;
-  padding:12px 22px;font-size:14px;min-height:48px;
-  transition:transform .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease)}
-.channel:hover{transform:translateY(-3px);border-color:var(--accent);color:var(--accent)}
+/* 通道项：图标定宽居中 + 文字基线对齐，整体居中美观 */
+.channel{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  border:1px solid var(--border);border-radius:10px;background:#fff;
+  padding:12px 20px;font-size:14px;min-height:48px;
+  transition:transform .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease)}
+.channel:hover{transform:translateY(-3px);border-color:var(--accent);color:var(--accent);box-shadow:var(--shadow-sm)}
+.channel.static{cursor:default}                 /* 非链接项（意向城市）不参与悬停抬升 */
+.channel.static:hover{transform:none;border-color:var(--border);color:inherit;box-shadow:none}
+.channel .ci{flex-shrink:0;width:18px;text-align:center;font-size:16px;line-height:1}   /* 图标定宽，保证四项左缘对齐 */
+.channel .ct{display:inline-flex;align-items:baseline;gap:7px;white-space:nowrap}
 .channel .k{font-size:12px;color:#9ca3af}
+.channel .k::after{content:"·";margin-left:7px;color:#d1d5db}
+.channel .v{font-size:14px;font-weight:500}
 .contact p.tip{color:var(--muted);margin-bottom:20px;font-size:14.5px}
 
 footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1px solid var(--border)}
@@ -269,7 +297,7 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
   border:1px solid var(--border);background:#fff;color:var(--accent);font-size:20px;cursor:pointer;
   box-shadow:var(--shadow-sm);opacity:0;visibility:hidden;transform:translateY(12px);
   transition:opacity .3s var(--ease),visibility .3s var(--ease),transform .3s var(--ease),background .2s var(--ease),color .2s var(--ease)}
-.to-top:hover{background:var(--accent);color:#fff}
+.to-top:hover{transform:scale(1.08);background:var(--accent);color:#fff}   /* 悬停轻微放大 */
 .to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
 
 /* ============================================================
@@ -298,7 +326,7 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
 .tl-quant li b{color:var(--accent-deep)}
 
 /* ============================================================
-   平板端 768–1023px：项目区单列流式，其余两列自适应
+   平板端 769–1023px：项目区单列流式，其余两列自适应
    ============================================================ */
 @media(max-width:1023px){
   .wrap{padding:0 24px}
@@ -312,11 +340,13 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
 }
 
 /* ============================================================
-   移动端 < 768px：右滑侧边栏 + 单列流式 + 触控优化
+   移动端 ≤ 768px：右滑侧边栏 + 单列流式 + 触控优化
    ============================================================ */
-@media(max-width:767px){
-  body{line-height:1.6}                            /* 正文行高收紧，密集文本更易读 */
-  .wrap{padding:0 16px}                            /* 全屏流式：左右 16px 边距 */
+@media(max-width:768px){
+  body{line-height:1.6}                            /* 正文行高 1.6 */
+
+  /* 全屏流式：取消内容容器限宽，撑满可用屏幕；左右 16px 边距 */
+  .wrap{max-width:100%;padding:0 16px}
 
   /* 板块：留白收敛，标题收小，单列垂直堆叠 */
   section{padding:56px 0}
@@ -325,20 +355,20 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
   .sec-sub{font-size:13.5px;line-height:1.6;margin-top:10px}
   .sec-no{font-size:14px;margin-right:8px}
 
-  /* ---------- 导航：56px 固定栏 + 汉堡 + 右侧滑入侧边栏 ---------- */
-  .nav-inner{padding:8px 16px}                     /* 固定 56px 高 */
-  header.nav.scrolled .nav-inner{padding:8px 16px}
-  .brand{font-size:17px}
+  /* ---------- 导航：固定 56px 高 + 汉堡 + 右侧滑入侧边栏 ---------- */
+  .nav-inner{height:56px;padding:0 16px}           /* 固定 56px，滚动也不收缩 */
+  header.nav.scrolled .nav-inner{height:56px;padding:0 16px}
+  .brand{font-size:17px;min-height:48px;display:flex;align-items:center}   /* 品牌触控区 ≥48px */
   .brand-suffix{display:none}                       /* 移动端仅显示「仵星」 */
-  .menu-btn{display:flex;width:48px;height:48px}    /* 触控目标 ≥48px */
+  .menu-btn{display:flex;width:48px;height:48px;padding:12px}    /* 汉堡触控区 48px */
   .nav-links{
-    position:fixed;top:0;right:0;height:100vh;height:100dvh;width:80%;max-width:320px;z-index:110;
+    position:fixed;top:0;right:0;height:100vh;height:100dvh;width:80%;z-index:110;
     background:#fff;flex-direction:column;justify-content:center;gap:0;padding:0 24px;
-    transform:translateX(100%);transition:transform .3s var(--ease);   /* 滑入滑出 300ms + 阴影渐变 */
-    box-shadow:-12px 0 40px rgba(15,23,42,.16);
+    transform:translateX(100%);box-shadow:0 0 0 rgba(15,23,42,0);
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease);   /* 滑入滑出 300ms + 阴影渐变 */
   }
-  .nav-links.open{transform:translateX(0)}
-  .nav-overlay.show{opacity:1;visibility:visible}
+  .nav-links.open{transform:translateX(0);box-shadow:-12px 0 40px rgba(15,23,42,.16)}
+  .nav-overlay.show{opacity:1;visibility:visible}   /* 遮罩覆盖剩余区域，点击可关闭 */
   .nav-links li{width:100%}
   .nav-links a{font-size:17px;min-height:48px;display:flex;align-items:center;
     padding:0 4px;border-bottom:1px solid var(--border);width:100%;color:var(--muted)}
@@ -349,12 +379,12 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
   /* ---------- Hero 精简：一屏内看清核心求职意向 ---------- */
   .hero{padding:60px 16px 44px}
   .hero .avatar{width:84px;height:84px;margin-bottom:18px}
-  .hero h1{font-size:32px;letter-spacing:2px;margin-bottom:10px}
+  .hero h1{font-size:32px;letter-spacing:2px;margin-bottom:10px}   /* 大标题压缩至 32px */
   .hero .role{font-size:13.5px;margin-bottom:14px}
   .hero .chips{margin-bottom:16px}
   .chip{font-size:12px;padding:4px 12px}
   .hero p.intro{font-size:14.5px;line-height:1.6;margin-bottom:22px;max-width:92%}
-  /* 移动端首屏只保留 1 个主按钮（下载简历）；GitHub 触达见联系区 */
+  /* 首屏只保留 1 个主按钮（下载简历）；GitHub 触达见联系区 */
   .hero .btn-row{gap:12px}
   .hero .btn.ghost{display:none}
   .btn{min-height:48px;padding:13px 26px;width:100%;max-width:300px;justify-content:center}
@@ -370,25 +400,32 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
   .proj-list{gap:18px}
   .proj-card.core .proj-top,.proj-card.normal .proj-top{grid-template-columns:1fr}
   .proj-card.core .proj-media,.proj-card.normal .proj-media{height:180px;min-height:180px}
-  .proj-body{padding:16px 16px}
-  .proj-body>p{line-height:1.6;font-size:13.5px}
-  .hl li{line-height:1.6;font-size:13px}
+  .proj-card.core .proj-body{padding:16px 16px}    /* 核心卡移动端回归统一内边距 */
+  .proj-body{padding:16px 16px}                    /* 卡片内边距缩小 */
+  .proj-body>p{line-height:1.6;font-size:13.5px;margin-bottom:16px}   /* 段距加大至 16px + 自动换行 */
+  .hl li{line-height:1.6;font-size:13px;margin-bottom:12px}
   .proj-challenge{padding:12px 14px;margin-top:4px}
   .proj-challenge .pc-item{font-size:12px;line-height:1.6}
   .tl-quant{padding:12px 14px;margin-top:12px}
   .tl-quant li{font-size:12.5px}
   .skill-legend{gap:12px;margin-bottom:18px;font-size:12px}
   .proj-foot{flex-direction:column;align-items:flex-start;gap:10px}
-  .gh-top{top:10px;right:10px;font-size:11px;padding:5px 10px}
+  /* 技术栈标签自动换行，不溢出屏幕 */
+  .tags{gap:8px}
+  .tag{max-width:100%;word-break:break-word}
+  /* 项目卡内链接（含 GitHub 按钮）：触控区 ≥48px，间距 ≥8px */
+  .proj-links{gap:10px}
+  .proj-links a{min-height:48px;padding:0 6px;font-size:14px;display:inline-flex;align-items:center}
+  .gh-btn{min-height:48px;padding:0 18px;font-size:14px}
   .proj-card:hover{transform:none;box-shadow:var(--shadow-sm)}       /* 取消 PC 悬停位移 */
   .proj-card:hover .proj-media img{transform:none}
 
   /* ---------- 时间线 / 校园 ---------- */
   .timeline{max-width:100%;padding-left:20px}
-  .tl-item li{line-height:1.6}
+  .tl-item li{line-height:1.6;margin-bottom:12px}
   .sports-line{font-size:12px;line-height:1.6}
 
-  /* ---------- 联系方式：通道整行、可一键触达 ---------- */
+  /* ---------- 联系方式：通道整行、一键拨号 / 发邮件 / 跳转 ---------- */
   .contact .channels{flex-direction:column;gap:10px}
   .channel{width:100%;justify-content:flex-start;min-height:48px;font-size:14px;
     padding:12px 16px;gap:10px}
@@ -403,27 +440,34 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
   .reveal{opacity:0;transform:none;transition:opacity .35s var(--ease)}
   .reveal.in{opacity:1;transform:none}
 
-  /* ---------- 触控：移除 PC 悬停位移，改为按下反馈（缩放 0.98 + 底色加深） ---------- */
+  /* ---------- 触控：移除全部 PC 悬停效果 ---------- */
   .btn:hover,.btn.primary:hover,.btn.ghost:hover,
-  .channel:hover,.proj-links a:hover,.to-top:hover,.nav-links a:hover{
+  .channel:hover,.proj-links a:hover,.gh-btn:hover,.to-top:hover,.nav-links a:hover,
+  .brand:hover{
     transform:none;box-shadow:none}
   .btn.primary:hover{background:var(--accent);color:#fff}
   .btn.ghost:hover{background:#fff;border-color:var(--border);color:var(--text)}
   .channel:hover{border-color:var(--border);color:var(--text)}
   .to-top:hover{background:#fff;color:var(--accent)}
+  .gh-btn:hover{background:#111827;border-color:#111827}
   .info-card:hover,.skill-card:hover,.proj-card.core:hover{transform:none;box-shadow:none}
 
-  .btn:active,.channel:active,.proj-links a:active{transform:scale(.98);background:var(--accent-soft);transition:transform .15s var(--ease)}
+  /* ---------- 触控：按下反馈（缩放 0.98 + 底色加深，150ms） ---------- */
+  .btn:active,.channel:active,.proj-links a:active,.nav-links a:active,
+  .gh-btn:active,.brand:active,.menu-btn:active{
+    transform:scale(.98);background:var(--accent-soft);transition:transform .15s var(--ease)}
+  .menu-btn:active{background:rgba(37,99,235,.08)}
   .btn.primary:active{background:var(--accent-deep)}
   .channel:active{border-color:var(--accent)}
   .to-top:active{background:var(--accent);color:#fff}
+  .gh-btn:active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .brand:active{background:transparent}
 }
 
 /* ============================================================
    尊重系统「减少动画」设置
    ============================================================ */
 @media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
   *{transition-duration:.001ms !important;animation-duration:.001ms !important}
   .reveal{opacity:1;transform:none}
   .proj-card:hover{transform:none}

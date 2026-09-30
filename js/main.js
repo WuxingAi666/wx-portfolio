@@ -23,9 +23,9 @@ navLinks.querySelectorAll('a').forEach(a =>
   a.addEventListener('click', () => setMenu(false)));      // 点击菜单项后自动收回
 document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
-// 视口放大到桌面端（>767px）时，若侧边栏仍处于打开态则自动收起，避免旋转 / 缩放后卡在打开态
+// 视口放大到桌面端（>768px）时，若侧边栏仍处于打开态则自动收起，避免旋转 / 缩放后卡在打开态
 window.addEventListener('resize', () => {
-  if (window.innerWidth > 767 && navLinks.classList.contains('open')) setMenu(false);
+  if (window.innerWidth > 768 && navLinks.classList.contains('open')) setMenu(false);
 });
 
 // ── 2. 滚动渐显（按板块内元素顺序 100ms 错落；仅触发一次） ────────
@@ -61,13 +61,12 @@ const sections  = [...document.querySelectorAll('section[id]')];
 const links     = [...navLinks.querySelectorAll('a')];
 const progress  = document.getElementById('progress');
 const toTop     = document.getElementById('toTop');
-const vh        = () => window.innerHeight;
 
 function onScroll() {
   const y = window.scrollY || document.documentElement.scrollTop;
 
-  // 导航栏滚动收缩（背景加深、高度收缩、阴影）
-  nav.classList.toggle('scrolled', y > 30);
+  // 导航栏：滚动超过 80px 后收缩为半透明白色悬浮栏（背景加深、高度收缩、阴影）
+  nav.classList.toggle('scrolled', y > 80);
 
   // 阅读进度条
   const doc = document.documentElement;
@@ -79,8 +78,8 @@ function onScroll() {
   for (const s of sections) { if (s.getBoundingClientRect().top <= 120) cur = s.id; }
   links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + cur));
 
-  // 回到顶部按钮：滚动超过一屏后淡入
-  toTop.classList.toggle('show', y > vh());
+  // 回到顶部按钮：滚动超过 800px 后淡入
+  toTop.classList.toggle('show', y > 800);
 }
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();

@@ -34,7 +34,11 @@ if (reduceMotion) {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }  // 只触发一次
     });
   }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
-  reveals.forEach(el => io.observe(el));
+  // 延后两帧再开始观察：先让元素以 opacity:0 完成首帧绘制，
+  // 避免移动端首屏下方已在视口内的元素被同步加 .in 而跳过 transition（导致“无动画”）
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    reveals.forEach(el => io.observe(el));
+  }));
 }
 
 // ── 3. 导航高亮当前栏目 + 滚动收缩 + 阅读进度 + 回到顶部 ──

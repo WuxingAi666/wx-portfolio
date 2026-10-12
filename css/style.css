@@ -184,7 +184,7 @@ section.shade{background:var(--surface)}            /* 浅灰底板块，保留�
    ============================================================ */
 /* 三列网格 + 同行等高。
    排版原则：① 不用 dense（避免出现空洞与错序）② 同一层级卡片使用同一内部模板
-   ③ 核心项目整行通栏（横版：图左文右），辅助项目三张一行（竖版：上图下文），行行铺满无缺口 */
+   ③ 核心项目整行通栏（竖版：上图下文），辅助项目三张一行（竖版：上图下文），行行铺满无缺口 */
 .proj-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
 .proj-card{position:relative;display:flex;flex-direction:column;overflow:hidden;
   background:linear-gradient(180deg,#ffffff,#fbfcfe);border:1px solid var(--border);border-radius:16px;
@@ -196,15 +196,16 @@ section.shade{background:var(--surface)}            /* 浅灰底板块，保留�
 .proj-card.core:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(37,99,235,.16)}
 .proj-card.normal{grid-column:span 1}
 
-/* 统一模板：核心 = 横版（图在左，且两张核心卡图宽一致）；辅助 = 竖版（图在顶，且比例一致）
-   这样同一行内不会出现"有的图在左、有的图在上"的错乱感 */
+/* 统一模板：核心 = 竖版（图在顶，通栏宽幅比例一致）；辅助 = 竖版（图在顶，且比例一致）
+   两类卡片均为"上图下文"，同一层级不会出现"有的图在左、有的图在上"的错乱感 */
 .proj-top{display:grid;gap:0;flex:1}                        /* 撑满卡片高度，吸收同行拉伸空间 */
-.proj-card.core .proj-top{grid-template-columns:clamp(340px,30%,400px) 1fr}
+.proj-card.core .proj-top{grid-template-columns:1fr;grid-template-rows:auto 1fr}
 .proj-card.normal .proj-top{grid-template-columns:1fr;grid-template-rows:auto 1fr}
 .proj-media{position:relative;background:var(--surface);overflow:hidden}
-.proj-card.core .proj-media{min-height:260px}
+.proj-card.core .proj-media{aspect-ratio:16 / 6}   /* 通栏宽幅横幅：图随卡片宽度等比缩放，通栏下不再被纵向拉满 */
 .proj-card.normal .proj-media{height:auto;aspect-ratio:16 / 10}   /* 三张辅助卡图片区严格等高对齐 */
 .proj-media img{width:100%;height:100%;object-fit:cover;transition:transform .35s var(--ease)}
+.proj-card.core .proj-media img{object-position:50% 15%}   /* 通栏横幅裁切基准上移：保住看板顶部 KPI 指标行，关键数字不被裁 */
 .proj-card:hover .proj-media img{transform:scale(1.03)}   /* 图片轻微放大（克制） */
 
 .proj-body{padding:24px 28px;display:flex;flex-direction:column}   /* 弹性列：让底部信息区贴底 */
@@ -218,7 +219,7 @@ section.shade{background:var(--surface)}            /* 浅灰底板块，保留�
 /* 桌面端：核心项目角标固定到卡片右上角，视觉权重更突出 */
 @media(min-width:1024px){
   .proj-card.core .proj-head .badge{position:absolute;top:16px;right:16px;margin:0;font-size:10.5px;padding:3px 10px}
-  .proj-card.core .proj-head h3,   .proj-card.core .proj-head h4{padding-right:96px}   /* 标题避让右上角角标 */
+  .proj-card.core .proj-head h3,   .proj-card.core .proj-head h4{padding-right:0}   /* 上图下文：角标浮于图片右上角，标题在图片下方，无需再避让 */
 }
 .proj-body>p{color:var(--muted);font-size:14px;margin-bottom:12px}
 .proj-card.normal .proj-body>p{font-size:13.5px}

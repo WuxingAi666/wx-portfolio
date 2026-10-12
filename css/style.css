@@ -1,0 +1,600 @@
+/* ============================================================
+   仵星 · 个人作品集  style.css
+   设计基调：极简技术风（白底 + 蓝点缀），双端独立适配
+   · 改内容：编辑 index.html　· 改配色/间距：改下方 :root 变量
+   · 动效全部用原生 transition + transform，GPU 加速，无第三方库
+   · 时长统一 200–350ms、缓动 ease-out；尊重 prefers-reduced-motion
+   ============================================================ */
+:root{
+  --bg:#ffffff;
+  --surface:#f6f8fb;
+  --text:#111827;
+  --muted:#6b7280;
+  --accent:#2563eb;
+  --accent-deep:#1d4ed8;
+  --accent-soft:#eff6ff;
+  --border:#e6e8ec;
+  --divider:#e5e7eb;           /* 板块分隔线专用色（贯穿内容区） */
+  --maxw:1200px;            /* PC 端限宽，左右对称留白 */
+  --radius:14px;
+  --shadow:0 14px 34px rgba(15,23,42,.08);
+  --shadow-sm:0 6px 18px rgba(15,23,42,.06);
+  --ease:cubic-bezier(.22,.61,.36,1);   /* ease-out：缓出，自然不突兀 */
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+/* 锚点平滑滚动由 JS 统一接管（500ms ease-out）。
+   这里不要再写 scroll-behavior:smooth——它会让 JS 每帧 scrollTo 都重启一次原生平滑动画，
+   两者叠加会把滚动拖慢到 2s 以上且定位偏移。scroll-padding-top 保留，用于原生跳转兜底。 */
+html{scroll-padding-top:64px}
+body{
+  font-family:-apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--text);background:var(--bg);line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;
+  border-top:1px solid var(--divider)}            /* 板块分隔线：左右贯穿内容区 */
+
+/* ---------- 顶部阅读进度条 ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:120;transition:width .1s linear}
+
+/* ============================================================
+   导航（PC：横向固定栏；移动端：右滑侧边栏）
+   ============================================================ */
+header.nav{
+  position:sticky;top:0;z-index:100;
+  height:64px;                                       /* 高度收归 header 自身：含 1px 底边共 64px */
+  background:transparent;                            /* 顶部：透明（视觉上融入首屏） */
+  border-bottom:1px solid transparent;
+  transition:background .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease),height .3s var(--ease),backdrop-filter .3s var(--ease);
+}
+header.nav.scrolled{                                 /* 滚动超过 80px：半透明白 + 模糊 + 阴影 + 收缩 */
+  height:56px;                                       /* 收缩至 56px */
+  background:rgba(255,255,255,.88);
+  backdrop-filter:saturate(180%) blur(12px);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
+  box-shadow:0 4px 18px rgba(15,23,42,.07);
+  border-bottom-color:var(--border);
+}
+/* 高度用显式 height 控制（64px）；用 padding 撑会因字号行高算出 72px，不精确 */
+.nav-inner{
+  max-width:var(--maxw);margin:0 auto;padding:0 32px;height:100%;
+  display:flex;align-items:center;justify-content:space-between;
+}
+header.nav.scrolled .nav-inner{height:100%}          /* 高度跟随 header（64 → 56px） */
+.brand{font-weight:800;font-size:18px;letter-spacing:.3px;color:var(--text)}
+.brand span{color:var(--accent)}
+.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links a{
+  position:relative;color:var(--muted);font-size:14.5px;font-weight:500;
+  padding:4px 0;transition:color .2s var(--ease);
+}
+.nav-links a::after{                       /* 下划线：左→右滑入（200ms） */
+  content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--accent);
+  transition:width .2s var(--ease);
+}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}   /* 文字颜色同步加深 */
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+
+/* 汉堡按钮（PC 隐藏） */
+.menu-btn{display:none;width:44px;height:44px;border:0;background:none;cursor:pointer;
+  flex-direction:column;justify-content:center;gap:5px;padding:10px}
+.menu-btn span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;
+  transition:transform .3s var(--ease),opacity .3s var(--ease)}
+.menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0}
+.menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* 侧边栏遮罩（移动端）：半透明黑，覆盖页面剩余区域
+   注意：z-index 必须低于 header.nav（100）。header 是 sticky/fixed 且带 z-index，
+   会建立独立层叠上下文——其内部侧边栏写 z-index:110 也无法越过 header 层级，
+   遮罩若设为 105 会盖住整个 header，导致菜单项无法点击。这里取 95：高于页面内容、低于导航栏。 */
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:95;
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s var(--ease)}
+
+/* ============================================================
+   Hero 首屏
+   ============================================================ */
+.hero{text-align:center;padding:104px 24px 88px;position:relative}
+.hero .avatar{
+  width:108px;height:108px;border-radius:50%;margin:0 auto 24px;object-fit:cover;
+  border:3px solid #fff;box-shadow:0 0 0 3px var(--accent-soft),0 10px 26px rgba(37,99,235,.16);
+}
+.hero h1{font-size:46px;letter-spacing:3px;margin-bottom:12px}
+.hero .role{color:var(--accent);font-weight:600;margin-bottom:18px;font-size:15.5px}
+.hero .chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.chip{font-size:13px;color:var(--accent);background:var(--accent-soft);
+  border:1px solid #dbeafe;padding:5px 15px;border-radius:99px}
+.hero p.intro{max-width:560px;margin:0 auto 30px;color:var(--muted);font-size:16px}
+.btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{
+  padding:12px 28px;border-radius:9px;font-size:14px;font-weight:600;transform-origin:center;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),background .2s var(--ease);
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;
+}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.primary:hover{transform:scale(1.02);box-shadow:0 10px 22px rgba(37,99,235,.3)}   /* 轻微缩放 1.02 + 背景平滑过渡 */
+.btn.ghost{border:1px solid var(--border);color:var(--text);background:#fff}
+.btn.ghost:hover{transform:scale(1.02);border-color:var(--accent);color:var(--accent)}
+/* 点击回弹：按下瞬间回缩，松开由 transition 弹回（150ms 即时反馈） */
+.btn:active{transform:scale(.97);transition-duration:.15s}
+.btn.primary:active{background:var(--accent-deep);box-shadow:0 4px 10px rgba(37,99,235,.24)}
+.btn.ghost:active{background:var(--accent-soft);border-color:var(--accent)}
+
+/* GPU 加速提示：参与 transform 过渡的元素提升到独立合成层，避免重排抖动 */
+.proj-card,.btn,.to-top,.info-card,.skill-card{backface-visibility:hidden}
+
+/* ============================================================
+   区块通用
+   ============================================================ */
+section{padding:80px 0}                             /* 板块间 80px 上下留白（分隔线由 .wrap 承担） */
+section.shade{background:var(--surface)}            /* 浅灰底板块，保留顶部分隔线 */
+#home{border-top:0}
+#home .wrap{border-top:0}                           /* 首屏顶部不加分隔线 */
+.sec-head{position:relative;padding-left:18px;margin-bottom:44px}
+.sec-head::before{content:"";position:absolute;left:0;top:4px;width:2px;height:24px;border-radius:2px;background:var(--accent)}  /* 2px 主题色竖线 */
+.sec-no{font-size:16px;font-weight:800;color:var(--accent);margin-right:10px;letter-spacing:1px;vertical-align:middle}
+.sec-title{display:inline;font-size:20px;font-weight:700;letter-spacing:.5px;vertical-align:middle}  /* 标题 20px 加粗 */
+.sec-sub{color:var(--muted);font-size:14.5px;margin-top:14px;max-width:660px;line-height:1.7}
+
+/* ---------- 关于我 ---------- */
+.about-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.info-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.info-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.info-card h3, .info-card h4{font-size:13px;color:var(--muted);margin-bottom:10px;font-weight:600}
+.info-card p{font-size:14.5px}
+.info-card p b{color:var(--accent-deep)}
+.cap-list{margin-top:26px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.cap-item{display:flex;gap:12px;align-items:flex-start;background:var(--bg);
+  border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.cap-item .no{flex-shrink:0;width:26px;height:26px;border-radius:8px;background:var(--accent-soft);
+  color:var(--accent);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.cap-item h5{font-size:14.5px;margin-bottom:3px}
+.cap-item p{font-size:13px;color:var(--muted)}
+
+/* 奖项逐行 */
+.award-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.award-list li{position:relative;padding-left:18px;font-size:13.5px;color:#374151;line-height:1.5}
+.award-list li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.info-card p.bio{font-size:14px;line-height:1.9;color:#374151}
+
+/* ---------- 时间线（实习 / 校园） ---------- */
+.timeline{max-width:820px;padding-left:26px;border-left:2px solid var(--border)}
+.tl-item{position:relative;padding:0 0 30px 26px}
+.tl-item:last-child{padding-bottom:4px}
+.tl-item::before{content:"";position:absolute;left:-35px;top:5px;width:12px;height:12px;border-radius:50%;
+  background:var(--accent);border:3px solid #fff;box-shadow:0 0 0 2px var(--accent)}
+.tl-item .tl-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tl-item h3, .tl-item h4{font-size:17px}
+.tl-item .meta{color:var(--accent);font-size:13px;font-weight:600}
+.tl-item .org{color:var(--muted);font-size:13px;margin:2px 0 10px}
+.tl-item ul{list-style:none}
+.tl-item li{position:relative;padding-left:18px;color:var(--muted);font-size:14px;margin-bottom:8px}
+.tl-item li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:2px;background:var(--accent);border-radius:1px}
+.tl-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tl-tags .tag{font-size:12px;background:var(--accent-soft);border:1px solid #dbeafe;padding:2px 11px;border-radius:99px;color:var(--accent)}
+.sports-line{margin-top:18px;padding:12px 16px;background:rgba(37,99,235,.04);border:1px dashed #c7d6f5;
+  border-radius:10px;font-size:13px;color:var(--muted)}
+
+/* ============================================================
+   项目卡片（三层：核心 / 普通 / 开发中）
+   ============================================================ */
+/* 三列网格 + 同行等高。
+   排版原则：① 不用 dense（避免出现空洞与错序）② 同一层级卡片使用同一内部模板
+   ③ 核心项目整行通栏（横版：图左文右），辅助项目三张一行（竖版：上图下文），行行铺满无缺口 */
+.proj-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.proj-card{position:relative;display:flex;flex-direction:column;overflow:hidden;
+  background:linear-gradient(180deg,#ffffff,#fbfcfe);border:1px solid var(--border);border-radius:16px;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.proj-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}   /* 抬升 4px + 柔和阴影（250ms） */
+/* 核心项目：整行通栏（占满 3 列），保证不与辅助卡混排产生空洞 */
+.proj-card.core{grid-column:1 / -1;border-color:#c7d6f5;background:linear-gradient(180deg,#f2f7ff,#fbfdff)}  /* 极浅主题色填充 */
+/* 核心项目：抬升幅度与阴影略大于普通卡片，视觉权重更突出 */
+.proj-card.core:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(37,99,235,.16)}
+.proj-card.normal{grid-column:span 1}
+
+/* 统一模板：核心 = 横版（图在左，且两张核心卡图宽一致）；辅助 = 竖版（图在顶，且比例一致）
+   这样同一行内不会出现"有的图在左、有的图在上"的错乱感 */
+.proj-top{display:grid;gap:0;flex:1}                        /* 撑满卡片高度，吸收同行拉伸空间 */
+.proj-card.core .proj-top{grid-template-columns:clamp(340px,30%,400px) 1fr}
+.proj-card.normal .proj-top{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+.proj-media{position:relative;background:var(--surface);overflow:hidden}
+.proj-card.core .proj-media{min-height:260px}
+.proj-card.normal .proj-media{height:auto;aspect-ratio:16 / 10}   /* 三张辅助卡图片区严格等高对齐 */
+.proj-media img{width:100%;height:100%;object-fit:cover;transition:transform .35s var(--ease)}
+.proj-card:hover .proj-media img{transform:scale(1.03)}   /* 图片轻微放大（克制） */
+
+.proj-body{padding:24px 28px;display:flex;flex-direction:column}   /* 弹性列：让底部信息区贴底 */
+.proj-card.core .proj-body{padding:30px 34px}             /* 核心项目：内边距加大 */
+.proj-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.proj-head h3, .proj-head h4{font-size:19px}
+.proj-card.normal .proj-head h3, .proj-card.normal .proj-head h4{font-size:17px}
+.badge{font-size:11px;font-weight:700;letter-spacing:1px;background:var(--accent);color:#fff;padding:3px 11px;border-radius:99px}
+.badge.gray{background:#94a3b8}
+.badge.outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+/* 桌面端：核心项目角标固定到卡片右上角，视觉权重更突出 */
+@media(min-width:1024px){
+  .proj-card.core .proj-head .badge{position:absolute;top:16px;right:16px;margin:0;font-size:10.5px;padding:3px 10px}
+  .proj-card.core .proj-head h3,   .proj-card.core .proj-head h4{padding-right:96px}   /* 标题避让右上角角标 */
+}
+.proj-body>p{color:var(--muted);font-size:14px;margin-bottom:12px}
+.proj-card.normal .proj-body>p{font-size:13.5px}
+.hl{list-style:none;margin-bottom:14px}
+.hl li{position:relative;padding-left:20px;font-size:13.5px;color:#374151;margin-bottom:7px}
+.proj-card.normal .hl li{font-size:13px}
+.hl li::before{content:"›";position:absolute;left:2px;color:var(--accent);font-weight:700}
+.hl li b{color:var(--accent-deep)}
+.proj-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:14px}   /* 贴底：等高卡片内空隙被内容区与底部区之间的留白吸收 */
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:12px;background:var(--surface);border:1px solid var(--border);padding:3px 11px;border-radius:99px;color:var(--muted)}
+.proj-links a{font-size:13px;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:5px}
+.proj-links a:hover{text-decoration:underline}
+.proj-note{margin-top:10px;font-size:12px;color:#9ca3af;background:var(--surface);
+  border:1px dashed var(--border);border-radius:8px;padding:8px 12px}
+/* 本地项目标签（非链接） */
+.local-tag{font-size:12px;font-weight:600;color:#64748b;background:#f1f5f9;border:1px solid #e2e8f0;
+  padding:4px 12px;border-radius:99px;display:inline-flex;align-items:center}
+.local-note{display:block;margin-top:6px;font-size:11.5px;color:#9ca3af}
+/* 项目卡片 GitHub 按钮：统一样式 + 统一位置（卡片右下角），悬停效果一致
+   margin-left:auto 是关键：标签区较宽时会占满整行把链接挤到下一行左对齐，
+   加 auto 后无论是否换行，链接区都稳定吸附在卡片右下角 */
+.proj-links{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;margin-left:auto}
+.gh-btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+  color:#fff;background:#111827;border:1px solid #111827;padding:7px 14px;border-radius:99px;
+  transition:background .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease)}
+.gh-btn:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(37,99,235,.24);text-decoration:none}
+.proj-foot.last{padding-top:14px}          /* 卡片底部有补充说明时，与上方保持间距 */
+
+
+/* ============================================================
+   技能栈
+   ============================================================ */
+.skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.skill-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.skill-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.skill-card h3, .skill-card h4{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.skill-card h3::before, .skill-card h4::before{content:"";width:4px;height:16px;background:var(--accent);border-radius:2px}
+/* 技能熟练度四阶：同一蓝色系深浅梯度（精通 → 熟练 → 掌握 → 了解），一眼可辨 */
+.skill-card .tags .tag{padding:5px 13px;font-size:13px}
+.tag.l4{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}      /* 精通 · 实蓝 */
+.tag.l3{background:#dbeafe;border-color:#bfdbfe;color:var(--accent-deep)}                    /* 熟练 · 蓝 60% */
+.tag.l2{background:#eff6ff;border-color:#dbeafe;color:var(--accent)}                         /* 掌握 · 蓝 25% */
+.tag.l1{background:#f8fafc;border-color:#e8edf5;color:#94a3b8}                               /* 了解 · 蓝 8% */
+/* 熟练度图例（色块与标签配色一一对应） */
+.skill-legend{display:flex;flex-wrap:wrap;gap:16px;margin:0 0 22px;font-size:12.5px;color:var(--muted)}
+.skill-legend span{display:inline-flex;align-items:center}
+.skill-legend i{display:inline-block;width:13px;height:13px;border-radius:4px;margin-right:6px}
+.skill-legend .lg4{background:var(--accent)}
+.skill-legend .lg3{background:#dbeafe;border:1px solid #bfdbfe}
+.skill-legend .lg2{background:#eff6ff;border:1px solid #dbeafe}
+.skill-legend .lg1{background:#f8fafc;border:1px solid #e8edf5}
+
+/* ============================================================
+   联系方式
+   ============================================================ */
+.contact{text-align:center}
+.contact .channels{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:6px 0 28px}
+/* 通道项：图标定宽居中 + 文字基线对齐，整体居中美观 */
+.channel{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  border:1px solid var(--border);border-radius:10px;background:#fff;
+  padding:12px 20px;font-size:14px;min-height:48px;
+  transition:transform .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease)}
+.channel:hover{transform:translateY(-3px);border-color:var(--accent);color:var(--accent);box-shadow:var(--shadow-sm)}
+.channel.static{cursor:default}                 /* 非链接项（意向城市）不参与悬停抬升 */
+.channel.static:hover{transform:none;border-color:var(--border);color:inherit;box-shadow:none}
+.channel .ci{flex-shrink:0;width:18px;text-align:center;font-size:16px;line-height:1}   /* 图标定宽，保证四项左缘对齐 */
+.channel .ct{display:inline-flex;align-items:baseline;gap:7px;white-space:nowrap}
+.channel .k{font-size:12px;color:#9ca3af}
+.channel .k::after{content:"·";margin-left:7px;color:#d1d5db}
+.channel .v{font-size:14px;font-weight:500}
+.contact p.tip{color:var(--muted);margin-bottom:20px;font-size:14.5px}
+
+footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1px solid var(--border)}
+
+/* ============================================================
+   回到顶部
+   ============================================================ */
+.to-top{position:fixed;right:26px;bottom:26px;z-index:90;width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--border);background:#fff;color:var(--accent);font-size:20px;cursor:pointer;
+  box-shadow:var(--shadow-sm);opacity:0;visibility:hidden;transform:translateY(12px);
+  transition:opacity .3s var(--ease),visibility .3s var(--ease),transform .3s var(--ease),background .2s var(--ease),color .2s var(--ease)}
+.to-top:hover{transform:scale(1.08);background:var(--accent);color:#fff}   /* 悬停轻微放大 */
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+
+/* ============================================================
+   滚动渐显（translateY 20px→0 + 淡入；板块内 100ms 错落；仅触发一次）
+   · 时长统一 350ms、ease-out、GPU 加速（transform / opacity 合成层）
+   · 错落延迟由 JS 按板块内元素顺序注入，此处不再硬编码
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(20px);will-change:opacity,transform;
+  transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.reveal.in{opacity:1;transform:none;will-change:auto}
+
+/* ============================================================
+   项目「难点与解决方案」+ 实习量化产出
+   ============================================================ */
+.proj-challenge{margin-top:6px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+.proj-challenge .pc-title{font-size:12.5px;font-weight:700;color:var(--accent);letter-spacing:.5px;margin-bottom:10px}
+.proj-challenge .pc-item{font-size:13px;color:#374151;line-height:1.65;margin-bottom:9px;padding-left:2px}
+.proj-challenge .pc-item:last-child{margin-bottom:0}
+.proj-challenge .pc-item b{color:var(--accent-deep)}
+.proj-card.normal .proj-challenge .pc-item{font-size:12.5px}
+.tl-quant{margin-top:14px;padding:14px 18px;background:linear-gradient(180deg,#fbfdff,#fff);border:1px solid #c7d6f5;border-radius:12px}
+.tl-quant .quant-title{font-size:12.5px;font-weight:700;color:var(--accent-deep);letter-spacing:.5px;margin-bottom:8px}
+.tl-quant ul{list-style:none}
+.tl-quant li{position:relative;padding-left:18px;font-size:13.5px;color:#374151;margin-bottom:7px}
+.tl-quant li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:2px;background:var(--accent);border-radius:1px}
+.tl-quant li b{color:var(--accent-deep)}
+
+/* ============================================================
+   平板端 769–1023px：项目区单列流式，其余两列自适应
+   ============================================================ */
+@media(max-width:1023px){
+  .wrap{padding:0 24px}
+  .about-grid{grid-template-columns:repeat(2,1fr)}
+  .proj-list{grid-template-columns:1fr;gap:20px}
+  .proj-card.core,.proj-card.normal{grid-column:span 1}
+  /* 中等宽度不再半栅格化：全部切换为统竖版模板（图在顶部、高度一致、左右边界对齐），
+     避免"300px 图 + 220px 图"两种宽度在同一列里交错造成的参差感 */
+  .proj-card.core .proj-top,.proj-card.normal .proj-top{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .proj-card.core .proj-media,.proj-card.normal .proj-media{height:240px;min-height:240px;aspect-ratio:auto}
+  .skill-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ============================================================
+   移动端 ≤ 768px：右滑侧边栏 + 单列流式 + 触控优化
+   ============================================================ */
+@media(max-width:768px){
+  body{line-height:1.6;padding-top:56px}           /* 顶部预留固定导航高度，内容不被遮挡 */
+
+  /* ---------- 导航：始终 fixed 悬浮顶部（56px），不随滚动消失 ---------- */
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px}
+  /* 不用 backdrop-filter：它会把 fixed 后代的包含块改绑到导航栏，干扰侧边栏定位 */
+  header.nav.scrolled{background:rgba(255,255,255,.96);backdrop-filter:none;-webkit-backdrop-filter:none}
+
+  /* 全屏流式：取消内容容器限宽，撑满可用屏幕；左右 16px 边距 */
+  .wrap{max-width:100%;padding:0 16px}
+
+  /* 板块：留白收敛，标题收小，单列垂直堆叠 */
+  section{padding:56px 0}
+  .sec-head{padding-left:14px;margin-bottom:30px}
+  .sec-title{font-size:24px}
+  .sec-sub{font-size:13.5px;line-height:1.6;margin-top:10px}
+  .sec-no{font-size:14px;margin-right:8px}
+
+  /* ---------- 导航：固定顶栏 + 横向滑动导航条（与桌面端同构，一次点击直达） ---------- */
+  .menu-btn,.nav-overlay{display:none !important}   /* 汉堡与抽屉退役：固定导航条可见即点 */
+  .nav-inner{padding:0 16px;gap:12px}
+  header.nav.scrolled .nav-inner{padding:0 16px}
+  .brand{font-size:17px;min-height:48px;display:flex;align-items:center;flex:none}   /* 品牌触控区 ≥48px */
+  .brand-suffix{display:none}                       /* 移动端仅显示「仵星」 */
+  .nav-links{
+    flex:1;min-width:0;display:flex;flex-direction:row;justify-content:flex-start;gap:0;
+    align-self:stretch;height:auto;                 /* 贴合顶栏内容区实际高度（56 含 1px 边框 → 55），杜绝溢出 */
+    overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;                            /* Firefox 隐藏滚动条 */
+    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);
+            mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);   /* 右缘渐隐：暗示可横滑 */
+  }
+  .nav-links::-webkit-scrollbar{display:none}        /* WebKit 隐藏滚动条 */
+  .nav-links li{flex:none;height:100%}
+  .nav-links a{font-size:14px;height:100%;min-height:0;display:flex;align-items:center;
+    padding:0 12px;white-space:nowrap;color:var(--muted)}      /* 触控区撑满顶栏 */
+  .nav-links li:last-child a{padding-right:30px}     /* 补偿右缘渐隐区，末项完整可点 */
+  .nav-links a::after{bottom:8px}                    /* 下划线贴顶栏底部，跟随收缩高度 */
+  .nav-links a.active{color:var(--accent)}
+
+  /* ---------- Hero 精简：一屏内看清核心求职意向（顶部已由 body padding 预留 56px） ---------- */
+  .hero{padding:36px 16px 44px}
+  .hero .avatar{width:84px;height:84px;margin-bottom:18px}
+  .hero h1{font-size:32px;letter-spacing:2px;margin-bottom:10px}   /* 大标题压缩至 32px */
+  .hero .role{font-size:13.5px;margin-bottom:14px}
+  .hero .chips{margin-bottom:16px}
+  .chip{font-size:12px;padding:4px 12px}
+  .hero p.intro{font-size:14.5px;line-height:1.6;margin-bottom:22px;max-width:92%}
+  /* 首屏只保留 1 个主按钮（下载简历）；GitHub 触达见联系区 */
+  .hero .btn-row{gap:12px}
+  .hero .btn.ghost{display:none}
+  .btn{min-height:48px;padding:13px 26px;width:100%;max-width:300px;justify-content:center}
+
+  /* ---------- 关于 / 能力 / 技能：全部单列 ---------- */
+  .about-grid,.cap-list,.skill-grid{grid-template-columns:1fr}
+  .info-card p{font-size:14px;line-height:1.6}
+  .info-card p.bio{line-height:1.6}
+  .cap-item p{font-size:13px;line-height:1.6}
+  .award-list li{line-height:1.6}
+
+  /* ---------- 项目：单列竖排，图片 100% 宽，信息层级不变 ---------- */
+  .proj-list{gap:18px}
+  .proj-card.core .proj-top,.proj-card.normal .proj-top{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .proj-card.core .proj-media,.proj-card.normal .proj-media{height:180px;min-height:180px}
+  .proj-card.core .proj-body{padding:16px 16px}    /* 核心卡移动端回归统一内边距 */
+  .proj-body{padding:16px 16px}                    /* 卡片内边距缩小 */
+  .proj-body>p{line-height:1.6;font-size:13.5px;margin-bottom:16px}   /* 段距加大至 16px + 自动换行 */
+  .hl li{line-height:1.6;font-size:13px;margin-bottom:12px}
+  .proj-challenge{padding:12px 14px;margin-top:4px}
+  .proj-challenge .pc-item{font-size:12px;line-height:1.6}
+  .tl-quant{padding:12px 14px;margin-top:12px}
+  .tl-quant li{font-size:12.5px}
+  .skill-legend{gap:12px;margin-bottom:18px;font-size:12px}
+  .proj-foot{flex-direction:column;align-items:flex-start;gap:10px}
+  .proj-links{margin-left:0}                        /* 移动端竖排：左对齐，不贴右 */
+  /* 技术栈标签自动换行，不溢出屏幕 */
+  .tags{gap:8px}
+  .tag{max-width:100%;word-break:break-word}
+  /* 项目卡内链接（含 GitHub 按钮）：触控区 ≥48px，间距 ≥8px */
+  .proj-links{gap:10px}
+  .proj-links a{min-height:48px;padding:0 6px;font-size:14px;display:inline-flex;align-items:center}
+  .gh-btn{min-height:48px;padding:0 18px;font-size:14px}
+  .proj-card:hover{transform:none;box-shadow:var(--shadow-sm)}       /* 取消 PC 悬停位移 */
+  .proj-card:hover .proj-media img{transform:none}
+
+  /* ---------- 时间线 / 校园 ---------- */
+  .timeline{max-width:100%;padding-left:20px}
+  .tl-item li{line-height:1.6;margin-bottom:12px}
+  .sports-line{font-size:12px;line-height:1.6}
+
+  /* ---------- 联系方式：通道整行、一键拨号 / 发邮件 / 跳转 ---------- */
+  .contact .channels{flex-direction:column;gap:10px}
+  .channel{width:100%;justify-content:flex-start;min-height:48px;font-size:14px;
+    padding:12px 16px;gap:10px}
+  .contact p.tip{font-size:13.5px;line-height:1.6;margin-bottom:18px}
+  .contact .btn-row .btn{max-width:300px}
+
+  footer{padding:24px 16px;font-size:12px;line-height:1.6}
+
+  .to-top{right:14px;bottom:14px;width:48px;height:48px}            /* 触控 ≥48px */
+
+  /* ---------- 滚动渐显：仅淡入、去除位移，保证滚动流畅 ---------- */
+  .reveal{opacity:0;transform:none;transition:opacity .35s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- 触控：移除全部 PC 悬停效果 ---------- */
+  .btn:hover,.btn.primary:hover,.btn.ghost:hover,
+  .channel:hover,.proj-links a:hover,.gh-btn:hover,.to-top:hover,.nav-links a:hover,
+  .brand:hover{
+    transform:none;box-shadow:none}
+  .btn.primary:hover{background:var(--accent);color:#fff}
+  .btn.ghost:hover{background:#fff;border-color:var(--border);color:var(--text)}
+  .channel:hover{border-color:var(--border);color:var(--text)}
+  .to-top:hover{background:#fff;color:var(--accent)}
+  .gh-btn:hover{background:#111827;border-color:#111827}
+  .info-card:hover,.skill-card:hover,.proj-card.core:hover{transform:none;box-shadow:none}
+
+  /* ---------- 触控：按下反馈（缩放 0.98 + 底色加深，150ms） ---------- */
+  .btn:active,.channel:active,.proj-links a:active,.nav-links a:active,
+  .gh-btn:active,.brand:active,.menu-btn:active{
+    transform:scale(.98);background:var(--accent-soft);transition:transform .15s var(--ease)}
+  .menu-btn:active{background:rgba(37,99,235,.08)}
+  .btn.primary:active{background:var(--accent-deep)}
+  .channel:active{border-color:var(--accent)}
+  .to-top:active{background:var(--accent);color:#fff}
+  .gh-btn:active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .brand:active{background:transparent}
+}
+
+/* ============================================================
+   尊重系统「减少动画」设置
+   ============================================================ */
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:.001ms !important;animation-duration:.001ms !important}
+  .reveal{opacity:1;transform:none}
+  .proj-card:hover{transform:none}
+  .proj-card:hover .proj-media img{transform:none}
+}
+
+/* ============================================================
+   首屏数字证据条（6 秒内给出可核实的硬指标）
+   ============================================================ */
+.evidence{display:flex;justify-content:center;flex-wrap:wrap;
+  margin:40px auto 0;max-width:760px;
+  border-top:1px solid var(--divider);border-bottom:1px solid var(--divider);padding:18px 0}
+.evidence li{list-style:none;flex:1 1 150px;min-width:130px;padding:0 18px;text-align:center;
+  border-right:1px solid var(--divider)}
+.evidence li:last-child{border-right:none}
+.evidence b{display:block;font-size:22px;font-weight:700;color:var(--accent);letter-spacing:.5px}
+.evidence span{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+
+.chip.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* ============================================================
+   实习经历 · 项目环境四联卡
+   ============================================================ */
+.env-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;
+  margin:20px 0 22px;padding:16px 20px;background:var(--surface);
+  border:1px solid var(--border);border-radius:12px}
+.env{display:flex;flex-direction:column;gap:3px;min-width:0}
+.ek{font-size:11px;color:var(--muted);letter-spacing:.6px}
+.ev{font-size:13px;font-weight:600;color:var(--text);line-height:1.45}
+
+/* ============================================================
+   OA 流程交付能力板块
+   ============================================================ */
+.oa-flow,.oa-diagram{margin-bottom:34px}
+.flow-title{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:1px;
+  margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.flow-title::before{content:"";width:3px;height:13px;background:var(--accent);border-radius:2px}
+
+.flow-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.fstep{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s var(--ease)}
+.fstep:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);border-color:#bfdbfe}
+.fstep .fn{display:inline-flex;align-items:center;justify-content:center;
+  width:24px;height:24px;border-radius:7px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:700;margin-bottom:8px}
+.fstep b{display:block;font-size:14px;margin-bottom:4px}
+.fstep p{font-size:12.5px;color:var(--muted);line-height:1.6}
+
+.oa-diagram{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px}
+.flow-svg{width:100%;height:auto;display:block}
+.flow-note{font-size:12.5px;color:var(--muted);margin-top:14px;padding-top:14px;
+  border-top:1px dashed var(--border);line-height:1.75}
+
+.oa-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+/* 五张能力卡按 2 列排会剩最后一张独占半行、右侧空洞大面积留白。
+   让末张通栏收尾，内部改为双列清单，视觉上像"压轴卡"而非排版事故 */
+.oa-grid .oa-card:last-child{grid-column:1 / -1}
+.oa-grid .oa-card:last-child .oa-desc{max-width:760px}
+.oa-grid .oa-card:last-child .oa-ul{columns:2;column-gap:32px}
+.oa-grid .oa-card:last-child .oa-pit{max-width:900px}
+.oa-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px 22px;display:flex;flex-direction:column;height:100%;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s var(--ease)}
+.oa-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);border-color:#bfdbfe}
+.oa-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.oa-ic{font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);
+  padding:3px 9px;border-radius:6px;letter-spacing:.5px;flex:none}
+.oa-head h3{font-size:16px}
+.oa-desc{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.65}
+.oa-ul{list-style:none;margin-bottom:14px}
+.oa-ul li{position:relative;padding-left:16px;font-size:13px;line-height:1.8}
+.oa-ul li::before{content:"";position:absolute;left:0;top:10px;width:5px;height:5px;
+  border-radius:50%;background:var(--accent)}
+.oa-pit{margin-top:auto;font-size:12.5px;color:#92400e;background:#fffbeb;
+  border:1px solid #fde68a;border-radius:9px;padding:10px 13px;line-height:1.65}
+.oa-pit b{color:#b45309}
+
+.oa-scenes{margin-top:28px}
+.oa-scenes .tags{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ============================================================
+   打印样式（HR 打印 / 导出 PDF 时排版不崩）
+   ============================================================ */
+@media print{
+  header.nav,.nav-overlay,.menu-btn,.btn-row,.to-top,#progress{display:none !important}
+  body{background:#fff;font-size:12px}
+  .reveal{opacity:1 !important;transform:none !important}
+  .wrap{border-top:1px solid #ccc;padding-top:16px}
+  .proj-card,.oa-card,.fstep,.info-card,.skill-card{break-inside:avoid;box-shadow:none !important;border-color:#ccc}
+  .oa-diagram,.evidence{break-inside:avoid}
+  a[href^="http"]::after{content:" [" attr(href) "]";font-size:9px;color:#666;font-weight:400}
+  footer{margin-top:24px}
+}
+
+/* ============================================================
+   OA 板块移动端适配
+   ============================================================ */
+@media(max-width:768px){
+  .evidence{padding:14px 0;margin-top:30px}
+  .evidence li{flex:1 1 50%;min-width:0;padding:10px 12px;border-right:none}
+  .evidence li:nth-child(odd){border-right:1px solid var(--divider)}
+  .evidence li:nth-child(-n+2){border-bottom:1px solid var(--divider)}
+  .evidence b{font-size:19px}
+  .env-row{grid-template-columns:1fr;gap:10px;padding:14px 16px}
+  .flow-steps{grid-template-columns:1fr;gap:10px}
+  .oa-grid{grid-template-columns:1fr;gap:12px}
+  .oa-diagram{padding:16px 14px;overflow-x:auto}
+  .flow-svg{min-width:700px}
+  .oa-card{padding:18px}
+  .oa-flow,.oa-diagram{margin-bottom:26px}
+}
+
+/* 减少动画：新增卡片的悬停位移同样禁用 */
+@media(prefers-reduced-motion:reduce){
+  .oa-card:hover,.fstep:hover{transform:none}
+}

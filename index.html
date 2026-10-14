@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>仵星 · 个人作品集｜企业信息化与 OA 交付 × AI 应用开发</title>
-<meta name="description" content="仵星 — 2027 届人工智能专业本科应届生。致远 V8 低代码 OA 全流程交付经验（驻场央企总部，独立对接部门负责人与分管领导确认需求），兼具大模型落地能力（RAG、智能体工作流）。求职方向：企业信息化、OA 系统建设与运维、低代码开发、AI 应用开发。意向城市：上海。">
-<meta name="keywords" content="仵星,企业信息化,OA运维,OA建设,低代码开发,致远V8,OA流程,AI应用开发,RAG,智能体工作流,大模型落地,2027届校招">
+<title>仵星 · 个人作品集｜AI 应用开发 × 企业信息化 / OA 交付</title>
+<meta name="description" content="仵星 — 2027 届人工智能专业本科应届生，主攻 AI 应用开发：视觉检测（YOLOv8）、语音情感识别（HuBERT）、RAG 与智能体工作流、大模型 API 工程化落地；兼具央国企 OA 驻场交付经验（致远 V8，含 MySQL 数据操作、多环境补丁发布与日志排查）。求职方向：AI 应用开发、大模型应用、智能体开发，及企业信息化 / OA 建设运维。意向城市：上海。">
+<meta name="keywords" content="仵星,AI应用开发,大模型应用,智能体开发,RAG,工作流编排,Python,PyTorch,视觉检测,语音情感识别,FastAPI,企业信息化,OA运维,低代码,致远V8,MySQL,2027届校招">
 
 <!-- ═══ 分享卡片：发到微信 / BOSS / 牛客时显示标题与缩略图 ═══ -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wuxingai666.github.io/wx-portfolio/">
-<meta property="og:title" content="仵星 · 个人作品集｜企业信息化与 OA 交付 × AI 应用开发">
-<meta property="og:description" content="2027 届人工智能本科 · 专业前 12%｜致远 V8 OA 全流程交付 · 央企总部驻场｜RAG 与智能体工作流落地">
+<meta property="og:title" content="仵星 · 个人作品集｜AI 应用开发 × 企业信息化 / OA 交付">
+<meta property="og:description" content="2027 届人工智能本科 · 专业前 12%｜视觉检测 93% · 自建数据集 8000+｜RAG 与智能体工作流落地｜央企总部 OA 驻场交付">
 <meta property="og:image" content="https://wuxingai666.github.io/wx-portfolio/assets/og-cover.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -26,22 +26,24 @@
   "mainEntity": {
     "@type": "Person",
     "name": "仵星",
-    "description": "2027 届人工智能专业本科应届生。致远 V8 低代码 OA 全流程交付（驻场央企总部），兼具大模型应用落地能力。求职方向：企业信息化、OA 系统建设与运维、低代码开发、AI 应用开发。",
+    "description": "2027 届人工智能专业本科应届生，主攻 AI 应用开发：视觉检测、语音情感识别、RAG 与智能体工作流、大模型 API 工程化落地；兼具央国企 OA 驻场交付经验。求职方向：AI 应用开发、大模型应用、智能体开发，及企业信息化 / OA 建设运维。",
     "url": "https://wuxingai666.github.io/wx-portfolio/",
     "image": "https://wuxingai666.github.io/wx-portfolio/assets/og-cover.png",
     "sameAs": [
       "https://github.com/wuxingai666"
     ],
     "knowsAbout": [
-      "企业信息化",
-      "OA 系统建设与运维",
-      "致远 V8 低代码平台",
-      "OA 表单与审批流配置",
-      "UAT 测试与验收",
+      "AI 应用开发",
       "大模型应用落地",
       "RAG 与智能体工作流",
       "Python / PyTorch",
-      "FastAPI"
+      "计算机视觉",
+      "语音情感识别",
+      "FastAPI",
+      "MySQL",
+      "企业信息化与 OA 系统建设运维",
+      "致远 V8 低代码平台",
+      "UAT 测试与验收"
     ]
   }
 }
@@ -64,6 +66,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#home">跳到主要内容</a>
+
 <div id="progress"></div>
 
 <!-- ═════════ ① 顶部导航（PC 横向、移动端右滑侧边栏） ═════════ -->
@@ -74,8 +78,10 @@
       <li><a href="#about">关于</a></li>
       <li><a href="#exp">实习</a></li>
       <li><a href="#oa">OA 能力</a></li>
+      <li><a href="#campus">校园</a></li>
       <li><a href="#proj">项目</a></li>
       <li><a href="#skills">技能</a></li>
+      <li><a href="#resume">简历</a></li>
       <li><a href="#contact">联系</a></li>
     </ul>
     <button class="menu-btn" id="menuBtn" aria-label="打开菜单" aria-expanded="false">
@@ -89,24 +95,24 @@
 <section id="home" class="hero">
   <img class="avatar" src="assets/avatar.jpg" alt="仵星证件照" width="108" height="108" fetchpriority="high" decoding="async">
   <h1 class="reveal">仵星</h1>
-  <div class="role reveal">2027 届本科应届生 · 人工智能专业｜意向：企业信息化 / OA 建设运维 · 低代码交付｜base 地：上海</div>
+  <div class="role reveal">2027 届本科应届生 · 人工智能专业｜意向：AI 应用开发 · 大模型 / 智能体（兼企业信息化 OA 交付）｜base 地：上海</div>
   <div class="chips reveal">
-    <span class="chip accent">企业信息化 / OA 交付</span>
-    <span class="chip accent">低代码交付</span>
-    <span class="chip">AI 应用开发</span>
+    <span class="chip accent">AI 应用开发</span>
+    <span class="chip accent">视觉 / 语音算法</span>
+    <span class="chip">企业信息化 / OA 交付</span>
   </div>
-  <p class="intro reveal">既懂企业业务系统如何从需求走到上线，也能独立完成 AI 应用开发与落地</p>
+  <p class="intro reveal">主攻 AI 应用开发——从数据处理、模型训练到接口封装、智能体编排与上线部署；兼具央国企 OA 系统驻场交付经验，能把模型能力真正接进业务流程</p>
   <div class="btn-row reveal">
-    <a class="btn primary" href="assets/resume.pdf" download="Wuxing-Resume.pdf">下载简历 ↓</a>
+    <a class="btn primary" href="#resume">查看在线简历 ↓</a>
     <a class="btn ghost" href="https://github.com/wuxingai666" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
 
   <!-- 数字证据条：6 秒内给出可核实的硬指标 -->
   <ul class="evidence reveal">
     <li><b>前 12%</b><span>专业排名 5 / 39</span></li>
-    <li><b>央企总部</b><span>驻场交付经验</span></li>
-    <li><b>OA 交付</b><span>需求调研到上线验收</span></li>
+    <li><b>93%</b><span>视觉检测准确率</span></li>
     <li><b>8000+</b><span>自建标注数据集</span></li>
+    <li><b>央企总部</b><span>OA 驻场交付经验</span></li>
   </ul>
 </section>
 
@@ -129,19 +135,19 @@
         </ul>
       </div>
       <div class="info-card reveal"><h3>一句话定位</h3>
-        <p class="bio">以 AI 算法能力为底座，向低代码实施与全栈落地延伸，能把业务需求转化为可运行、可交付的系统。</p>
+        <p class="bio">以 AI 开发为主攻方向——从数据处理、模型训练到接口封装与智能体编排落地；同时具备央国企 OA 系统驻场交付能力，能把 AI 能力接入真实业务流程而不只停留在 Demo。</p>
       </div>
     </div>
 
     <div class="cap-list">
       <div class="cap-item reveal"><span class="no">1</span>
-        <div><h4>低代码平台实施</h4><p>致远 V8 表单搭建、审批流配置、权限与 UAT 测试（央国企驻场实战）。</p></div></div>
+        <div><h4>AI 应用开发</h4><p>大模型 API 工程化接入、RAG 与智能体工作流编排（Coze），把模型能力封装成可调用、可上线的服务。</p></div></div>
       <div class="cap-item reveal"><span class="no">2</span>
-        <div><h4>AI 应用开发</h4><p>视觉检测（YOLOv8）、语音情感识别（HuBERT + Whisper）、大模型 API 工程化接入。</p></div></div>
+        <div><h4>AI 算法与数据</h4><p>Python + PyTorch 模型训练与调优；视觉检测（YOLOv8）、语音情感识别（HuBERT + Whisper）、数据标注与增广。</p></div></div>
       <div class="cap-item reveal"><span class="no">3</span>
-        <div><h4>全栈开发基础</h4><p>FastAPI 后端 + Vue3 前端 + SQLite / SQL，具备独立完成小型系统的能力。</p></div></div>
+        <div><h4>全栈开发基础</h4><p>FastAPI 后端 + Vue3 前端 + MySQL / SQLite，熟练使用 Codex、Claude 辅助开发与调试，能独立完成小型系统。</p></div></div>
       <div class="cap-item reveal"><span class="no">4</span>
-        <div><h4>AI 辅助工程</h4><p>熟练使用 Codex、Claude 等 AI 智能体辅助开发、调试与项目自动化搭建。</p></div></div>
+        <div><h4>低代码平台实施</h4><p>致远 V8 表单搭建、审批流配置、权限与 UAT 测试（央国企驻场实战，辅以数据库操作与多环境发布运维）。</p></div></div>
     </div>
   </div>
 </section>
@@ -151,7 +157,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <h2 class="sec-title"><span class="sec-no">02</span>实习经历</h2>
-      <p class="sec-sub">央国企驻场，独立承担模块搭建与交付。以下工作内容均可在面试中逐条展开。</p>
+      <p class="sec-sub">央国企驻场，独立承担模块搭建与交付，并直接负责数据库操作、多环境补丁发布与日志排查。以下工作内容均可在面试中逐条展开。</p>
     </div>
 
     <div class="timeline">
@@ -170,15 +176,18 @@
         <ul>
           <li><b>业务搭建：</b>基于致远 V8 低代码平台独立搭建业务表单与审批流程，配置多级审批节点流转逻辑与字段级权限，覆盖客户核心 OA 业务模块。</li>
           <li><b>数据落地：</b>负责办公用品库系统存量数据的导入与维护——按客户模板清洗、核对仓库清点数据，修正管理员编号等字段映射关系，保障生产环境数据准确上线。</li>
+          <li><b>数据库操作：</b>直接编写 <b>MySQL 查询与更新语句</b>完成表单数据核对、字段映射修正与问题数据批量处理，用于存量数据导入前后的校验与回滚，不依赖平台界面逐条操作。</li>
           <li><b>需求对接：</b>驻场对接客户部门负责人与分管领导，将零散业务诉求转化为可落地的表单与流程方案，输出需求确认文档并跟踪变更。</li>
           <li><b>测试交付：</b>编写 UAT 测试用例覆盖正常、异常、边界场景，跟进缺陷闭环；与客户、招商金科方协同完成 OA 模块验收与交付。</li>
+          <li><b>环境运维与问题排查：</b>按开发、测试、预生产、生产多环境<b>打补丁包并发布验证</b>；通过查询系统<b>运行日志</b>定位报错来源、还原问题现场，配合开发侧完成缺陷复现与修复闭环。</li>
           <li><b>合规意识：</b>在央国企合规框架下推进交付，熟悉数据留痕、审批可追溯与权限最小化对流程设计的影响。</li>
         </ul>
 
         <div class="tl-tags">
-          <span class="tag">致远 V8</span><span class="tag">表单搭建</span>
-          <span class="tag">审批流配置</span><span class="tag">字段级权限</span>
-          <span class="tag">SQL 数据处理</span><span class="tag">UAT 测试</span>
+          <span class="tag">致远 V8</span><span class="tag">MySQL 查询与更新</span>
+          <span class="tag">多环境补丁发布</span><span class="tag">日志排查</span>
+          <span class="tag">表单搭建</span><span class="tag">审批流配置</span>
+          <span class="tag">字段级权限</span><span class="tag">UAT 测试</span>
           <span class="tag">驻场需求对接</span><span class="tag">协同交付</span>
         </div>
       </div>
@@ -378,7 +387,7 @@
       <article class="proj-card core reveal">
         <div class="proj-top">
           <div class="proj-media">
-            <img src="assets/fruit-sample.jpg" srcset="assets/fruit-sample-480.jpg 480w, assets/fruit-sample.jpg 800w" sizes="(max-width: 1023px) 100vw, 80vw" alt="果蔬成熟度检测系统识别样例" loading="lazy" decoding="async">
+            <img src="assets/fruit-sample.jpg" srcset="assets/fruit-sample-480.jpg 480w, assets/fruit-sample.jpg 1536w" sizes="(max-width: 1023px) 100vw, 80vw" alt="果蔬成熟度检测系统识别样例" loading="lazy" decoding="async">
           </div>
           <div class="proj-body">
             <div class="proj-head">
@@ -478,14 +487,36 @@
         </div>
       </article>
 
-      <!-- P4：网页记账本系统 -->
+      <!-- P4：AI 智能体与自动化工作流实践（原 Coze 两卡合并） -->
+      <article class="proj-card normal reveal">
+        <div class="proj-top">
+          <div class="proj-media">
+            <img src="assets/coze-workflow.jpg" alt="AI 智能体工作流编排示意" loading="lazy" decoding="async">
+          </div>
+          <div class="proj-body">
+            <div class="proj-head"><h3>AI 智能体与自动化工作流实践</h3><span class="badge gray">P4 · Coze 平台</span></div>
+            <p>在 Coze 平台面向真实业务场景搭建可对话智能体与自动化工作流：以知识库 + RAG 注入领域资料，用插件扩展外部能力，并以可视化节点编排多步任务。</p>
+            <ul class="hl">
+              <li><b>知识库 + RAG：</b>上传业务文档构建知识库并开启检索增强，降低模型幻觉。</li>
+              <li><b>工作流编排：</b>可视化串联「意图识别 → 知识检索 → 生成 → 回流」，支持条件分支、循环与定时触发。</li>
+              <li><b>插件与集成：</b>接入平台插件与外部 API，扩展联网搜索、数据查询等能力。</li>
+            </ul>
+            <div class="proj-foot">
+              <div class="tags"><span class="tag">Coze</span><span class="tag">智能体</span><span class="tag">RAG</span><span class="tag">工作流编排</span><span class="tag">提示词工程</span></div>
+              <div class="proj-links"><span class="local-tag">平台内项目 · 无公开仓库</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- P5：网页记账本系统 -->
       <article class="proj-card normal reveal">
         <div class="proj-top">
           <div class="proj-media">
             <img src="assets/ledger-live.jpg" alt="网页记账本系统真实运行界面" loading="lazy" decoding="async">
           </div>
           <div class="proj-body">
-            <div class="proj-head"><h3>网页记账本系统</h3><span class="badge gray">P4 · 已上线</span></div>
+            <div class="proj-head"><h3>网页记账本系统</h3><span class="badge gray">P5 · 已上线</span></div>
             <p>单文件 HTML 实现的轻量记账应用，零依赖部署于 GitHub Pages，已上线并被多人日常使用。围绕日常、大额、固定三类支出设计数据结构与预算占用逻辑，提供完整的增删改查与统计可视化。</p>
             <ul class="hl">
               <li><b>真实使用：</b>上线后处于<b>多人日常记账使用中</b>，覆盖真实收支场景，持续迭代维护。</li>
@@ -499,28 +530,6 @@
                 <a href="https://wuxingai666.github.io/xiaozhangben/" target="_blank" rel="noopener">在线访问 ↗</a>
                 <a class="gh-btn" href="https://github.com/wuxingai666/xiaozhangben" target="_blank" rel="noopener">GitHub ↗</a>
               </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- P5：AI 智能体与自动化工作流实践（原 Coze 两卡合并） -->
-      <article class="proj-card normal reveal">
-        <div class="proj-top">
-          <div class="proj-media">
-            <img src="assets/coze-workflow.jpg" alt="AI 智能体工作流编排示意" loading="lazy" decoding="async">
-          </div>
-          <div class="proj-body">
-            <div class="proj-head"><h3>AI 智能体与自动化工作流实践</h3><span class="badge gray">Coze 平台</span></div>
-            <p>在 Coze 平台面向真实业务场景搭建可对话智能体与自动化工作流：以知识库 + RAG 注入领域资料，用插件扩展外部能力，并以可视化节点编排多步任务。</p>
-            <ul class="hl">
-              <li><b>知识库 + RAG：</b>上传业务文档构建知识库并开启检索增强，降低模型幻觉。</li>
-              <li><b>工作流编排：</b>可视化串联「意图识别 → 知识检索 → 生成 → 回流」，支持条件分支、循环与定时触发。</li>
-              <li><b>插件与集成：</b>接入平台插件与外部 API，扩展联网搜索、数据查询等能力。</li>
-            </ul>
-            <div class="proj-foot">
-              <div class="tags"><span class="tag">Coze</span><span class="tag">智能体</span><span class="tag">RAG</span><span class="tag">工作流编排</span><span class="tag">提示词工程</span></div>
-              <div class="proj-links"><span class="local-tag">平台内项目 · 无公开仓库</span></div>
             </div>
           </div>
         </div>
@@ -542,43 +551,29 @@
     </div>
     <div class="skill-grid">
       <div class="skill-card reveal">
-        <h3>企业信息化与低代码交付</h3>
-        <div class="tags">
-          <span class="tag l3">致远 V8 平台</span><span class="tag l3">表单搭建</span>
-          <span class="tag l3">审批流配置</span><span class="tag l3">需求调研与方案转化</span>
-          <span class="tag l2">权限体系设计</span><span class="tag l2">UAT 测试</span>
-        </div>
-      </div>
-      <div class="skill-card reveal">
         <h3>AI 应用开发</h3>
         <div class="tags">
           <span class="tag l3">大模型 API 工程落地</span><span class="tag l3">智能体与工作流编排</span>
           <span class="tag l3">Coze 工作流</span><span class="tag l3">DeepSeek 接入</span>
-          <span class="tag l2">RAG 全链路</span>
+          <span class="tag l2">RAG 全链路</span><span class="tag l2">提示词工程</span>
         </div>
       </div>
       <div class="skill-card reveal">
-        <h3>AI 算法基础</h3>
+        <h3>AI 算法与数据</h3>
         <div class="tags">
           <span class="tag l4">Python</span><span class="tag l4">PyTorch</span>
           <span class="tag l3">YOLO / ResNet 视觉算法</span><span class="tag l3">数据标注与增广</span>
-          <span class="tag l2">语音情感识别（HuBERT）</span>
+          <span class="tag l3">语音情感识别（HuBERT / Whisper）</span><span class="tag l2">模型评估与调优</span>
         </div>
       </div>
       <div class="skill-card reveal">
         <h3>工程与部署</h3>
         <div class="tags">
-          <span class="tag l3">FastAPI</span><span class="tag l3">SQL / SQLite</span><span class="tag l3">Git</span>
+          <span class="tag l3">FastAPI</span><span class="tag l3">MySQL / SQL</span><span class="tag l3">Git</span>
           <span class="tag l3">HTML / CSS / JS</span>
           <span class="tag l2">Linux 基础</span><span class="tag l2">Vue3 基础</span>
-          <span class="tag l2">PyQt5 桌面端</span><span class="tag l1">Docker 简易部署</span>
-        </div>
-      </div>
-      <div class="skill-card reveal">
-        <h3>交付协同与文档</h3>
-        <div class="tags">
-          <span class="tag l3">跨方协同（甲方 / 乙方 / 多供应商）</span><span class="tag l3">生产环境数据迁移与校验</span>
-          <span class="tag l3">测试用例与验收文档</span><span class="tag l2">面向管理层方案汇报</span>
+          <span class="tag l2">PyQt5 桌面端</span><span class="tag l2">日志排查与问题定位</span>
+          <span class="tag l2">多环境补丁发布</span><span class="tag l1">Docker 简易部署</span>
         </div>
       </div>
       <div class="skill-card reveal">
@@ -588,6 +583,133 @@
           <span class="tag l3">AI 智能体辅助全栈开发</span><span class="tag l3">AI 辅助调试与自动化</span>
         </div>
       </div>
+      <div class="skill-card reveal">
+        <h3>企业信息化与低代码交付</h3>
+        <div class="tags">
+          <span class="tag l3">致远 V8 平台</span><span class="tag l3">表单搭建</span>
+          <span class="tag l3">审批流配置</span><span class="tag l3">需求调研与方案转化</span>
+          <span class="tag l2">权限体系设计</span><span class="tag l2">UAT 测试</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>交付协同与文档</h3>
+        <div class="tags">
+          <span class="tag l3">跨方协同（甲方 / 乙方 / 多供应商）</span><span class="tag l3">生产环境数据迁移与校验</span>
+          <span class="tag l3">测试用例与验收文档</span><span class="tag l2">面向管理层方案汇报</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ ⑧ 在线简历（取代 PDF 下载，永不版本漂移） ═════════ -->
+<section id="resume">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2 class="sec-title"><span class="sec-no">07</span>在线简历</h2>
+      <p class="sec-sub">一页速览版，内容与投递附件一致。需要存档请直接「打印 / 存为 PDF」——网页即是最新版，不存在版本漂移。</p>
+    </div>
+
+    <div class="rsm reveal">
+      <div class="rsm-head">
+        <div class="rsm-name">仵　星</div>
+        <div class="rsm-intent">求职意向：AI 应用开发 / 大模型应用　·　企业信息化 / OA 建设运维　·　低代码实施交付</div>
+        <ul class="rsm-meta">
+          <li>电话 / 微信：198 4395 6389</li>
+          <li>邮箱：842081814@qq.com</li>
+          <li>籍贯：河南周口　·　共青团员</li>
+          <li>常驻：上海　·　到岗：2027.06 后可全职</li>
+        </ul>
+      </div>
+
+      <div class="rsm-row">
+        <div class="rsm-k">教育背景</div>
+        <div class="rsm-v">
+          <div class="rsm-t">长春大学旅游学院　·　人工智能（本科）<span class="rsm-date">2023.09 - 2027.06</span></div>
+          <ul>
+            <li>GPA 3.66 / 4.0，专业排名 5 / 39（前 12%）</li>
+            <li>主修：机器学习、深度学习、计算机视觉、NLP、神经网络、数据结构、数据库原理</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rsm-row">
+        <div class="rsm-k">实习经历</div>
+        <div class="rsm-v">
+          <div class="rsm-t">北京致远互联软件股份有限公司（上海分公司）· V8 低代码实施实习生<span class="rsm-date">2026.07 - 至今</span></div>
+          <div class="rsm-org">项目：中国数联 OA 低代码实施项目（业务模块集成于招商局金融科技 App）　·　驻场客户现场</div>
+          <ul>
+            <li><b>央国企客户驻场实施：</b>作为致远实施方驻场中国数联（大型国有企业）现场，负责致远 OA 低代码系统实施交付，参与 <b>10+ 次</b>客户需求沟通与功能演示。</li>
+            <li><b>面向管理层方案沟通：</b>向业务部门与管理层（部门负责人、分管领导）汇报实施进度与方案要点，针对性响应流程合规性、审批权限分级、数据留痕等国企管理要求。</li>
+            <li><b>多模块独立实施：</b>参与行政办公、合同、人事、资产、三会管理、费控 <b>6 大业务板块</b>，累计完成 <b>20+ 张表单、10+ 条审批流程</b>的配置与上线，走通「需求梳理 → 表单流程搭建 → 自测 → 客户演示 → 多环境发布 → UAT → 上线运维」全链路。</li>
+            <li><b>复杂流程落地：</b>独立完成咨询子合同审批流程搭建，配置部门负责人 → 会签人 → 分管领导 → 总经理 → 董事 → 用印管理员 <b>6 级回审节点</b>，并按合同类型、金额条件设置分支规则。</li>
+            <li><b>数据迁移攻坚：</b>承接 V5 → V8 表单迁移专项，完成 PC 端与移动端全量表单页面一致性核对及生产环境校验，推动修复展示差异、乱码、报错、功能缺失等问题 <b>30+ 项</b>。</li>
+            <li><b>测试与质量保障：</b>编写 <b>15 条</b> PC 端测试用例（覆盖正常流、条件分支与异常分支），完成 UAT / POC / 回归测试并输出测试报告，推动开发侧缺陷闭环。</li>
+            <li><b>跨厂商协同交付：</b>与招商局金融科技团队并行实施、分工协作，对齐集成节点、发布节奏与问题闭环机制，共同满足中国数联的实施与上线要求。</li>
+            <li><b>数据库与运维实操：</b>直接编写 <b>MySQL 查询与更新语句</b>完成表单数据核对、字段映射修正与问题数据批量处理；按开发 / 测试 / 预生产 / 生产多环境<b>打补丁包</b>并发布验证，通过查询系统<b>运行日志</b>定位报错来源、还原问题现场，配合开发侧完成缺陷复现与修复闭环。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rsm-row">
+        <div class="rsm-k">项目经验</div>
+        <div class="rsm-v">
+          <div class="rsm-t">AI 智能体与自动化工作流实践（Coze 平台）<span class="rsm-date">2026.05 - 2026.07</span></div>
+          <div class="rsm-org">技术栈：Coze · 智能体 · RAG · 工作流编排 · 提示词工程</div>
+          <ul>
+            <li>以知识库 + RAG 注入业务文档降低模型幻觉；可视化编排「意图识别 → 知识检索 → 生成 → 回流」工作流，支持条件分支、循环与定时触发。</li>
+            <li>接入平台插件与外部 API，扩展联网搜索与数据查询能力。</li>
+          </ul>
+
+          <div class="rsm-t sub">BOSS 直聘自动化投递助手（已开源）<span class="rsm-date">2026.05 - 2026.06</span></div>
+          <div class="rsm-org">技术栈：Tampermonkey · Python · FastAPI · DeepSeek · SQLite</div>
+          <ul>
+            <li>解析 Shadow DOM 绕过反自动化检测；接入 DeepSeek 自动识别 HR 消息并生成上下文回复，配套敏感内容人工审核。</li>
+            <li>SSE 实时刷新投递看板，四层风控模拟真人操作。</li>
+          </ul>
+
+          <div class="rsm-t sub">中文语音情感识别系统（毕业设计）<span class="rsm-date">独立完成</span></div>
+          <div class="rsm-org">技术栈：HuBERT · faster-whisper · DeepSeek · FastAPI · Vue 3</div>
+          <ul>
+            <li>HuBERT 微调情感分类，CASIA 中文情感语音数据集（1200 条 · 6 类），准确率 <b>79.6%</b>；平台完整可运行。</li>
+          </ul>
+
+          <div class="rsm-t sub">基于 CV 的果蔬成熟度智能检测系统<span class="rsm-date">独立完成</span></div>
+          <div class="rsm-org">技术栈：YOLOv8 · ResNet50 · PyTorch · FastAPI</div>
+          <ul>
+            <li>自主采集标注 <b>8000+ 张</b>果蔬图像；YOLOv8 + ResNet50 分级分类，检测准确率 <b>93%</b>；FastAPI 封装推理接口并完成 Linux 部署。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rsm-row">
+        <div class="rsm-k">技能特长</div>
+        <div class="rsm-v">
+          <ul class="rsm-compact">
+            <li><b>AI 应用：</b>Coze 智能体与插件封装、RAG 全链路、工作流编排、提示词工程、大模型 API 工程落地、DeepSeek 接入</li>
+            <li><b>AI 算法：</b>Python、PyTorch、YOLO / ResNet 视觉算法、语音情感识别（HuBERT / Whisper）、数据标注与增广</li>
+            <li><b>工程能力：</b>FastAPI、MySQL / SQL、Git、HTML / CSS / JS、Vue 3、Linux 基础、多环境补丁发布与日志排查</li>
+            <li><b>信息化与低代码：</b>致远 V8 平台、表单搭建（主表 + 明细表、校验规则、字段级权限）、审批流配置（串行逐级 / 并行会签或签 / 条件分支路由 / 退回、加签、转办、撤回）、权限体系（组织·角色·人员三级授权、数据范围、最小权限原则）、UAT 测试、数据迁移</li>
+            <li><b>熟悉业务场景：</b>用章申请、合同审批、办公用品领用、采购申请、请假与出差、公文流转、资产登记、印章管理</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rsm-row">
+        <div class="rsm-k">荣誉奖项</div>
+        <div class="rsm-v">
+          <ul class="rsm-compact">
+            <li>2024 全国大学生数学竞赛 国家级三等奖（晋级国赛 &lt; 5%）</li>
+            <li>2024 校级人工智能创新大赛 二等奖（30+ 队伍前 2）；2023-2025 连续 2 学年校级三等奖学金</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rsm-foot">
+        <button class="btn primary" id="printResume" type="button">打印 / 存为 PDF</button>
+        <a class="btn ghost" href="mailto:842081814@qq.com">发邮件联系 →</a>
+        <span class="rsm-tip">点击后仅打印本区块，输出即标准简历页</span>
+      </div>
     </div>
   </div>
 </section>
@@ -596,7 +718,7 @@
 <section id="contact" class="contact">
   <div class="wrap">
     <div class="sec-head reveal">
-      <h2 class="sec-title"><span class="sec-no">07</span>联系方式</h2>
+      <h2 class="sec-title"><span class="sec-no">08</span>联系方式</h2>
     </div>
     <p class="tip reveal">2027 届本科，毕业后可全职入职（意向城市：上海），实习时间可协商。欢迎邮件或电话联系。</p>
     <div class="channels reveal">
@@ -609,12 +731,12 @@
     </div>
     <div class="btn-row reveal">
       <a class="btn primary" href="mailto:842081814@qq.com">发邮件 →</a>
-      <a class="btn ghost" href="assets/resume.pdf" download="Wuxing-Resume.pdf">下载简历 ↓</a>
+      <a class="btn ghost" href="#resume">查看在线简历 ↑</a>
     </div>
   </div>
 </section>
 
-<footer>© 2026 仵星 · 求职向个人作品集 ｜ 最后更新：2026-10-12</footer>
+<footer>© 2026 仵星 · 求职向个人作品集 ｜ 最后更新：2026-10-14</footer>
 
 <button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
 

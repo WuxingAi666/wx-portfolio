@@ -34,6 +34,10 @@ body{
 }
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
+/* 键盘可访问性：跳转到主内容。默认移出视口，获得焦点时回到左上角（仅键盘 / 读屏用户可见） */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:200;background:var(--accent);color:#fff;
+  padding:10px 18px;border-radius:0 0 8px 0;font-size:14px;font-weight:600}
+.skip-link:focus{left:0;outline:2px solid var(--accent-deep);outline-offset:2px}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;
   border-top:1px solid var(--divider)}            /* 板块分隔线：左右贯穿内容区 */
 
@@ -215,7 +219,6 @@ section.shade{background:var(--surface)}            /* 浅灰底板块，保留�
 .proj-card.normal .proj-head h3, .proj-card.normal .proj-head h4{font-size:17px}
 .badge{font-size:11px;font-weight:700;letter-spacing:1px;background:var(--accent);color:#fff;padding:3px 11px;border-radius:99px}
 .badge.gray{background:#94a3b8}
-.badge.outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}
 /* 桌面端：核心项目角标固定到卡片右上角，视觉权重更突出 */
 @media(min-width:1024px){
   .proj-card.core .proj-head .badge{position:absolute;top:16px;right:16px;margin:0;font-size:10.5px;padding:3px 10px}
@@ -325,12 +328,6 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
 .proj-challenge .pc-item:last-child{margin-bottom:0}
 .proj-challenge .pc-item b{color:var(--accent-deep)}
 .proj-card.normal .proj-challenge .pc-item{font-size:12.5px}
-.tl-quant{margin-top:14px;padding:14px 18px;background:linear-gradient(180deg,#fbfdff,#fff);border:1px solid #c7d6f5;border-radius:12px}
-.tl-quant .quant-title{font-size:12.5px;font-weight:700;color:var(--accent-deep);letter-spacing:.5px;margin-bottom:8px}
-.tl-quant ul{list-style:none}
-.tl-quant li{position:relative;padding-left:18px;font-size:13.5px;color:#374151;margin-bottom:7px}
-.tl-quant li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:2px;background:var(--accent);border-radius:1px}
-.tl-quant li b{color:var(--accent-deep)}
 
 /* ============================================================
    平板端 769–1023px：项目区单列流式，其余两列自适应
@@ -420,8 +417,6 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
   .hl li{line-height:1.6;font-size:13px;margin-bottom:12px}
   .proj-challenge{padding:12px 14px;margin-top:4px}
   .proj-challenge .pc-item{font-size:12px;line-height:1.6}
-  .tl-quant{padding:12px 14px;margin-top:12px}
-  .tl-quant li{font-size:12.5px}
   .skill-legend{gap:12px;margin-bottom:18px;font-size:12px}
   .proj-foot{flex-direction:column;align-items:flex-start;gap:10px}
   .proj-links{margin-left:0}                        /* 移动端竖排：左对齐，不贴右 */
@@ -566,6 +561,39 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
 /* ============================================================
    打印样式（HR 打印 / 导出 PDF 时排版不崩）
    ============================================================ */
+/* ============================================================
+   在线简历区块（取代 PDF 下载：一个 URL，永不版本漂移）
+   设计：左标签 + 右内容的报纸式栅格，紧凑可读；打印时只输出本区块
+   ============================================================ */
+.rsm{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:34px 38px;box-shadow:var(--shadow-sm)}
+.rsm-head{padding-bottom:20px;border-bottom:2px solid var(--text)}
+.rsm-name{font-size:26px;font-weight:800;letter-spacing:4px;margin-bottom:8px}
+.rsm-intent{font-size:14.5px;font-weight:600;color:var(--accent-deep);margin-bottom:12px}
+.rsm-meta{list-style:none;display:flex;flex-wrap:wrap;gap:8px 26px;font-size:13px;color:var(--muted)}
+.rsm-row{display:grid;grid-template-columns:92px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--divider)}
+.rsm-row:nth-last-of-type(2){border-bottom:0}      /* 最后一条要点不画分隔线，交给底部区 */
+.rsm-k{font-size:14px;font-weight:700;color:var(--accent-deep);letter-spacing:1px;padding-top:2px}
+.rsm-v ul{list-style:none}
+.rsm-v li{position:relative;padding-left:16px;font-size:13.5px;line-height:1.75;color:#374151;margin-bottom:6px}
+.rsm-v li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:2px;background:var(--accent);border-radius:1px}
+.rsm-v li b{color:var(--text)}
+.rsm-t{font-size:15px;font-weight:700;margin:2px 0 4px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+.rsm-t.sub{margin-top:18px}
+.rsm-date{font-size:12.5px;font-weight:600;color:var(--accent)}
+.rsm-org{font-size:12.8px;color:var(--muted);margin-bottom:8px}
+.rsm-compact li{margin-bottom:5px}
+.rsm-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:26px;padding-top:22px;border-top:1px solid var(--divider)}
+.rsm-foot .btn{cursor:pointer;font-family:inherit}
+.rsm-tip{font-size:12.5px;color:var(--muted)}
+
+@media(max-width:768px){
+  .rsm{padding:22px 18px}
+  .rsm-name{font-size:22px;letter-spacing:3px}
+  .rsm-row{grid-template-columns:1fr;gap:8px}
+  .rsm-k{padding-top:0}
+  .rsm-row:first-of-type{padding-top:4px}
+}
+
 @media print{
   header.nav,.nav-overlay,.menu-btn,.btn-row,.to-top,#progress{display:none !important}
   body{background:#fff;font-size:12px}
@@ -575,6 +603,14 @@ footer{text-align:center;padding:32px;color:#9ca3af;font-size:13px;border-top:1p
   .oa-diagram,.evidence{break-inside:avoid}
   a[href^="http"]::after{content:" [" attr(href) "]";font-size:9px;color:#666;font-weight:400}
   footer{margin-top:24px}
+  .rsm-foot{display:none !important}                 /* 按钮不进打印稿 */
+
+  /* 只打印简历区块：点击「打印 / 存为 PDF」时由 JS 临时加 class */
+  body.print-only-resume > *:not(#resume){display:none !important}
+  body.print-only-resume > #resume > .wrap{padding:0;border-top:0}
+  body.print-only-resume .sec-head{display:none !important}
+  body.print-only-resume .rsm{border:0;box-shadow:none;padding:0}
+  body.print-only-resume .rsm-row{break-inside:avoid}
 }
 
 /* ============================================================

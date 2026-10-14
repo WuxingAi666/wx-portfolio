@@ -140,3 +140,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
 // 回到顶部
 toTop.addEventListener('click', () => smoothScrollTo(0, 500));
+
+/* ── 在线简历：只打印该区块（替代静态 PDF 下载，输出永远与网页同步，杜绝版本漂移） ── */
+(function () {
+  const btn = document.getElementById('printResume');
+  if (!btn) return;
+  const reset = () => document.body.classList.remove('print-only-resume');
+
+  btn.addEventListener('click', () => {
+    document.body.classList.add('print-only-resume');
+    window.print();
+    setTimeout(reset, 1200);          // 兜底：部分浏览器 print() 非阻塞
+  });
+  window.addEventListener('afterprint', reset);
+})();

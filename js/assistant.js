@@ -170,6 +170,7 @@
     handle.addEventListener("pointerdown", event => {
       if (!event.isPrimary || event.button !== 0 || compactScreen.matches || expanded) return;
       event.preventDefault();
+      if (handle.tabIndex >= 0) handle.focus({ preventScroll: true });
       resizeGesture = { id: event.pointerId, handle, edge: handle.dataset.paResize,
         x: event.clientX, y: event.clientY, rect: panel.getBoundingClientRect() };
       handle.setPointerCapture(event.pointerId);

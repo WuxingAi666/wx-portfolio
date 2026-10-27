@@ -1,7 +1,6 @@
 [
   {
     "id": "rag",
-    "number": "P1",
     "anchor": "rag-project",
     "layout": "core",
     "title": "个人作品集网站 × RAG 智能问答助手",
@@ -70,7 +69,6 @@
   },
   {
     "id": "speech",
-    "number": "P4",
     "anchor": "speech-project",
     "layout": "core",
     "title": "中文语音情感分析系统",
@@ -139,7 +137,6 @@
   },
   {
     "id": "boss",
-    "number": "P3",
     "anchor": "boss-project",
     "layout": "core",
     "title": "BOSS 求职辅助与本地监控工具",
@@ -207,7 +204,6 @@
   },
   {
     "id": "ledger",
-    "number": "P6",
     "anchor": "ledger-project",
     "layout": "normal",
     "title": "仵星的记账本",
@@ -273,7 +269,6 @@
   },
   {
     "id": "fruit",
-    "number": "P2",
     "anchor": "fruit-project",
     "layout": "normal",
     "title": "果蔬成熟度识别与语音采摘辅助",
@@ -334,7 +329,6 @@
   },
   {
     "id": "coze",
-    "number": "P5",
     "anchor": "coze-project",
     "layout": "normal",
     "title": "Coze 智能体与知识库问答实践",

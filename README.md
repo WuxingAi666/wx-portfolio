@@ -37,7 +37,7 @@ python -m http.server 8931 --bind 127.0.0.1
 
 ## 六个项目与源码
 
-展示顺序为 RAG 全栈应用、语音情感分析、BOSS 辅助工具、记账本、果蔬识别、Coze 基础实践；保留原项目编号与全部实习、校园经历。
+展示顺序为 RAG 全栈应用、语音情感分析、BOSS 辅助工具、记账本、果蔬识别、Coze 基础实践；仅使用当前 01–06 展示序号，保留全部实习、校园经历。
 统一源码入口：https://github.com/WuxingAi666/ai-application-projects 。有源码的项目提供整理版，果蔬与 Coze 当前仅提供项目说明。
 
 项目内容源为 `content/projects.json`；在完整 RAG 项目根目录执行 `python scripts/sync-project-content.py`，同时更新页面、简历和公开项目知识，避免多处文案不一致。

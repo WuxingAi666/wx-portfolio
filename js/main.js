@@ -1,6 +1,6 @@
 /* ============================================================
    仵星 · 个人作品集  main.js
-   五件事：移动端右滑侧边栏 / 滚动渐显（板块内 100ms 错落）/ 导航高亮 + 滚动收缩 + 进度条 / 回到顶部 / 锚点平滑滚动（500ms）
+   横滑导航 / 有界渐显 / 图片轻透视 / 导航高亮与进度 / 平滑定位 / 简历打印
    纯原生 JS，无依赖；尊重 prefers-reduced-motion
    ============================================================ */
 
@@ -28,46 +28,76 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 768 && navLinks.classList.contains('open')) setMenu(false);
 });
 
-// ── 2. 滚动渐显（按板块内元素顺序 100ms 错落；仅触发一次） ────────
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// ── 2. 滚动渐显：只给同批进入视野的元素错落，最长延迟 180ms ──
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+let reduceMotion = motionPreference.matches;
 const reveals = document.querySelectorAll('.reveal');
-
-if (reduceMotion) {
-  // 减少动画：不做渐显，直接移除 reveal 类呈现内容
-  // （同样是为了解绑 .reveal.in{transform:none} 对悬停位移的压制）
+let revealObserver;
+function showAllContent() {
+  if (revealObserver) revealObserver.disconnect();
   reveals.forEach(el => el.classList.remove('reveal', 'in'));
+}
+if (reduceMotion || !('IntersectionObserver' in window)) {
+  showAllContent();
 } else {
-  // 预先计算每个板块内 .reveal 的错落延迟（同板块第 i 个 → i×100ms）
-  document.querySelectorAll('section').forEach(sec => {
-    [...sec.querySelectorAll('.reveal')].forEach((el, i) => { el.dataset.delay = i * 100; });
-  });
-  // 入场动画结束后移除 reveal / in 类（关键修复）：
-  // .reveal.in{transform:none} 与 .proj-card:hover{transform:translateY(-4px)} 特异度相同（0,2,0），
-  // 且 .reveal.in 写在 CSS 后面 —— 会永久压制项目卡 / 信息卡 / 技能卡的悬停位移，
-  // 同时把卡片过渡时长从 250ms 顶成 350ms。移除后彻底解绑，悬停与时长均回归设计值。
-  function finishReveal(el) {
-    const delay = parseInt(el.dataset.delay || 0, 10);
-    setTimeout(() => {
-      el.classList.remove('reveal', 'in');
-      el.style.transitionDelay = '';
-    }, delay + 450);
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      el.style.transitionDelay = (el.dataset.delay || 0) + 'ms';   // 注入错落延迟
+  revealObserver = new IntersectionObserver(entries => {
+    const visible = entries.filter(entry => entry.isIntersecting);
+    visible.forEach((entry, index) => {
+      const el = entry.target;
+      const delay = Math.min(index * 60, 180);
+      el.style.transitionDelay = delay + 'ms';
       el.classList.add('in');
-      io.unobserve(el);                                     // 只触发一次
-      finishReveal(el);
+      revealObserver.unobserve(el);
+      setTimeout(() => {
+        el.classList.remove('reveal', 'in');
+        el.style.transitionDelay = '';
+      }, delay + 400);
     });
-  }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
-  // 延后两帧再开始观察：先让元素以 opacity:0 完成首帧绘制，
-  // 避免移动端首屏下方已在视口内的元素被同步加 .in 而跳过 transition（导致“无动画”）
+  // 不按元素高度计算阈值，避免长简历或展开后的项目永远达不到入场条件。
+  }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    reveals.forEach(el => io.observe(el));
+    reveals.forEach(el => revealObserver.observe(el));
   }));
 }
+
+// ── 图片空间感：不变换文字卡片，不在滚动时持续计算 ───────────
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+const resetMediaEffects = [];
+document.querySelectorAll('.proj-media').forEach(media => {
+  let frame = 0;
+  const reset = () => {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    media.classList.remove('is-tracking');
+    media.style.removeProperty('--tilt-x');
+    media.style.removeProperty('--tilt-y');
+  };
+  resetMediaEffects.push(reset);
+  media.addEventListener('pointermove', event => {
+    if (reduceMotion || !finePointer.matches || event.pointerType !== 'mouse') return;
+    cancelAnimationFrame(frame);
+    const { clientX, clientY } = event;
+    frame = requestAnimationFrame(() => {
+      const box = media.getBoundingClientRect();
+      const x = Math.max(-1, Math.min(1, ((clientX - box.left) / box.width - .5) * 2));
+      const y = Math.max(-1, Math.min(1, ((clientY - box.top) / box.height - .5) * 2));
+      media.style.setProperty('--tilt-x', (-y * 1.4).toFixed(2) + 'deg');
+      media.style.setProperty('--tilt-y', (x * 1.4).toFixed(2) + 'deg');
+      media.classList.add('is-tracking');
+      frame = 0;
+    });
+  }, { passive: true });
+  media.addEventListener('pointerleave', reset);
+  media.addEventListener('pointercancel', reset);
+});
+motionPreference.addEventListener('change', event => {
+  reduceMotion = event.matches;
+  if (reduceMotion) {
+    showAllContent();
+    resetMediaEffects.forEach(reset => reset());
+  }
+});
+finePointer.addEventListener('change', () => resetMediaEffects.forEach(reset => reset()));
 
 // ── 3. 导航高亮当前栏目 + 滚动收缩 + 阅读进度 + 回到顶部 ──
 const nav       = document.getElementById('nav');
@@ -90,7 +120,12 @@ function onScroll() {
   // 当前栏目高亮（取视口顶部的 section）
   let cur = sections[0].id;
   for (const s of sections) { if (s.getBoundingClientRect().top <= 120) cur = s.id; }
-  links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + cur));
+  links.forEach(link => {
+    const active = link.getAttribute('href') === '#' + cur;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
 
   // 移动端导航条：当前项自动横向滚到中间（仅滚动导航条自身，不干扰页面）
   if (window.innerWidth <= 768) {
@@ -100,14 +135,18 @@ function onScroll() {
       const ar = act.getBoundingClientRect();
       const target = navLinks.scrollLeft + (ar.left + ar.width / 2) - (nr.left + nr.width / 2);
       if (Math.abs(navLinks.scrollLeft - target) > 24)
-        navLinks.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+        navLinks.scrollTo({ left: Math.max(0, target), behavior: reduceMotion ? 'instant' : 'smooth' });
     }
   }
 
   // 回到顶部按钮：滚动超过 800px 后淡入
   toTop.classList.toggle('show', y > 800);
 }
-window.addEventListener('scroll', onScroll, { passive: true });
+let scrollFrame = 0;
+window.addEventListener('scroll', () => {
+  if (scrollFrame) return;
+  scrollFrame = requestAnimationFrame(() => { scrollFrame = 0; onScroll(); });
+}, { passive: true });
 onScroll();
 
 // ── 4. 平滑滚动（锚点跳转 500ms / 回到顶部） ───────────────
@@ -133,7 +172,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (!target) return;                                  // 空锚点（#）放行默认
     e.preventDefault();
     const navH = nav.offsetHeight || 64;                  // 顶部 64px，滚动后收缩为 56px
-    const y = target.getBoundingClientRect().top + window.scrollY - navH;
+    const y = target.getBoundingClientRect().top + window.scrollY - navH - 16;
     smoothScrollTo(Math.max(0, y), 500);
   });
 });

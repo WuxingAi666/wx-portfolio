@@ -1,0 +1,395 @@
+[
+  {
+    "id": "rag",
+    "number": "P1",
+    "anchor": "rag-project",
+    "layout": "core",
+    "title": "个人作品集网站 × RAG 智能问答助手",
+    "nav": "RAG 全栈应用",
+    "category": "全栈 AI 应用",
+    "status": "本地联调 · 公网后端待接入",
+    "description": "面向面试官快速了解个人经历的需求，将作品集网站、公开知识库和独立问答服务组合为完整应用。访客可以浏览项目，也可以通过对话追问实现细节并查看参考来源。",
+    "highlights": [
+      [
+        "检索与生成",
+        "TextLoader 加载 TXT，LangChain 重叠分块，BGE-M3 向量化与 FAISS 语义召回，再由 DeepSeek 基于资料生成回答。"
+      ],
+      [
+        "前后端交互",
+        "原生 JavaScript 聊天小窗支持拖动、调整尺寸、SSE 流式回答、停止重试与来源展开；手机端全屏适配。"
+      ],
+      [
+        "服务与交付",
+        "FastAPI 提供问答接口，配套索引持久化、调用额度、并发限制、边界测试及 Docker / HTTPS 部署配置。"
+      ]
+    ],
+    "details": [
+      [
+        "追问如何保留主题",
+        "结合最近对话补全检索问题，再进行向量召回；历史帮助理解指代，公开资料作为事实依据。"
+      ],
+      [
+        "知识更新如何生效",
+        "知识内容、向量模型和切分配置共同生成索引指纹；以 FAISS 二进制与 JSON 保存索引，更新资料后重新建库并重启服务。"
+      ],
+      [
+        "公开体验如何控制成本",
+        "SQLite 原子预约控制单 IP / 全局额度及并发；浏览器不持有模型密钥，模型文本通过安全 DOM 节点展示。"
+      ]
+    ],
+    "note": "已完成本地真实 API 联调。网站可公开访问；在线生成问答仍需接入公网后端。默认使用云端向量和生成 API。",
+    "tags": [
+      "LangChain",
+      "FAISS",
+      "BGE-M3",
+      "FastAPI",
+      "SSE",
+      "JavaScript",
+      "Docker"
+    ],
+    "pipeline": [
+      "公开资料",
+      "分块与向量",
+      "FAISS 召回",
+      "流式问答"
+    ],
+    "links": [
+      {
+        "label": "查看完整源码",
+        "url": "https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/portfolio-rag"
+      }
+    ],
+    "assistant": true,
+    "resume": [
+      "构建响应式作品集与独立 RAG 服务，实现 TXT 加载、重叠分块、BGE-M3 / FAISS 语义检索及带来源的流式问答。",
+      "实现可拖动缩放聊天小窗、连续追问、调用额度、持久化索引和异常处理，配套本地验收与前后端部署说明。"
+    ],
+    "evidence": "实现与本地联调",
+    "knowledge_id": "rag",
+    "knowledge_file": "04-rag.txt"
+  },
+  {
+    "id": "speech",
+    "number": "P4",
+    "anchor": "speech-project",
+    "layout": "core",
+    "title": "中文语音情感分析系统",
+    "nav": "语音情感分析",
+    "category": "语音 AI · 毕业设计",
+    "status": "应用原型 · 评测待完善",
+    "description": "围绕中文短语音的情感分析，搭建录音上传、语音转写、声学与文本语义分析、结果对比和历史管理流程。重点实践语音模型、大模型 API 与前后端应用的集成。",
+    "highlights": [
+      [
+        "双通道分析",
+        "接入声学分析模块与 faster-whisper 转写，调用 DeepSeek 输出六类情感分布、判断说明和关键短语。"
+      ],
+      [
+        "决策与展示",
+        "采用按质量标记与置信度规则加权的 Late Fusion；Vue 3 / ECharts 展示声学、语义及融合结果，配套波形、梅尔频谱与语音反馈。"
+      ],
+      [
+        "训练与服务",
+        "基于本地 1,200 条六类样本编写冻结 HuBERT 特征的分类头训练流程；FastAPI 配合 SQLite 保存分析记录，实现模型按需加载与失败兜底。"
+      ]
+    ],
+    "details": [
+      [
+        "为什么结合声音与文本",
+        "声学通道关注声音表达，语义通道分析转写内容；统一六类输出后在决策层融合，并保留各通道结果供对照。"
+      ],
+      [
+        "如何组织应用链路",
+        "音频统一为 16 kHz 单声道，重模型延迟加载并使用加载锁；接口层、模型层、服务层和数据层分工，前端管理录音与分析状态。"
+      ],
+      [
+        "当前研发重点",
+        "当前 HuBERT 推理尚未加载已保存的分类头权重；需补齐训练与推理接入、独立评测及单通道对照，暂不报告系统准确率。"
+      ]
+    ],
+    "note": "毕业设计初版。训练为冻结 HuBERT 特征后训练分类头；默认融合是规则驱动的 Late Fusion，算法效果仍需独立验证。",
+    "tags": [
+      "Python",
+      "PyTorch",
+      "HuBERT",
+      "faster-whisper",
+      "DeepSeek",
+      "FastAPI",
+      "Vue 3",
+      "ECharts"
+    ],
+    "pipeline": [
+      "录音 / 上传",
+      "声学与转写",
+      "语义与融合",
+      "图表与历史"
+    ],
+    "links": [
+      {
+        "label": "查看源码与研发说明",
+        "url": "https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/speech-emotion"
+      }
+    ],
+    "resume": [
+      "使用 FastAPI、Vue 3 和 SQLite 集成录音上传、Whisper 转写、DeepSeek 结构化语义分析及多通道可视化。",
+      "实现规则加权 Late Fusion 与冻结 HuBERT 的分类头训练流程；当前继续完善权重推理接入与独立评测。"
+    ],
+    "evidence": "源码核对",
+    "knowledge_id": "speech",
+    "knowledge_file": "07-speech.txt"
+  },
+  {
+    "id": "boss",
+    "number": "P3",
+    "anchor": "boss-project",
+    "layout": "core",
+    "title": "BOSS 求职辅助与本地监控工具",
+    "nav": "浏览器与 API 集成",
+    "category": "自动化 · API 集成",
+    "status": "源码公开 · 个人技术实践",
+    "description": "围绕个人求职中的职位筛选、重复操作与消息回复，采用 Tampermonkey 浏览器脚本连接 DeepSeek，并以本地 FastAPI 服务记录操作事件、展示统计与运行反馈。",
+    "highlights": [
+      [
+        "浏览器交互",
+        "集中维护多组候选选择器，处理职位包含 / 排除筛选、滚动翻页、焦点与输入事件；提供手动启停和运行日志。"
+      ],
+      [
+        "模型调用",
+        "使用最近八条聊天消息作为上下文调用 DeepSeek 生成回复；招呼语使用用户预设内容，配置通过 GM 存储保留。"
+      ],
+      [
+        "本地监控",
+        "FastAPI 接收事件，SQLAlchemy / SQLite 保存记录与每日计数，SSE 向看板推送更新，并提供本地简历图片接口。"
+      ]
+    ],
+    "details": [
+      [
+        "方案怎样演变",
+        "最初尝试程序启动浏览器并由本人登录，但出现空白页、未完成该方案；最终改为在已登录浏览器内运行用户脚本。空白页根因尚未确定。"
+      ],
+      [
+        "页面定位怎样处理",
+        "针对元素抓取不准，集中配置候选选择器并依次尝试，兼容点击、焦点和输入事件。平台页面变化仍可能导致脚本失效。"
+      ],
+      [
+        "如何理解统计结果",
+        "看板统计来自脚本上报的操作事件，不等于平台确认投递成功；尚需完善在途请求取消、会话一致性和发送确认。"
+      ]
+    ],
+    "note": "仅展示个人技术实践。实际遇到过元素定位与平台拦截问题，尚未证明可靠解决；不宣称绕过检测或无人值守运行。",
+    "tags": [
+      "JavaScript",
+      "Tampermonkey",
+      "DeepSeek API",
+      "FastAPI",
+      "SQLAlchemy",
+      "SQLite",
+      "SSE"
+    ],
+    "pipeline": [
+      "页面与筛选",
+      "预设招呼 / 回复",
+      "本地事件记录",
+      "SSE 看板"
+    ],
+    "links": [
+      {
+        "label": "查看整理版源码",
+        "url": "https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/boss-assistant"
+      }
+    ],
+    "resume": [
+      "集成 Tampermonkey 页面交互、职位关键词筛选、预设招呼与 DeepSeek 上下文回复，最终采用已登录浏览器内的用户脚本方案。",
+      "连接 FastAPI / SQLite 记录操作事件，以 SSE 更新本地监控看板；实践页面定位、接口联调和基础异常排查。"
+    ],
+    "evidence": "脚本与公开后端核对",
+    "knowledge_id": "boss",
+    "knowledge_file": "11-boss.txt"
+  },
+  {
+    "id": "ledger",
+    "number": "P6",
+    "anchor": "ledger-project",
+    "layout": "normal",
+    "title": "仵星的记账本",
+    "nav": "持续使用的 Web 产品",
+    "category": "Web 产品 · AI 辅助开发",
+    "status": "已上线 · 本人持续使用",
+    "description": "从个人记账与发薪周期预算需求出发，通过 AI 辅助开发构建零依赖单文件应用，并在 GitHub Pages 部署。持续使用中逐步完善业务规则、数据兼容与交互。",
+    "highlights": [
+      [
+        "业务规则",
+        "日常 / 大额 / 固定支出、自定义周期分组、预算与储蓄目标、待办完成关联记账。"
+      ],
+      [
+        "输入与统计",
+        "快捷模板、浏览器语音识别加规则解析、筛选查询，以及原生 SVG 分类占比和收支图表。"
+      ],
+      [
+        "持久化与迭代",
+        "localStorage 分模块保存，提供 JSON / CSV 与快照入口；Git 记录保留金额类型、固定支出同步和日均统计等迭代。"
+      ]
+    ],
+    "details": [
+      [
+        "从使用中发现问题",
+        "金额字符串参与求和曾造成总额异常，因此同时处理输入转换、核算与旧字段类型迁移。"
+      ],
+      [
+        "数据生命周期",
+        "删除周期分组时保留手动记录，清理相应自动固定支出；当前继续完善备份结构、月末扣款日和跨周期核算。"
+      ]
+    ],
+    "note": "数据保存在当前浏览器，不提供云同步。核心记账可本地运行；语音识别依浏览器支持。",
+    "tags": [
+      "Vibe Coding",
+      "JavaScript",
+      "localStorage",
+      "SVG",
+      "Web Speech API"
+    ],
+    "pipeline": [
+      "日常收支",
+      "周期与预算",
+      "本地持久化",
+      "统计与备份"
+    ],
+    "links": [
+      {
+        "label": "在线使用",
+        "url": "https://wuxingai666.github.io/xiaozhangben/"
+      },
+      {
+        "label": "GitHub 源码",
+        "url": "https://github.com/WuxingAi666/xiaozhangben"
+      }
+    ],
+    "resume": [
+      "通过 AI 辅助开发并上线个人记账应用，目前本人持续使用；实现周期预算、三类支出、待办联动和 SVG 统计。",
+      "使用 localStorage 保存数据，支持 JSON / CSV 管理；结合真实使用反馈持续迭代金额类型与固定支出一致性。"
+    ],
+    "evidence": "线上与源码核对",
+    "knowledge_id": "ledger",
+    "knowledge_file": "12-ledger.txt"
+  },
+  {
+    "id": "fruit",
+    "number": "P2",
+    "anchor": "fruit-project",
+    "layout": "normal",
+    "title": "果蔬成熟度识别与语音采摘辅助",
+    "nav": "视觉识别实践",
+    "category": "计算机视觉应用",
+    "status": "项目经历 · 暂不提供源码",
+    "description": "围绕果蔬成熟度初步判断，收集并整理成熟、半成熟、未成熟三类样本，训练视觉模型，并将识别结果连接语音助手，提供结果播报与采摘参考。",
+    "highlights": [
+      [
+        "数据与训练",
+        "使用 YOLOv8 开展成熟度识别模型训练，积累样本准备与模型应用经验。"
+      ],
+      [
+        "多种输入",
+        "结合 OpenCV 处理本地图片、视频上传及电脑摄像头在线识别。"
+      ],
+      [
+        "交互反馈",
+        "接入 API 语音助手播报结果、给出采摘建议，串联视觉识别与使用反馈。"
+      ]
+    ],
+    "details": [
+      [
+        "业务链路",
+        "将成熟度阶段作为识别输出，再面向使用者提供播报和采摘参考，实践数据、模型和交互的应用集成。"
+      ],
+      [
+        "材料与后续",
+        "当前按本人开发经历整理，源码与训练报告待找回；后续补充具体品种、标注标准、任务类型和独立评测。"
+      ]
+    ],
+    "note": "当前提供项目说明。尚无可复核的数据规模、模型评测或运行速度记录。",
+    "tags": [
+      "YOLOv8",
+      "OpenCV",
+      "成熟度识别",
+      "API 语音交互"
+    ],
+    "pipeline": [
+      "三阶段样本",
+      "视觉模型训练",
+      "图片 / 视频 / 摄像头",
+      "播报与建议"
+    ],
+    "links": [
+      {
+        "label": "GitHub 项目说明",
+        "url": "https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/fruit-ripeness"
+      }
+    ],
+    "resume": [
+      "收集成熟、半成熟、未成熟三类样本，使用 YOLOv8 与 OpenCV 实践本地图片、视频及摄像头成熟度识别。",
+      "接入 API 语音助手播报结果并提供采摘参考；当前源码待找回，数据规模和评测指标暂不列出。"
+    ],
+    "evidence": "本人经历说明",
+    "knowledge_id": "vision",
+    "knowledge_file": "06-vision.txt"
+  },
+  {
+    "id": "coze",
+    "number": "P5",
+    "anchor": "coze-project",
+    "layout": "normal",
+    "title": "Coze 智能体与知识库问答实践",
+    "nav": "低代码 AI 实践",
+    "category": "低代码 · 学习实践",
+    "status": "基础搭建与了解",
+    "description": "使用 Coze 等低代码平台搭建简单智能体、基础工作流及知识库 RAG 问答，了解从平台配置到交互测试的基本过程，补充低代码 AI 应用实践。",
+    "highlights": [
+      [
+        "智能体",
+        "实践平台内简单对话智能体的基础配置与使用。"
+      ],
+      [
+        "工作流",
+        "通过可视化编排完成基础流程搭建，了解节点衔接与执行过程。"
+      ],
+      [
+        "知识库 RAG",
+        "使用平台提供的知识库和检索能力搭建问答，初步理解检索与模型回答结合的方式。"
+      ]
+    ],
+    "details": [
+      [
+        "实践定位",
+        "作为低代码平台使用与概念学习，重点理解智能体、工作流和知识库问答之间的关系。"
+      ],
+      [
+        "与代码项目的关系",
+        "平台内搭建用于快速理解应用流程；LangChain / FAISS 的代码实践另见 RAG 全栈项目，两者分别展示。"
+      ]
+    ],
+    "note": "当前提供实践说明，尚未整理工作流导出文件；范围为简单搭建与基础了解。",
+    "tags": [
+      "Coze",
+      "基础智能体",
+      "工作流",
+      "知识库问答"
+    ],
+    "pipeline": [
+      "平台配置",
+      "简单智能体",
+      "基础工作流",
+      "知识库问答"
+    ],
+    "links": [
+      {
+        "label": "GitHub 实践说明",
+        "url": "https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/coze-practice"
+      }
+    ],
+    "resume": [
+      "使用 Coze 等低代码平台完成简单智能体、基础工作流和知识库 RAG 问答搭建，积累平台配置与基础编排经验。"
+    ],
+    "evidence": "本人实践说明",
+    "knowledge_id": "coze",
+    "knowledge_file": "13-coze.txt"
+  }
+]

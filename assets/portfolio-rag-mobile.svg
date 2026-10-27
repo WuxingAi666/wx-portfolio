@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" fill="none">
+  <title>个人网站与 RAG 助手移动端架构概览</title>
+  <desc>作品集前端通过 API 连接 RAG 问答服务，语义检索公开资料后生成附来源的回答。</desc>
+  <defs>
+    <linearGradient id="bg" x2="720" y2="360" gradientUnits="userSpaceOnUse"><stop stop-color="#edf4ff"/><stop offset="1" stop-color="#f6f9fd"/></linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#a8bdd8" opacity=".25"/></pattern>
+  </defs>
+  <rect width="720" height="360" fill="url(#bg)"/><rect width="720" height="360" fill="url(#grid)"/>
+  <g font-family="'Segoe UI','Microsoft YaHei',sans-serif">
+    <text x="32" y="48" fill="#203d64" font-size="30" font-weight="700">让作品可浏览，让经历可对话。</text>
+    <text x="32" y="80" fill="#617c9e" font-size="19">个人网站 × 语义检索 × 有据可查的回答</text>
+    <rect x="32" y="110" width="288" height="170" rx="16" fill="white" stroke="#cfddf1"/>
+    <rect x="400" y="110" width="288" height="170" rx="16" fill="white" stroke="#cfddf1"/>
+    <rect x="52" y="132" width="40" height="40" rx="10" fill="#eff6ff"/>
+    <path d="M62 142h20v18H62zM62 148h20M67 142v18" stroke="#2563eb" stroke-width="2"/>
+    <text x="104" y="159" fill="#203d64" font-size="24" font-weight="700">作品集前端</text>
+    <text x="52" y="211" fill="#526b8d" font-size="21">项目展示 · 在线简历</text>
+    <text x="52" y="248" fill="#526b8d" font-size="21">聊天小窗 · 流式交互</text>
+    <rect x="420" y="132" width="40" height="40" rx="10" fill="#edf3ec"/>
+    <path d="M429 143h22v17h-22zM440 137v6M434 149h2m8 0h2M434 155h12" stroke="#235d49" stroke-width="2"/>
+    <text x="472" y="159" fill="#203d64" font-size="24" font-weight="700">RAG 问答服务</text>
+    <text x="420" y="211" fill="#526b8d" font-size="21">语义召回 → 模型生成</text>
+    <text x="420" y="248" fill="#526b8d" font-size="21">公开知识 · 来源引用</text>
+    <path d="M334 195h50m-10-9 10 9-10 9" stroke="#7c9bc2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="340" y="175" fill="#617c9e" font-size="16">API</text>
+    <text x="32" y="325" fill="#617c9e" font-size="19">FastAPI · LangChain · BGE-M3 · FAISS · DeepSeek</text>
+  </g>
+</svg>

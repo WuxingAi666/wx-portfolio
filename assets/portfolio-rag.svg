@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="540" viewBox="0 0 1440 540" fill="none">
+  <title>个人作品集网站与 RAG 助手全栈架构</title>
+  <desc>作品集前端连接 FastAPI，BGE-M3 与 FAISS 召回公开资料，DeepSeek 生成附来源的流式回答。</desc>
+  <defs>
+    <linearGradient id="bg" x2="1440" y2="540" gradientUnits="userSpaceOnUse"><stop stop-color="#edf4ff"/><stop offset="1" stop-color="#f7fafc"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dy="12" stdDeviation="14" flood-color="#183a65" flood-opacity=".09"/></filter>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#a8bdd8" opacity=".28"/></pattern>
+  </defs>
+  <rect width="1440" height="540" fill="url(#bg)"/><rect width="1440" height="540" fill="url(#dots)"/>
+  <g font-family="'Segoe UI','Microsoft YaHei',sans-serif">
+    <text x="64" y="58" font-size="12" fill="#6982a4" letter-spacing="3">PORTFOLIO / FULL STACK AI APPLICATION</text>
+    <text x="64" y="101" font-size="30" fill="#183456" font-weight="700">让作品可浏览，让经历可对话。</text>
+    <text x="64" y="131" font-size="14" fill="#647b98">个人网站 × 语义检索 × 有据可查的 AI 回答</text>
+    <g filter="url(#shadow)">
+      <rect x="64" y="166" width="690" height="310" rx="16" fill="white" stroke="#d4e0ef"/>
+      <path d="M64 182a16 16 0 0 1 16-16h658a16 16 0 0 1 16 16v23H64z" fill="#f8fafd"/>
+      <circle cx="85" cy="186" r="4" fill="#d3dce9"/><circle cx="100" cy="186" r="4" fill="#d3dce9"/><circle cx="115" cy="186" r="4" fill="#d3dce9"/>
+      <rect x="159" y="177" width="367" height="18" rx="5" fill="#edf2f8"/>
+      <text x="173" y="190" font-size="10" fill="#8a9bb1">wuxingai666.github.io / wx-portfolio</text>
+      <text x="92" y="239" font-size="13" fill="#24559b" font-weight="700">仵星 · 个人作品集</text>
+      <text x="92" y="275" font-size="22" fill="#1b3558" font-weight="700">AI 应用开发</text>
+      <text x="92" y="300" font-size="12" fill="#71839d">项目实践 / 实习经历 / 在线简历</text>
+      <rect x="92" y="320" width="101" height="27" rx="14" fill="#edf3ff"/><text x="110" y="338" font-size="11" fill="#346bc0">探索我的项目</text>
+      <rect x="92" y="371" width="266" height="5" rx="2.5" fill="#e4ecf6"/><rect x="92" y="388" width="222" height="5" rx="2.5" fill="#e4ecf6"/><rect x="92" y="405" width="246" height="5" rx="2.5" fill="#e4ecf6"/>
+      <text x="92" y="451" font-size="10" fill="#8d9db2" letter-spacing="1">RESPONSIVE WEB · GITHUB PAGES</text>
+      <rect x="394" y="220" width="336" height="234" rx="14" fill="#fafbf8" stroke="#cdded6"/>
+      <path d="M394 234a14 14 0 0 1 14-14h308a14 14 0 0 1 14 14v43H394z" fill="#183f33"/>
+      <rect x="410" y="235" width="27" height="27" rx="8" fill="#d9e7c8"/><text x="416" y="254" font-size="14" fill="#244935">仵</text>
+      <text x="448" y="244" font-size="12" fill="white" font-weight="600">仵星的RAG问答助手</text>
+      <circle cx="451" cy="259" r="2.5" fill="#a5d6b5"/><text x="459" y="262" font-size="9" fill="#c2ddd0">公开资料问答 · 来源可查看</text>
+      <rect x="482" y="293" width="230" height="30" rx="10" fill="#e4eee5"/><text x="495" y="312" font-size="11" fill="#315b49">这个网站的 RAG 是怎么实现的？</text>
+      <rect x="411" y="336" width="278" height="67" rx="10" fill="white" stroke="#e1e8df"/>
+      <text x="423" y="357" font-size="11" fill="#405b4b">先将公开资料向量化，由 FAISS 召回，</text><text x="423" y="376" font-size="11" fill="#405b4b">再结合资料生成回答，并附上来源 [S1]。</text>
+      <text x="423" y="393" font-size="9" fill="#5c8168">▸ 参考资料 · 可展开核对</text>
+      <rect x="411" y="417" width="301" height="24" rx="8" fill="white" stroke="#dce6dc"/><text x="422" y="433" font-size="10" fill="#96a398">继续问一个问题…</text>
+      <rect x="838" y="166" width="538" height="310" rx="16" fill="white" stroke="#d4e0ef"/>
+      <text x="865" y="199" font-size="11" fill="#7186a1" letter-spacing="2">RAG SERVICE / FASTAPI</text>
+      <rect x="865" y="218" width="234" height="63" rx="10" fill="#f0f5fd"/>
+      <text x="883" y="244" font-size="14" fill="#244c80" font-weight="600">01 / 语义向量</text><text x="883" y="265" font-size="11" fill="#6e85a3">BGE-M3 · 重叠分块 · 问题改写</text>
+      <rect x="1113" y="218" width="236" height="63" rx="10" fill="#f0f5fd"/>
+      <text x="1131" y="244" font-size="14" fill="#244c80" font-weight="600">02 / 资料召回</text><text x="1131" y="265" font-size="11" fill="#6e85a3">FAISS · 相似度筛选 · 来源映射</text>
+      <path d="M1107 292v16m-5-6 5 6 5-6" stroke="#bdcde0" stroke-width="2"/>
+      <rect x="865" y="320" width="484" height="66" rx="10" fill="#edf4ee" stroke="#d8e5d9"/>
+      <text x="883" y="347" font-size="14" fill="#315e48" font-weight="600">03 / 基于资料生成回答</text><text x="883" y="370" font-size="11" fill="#69816e">Prompt + DeepSeek Chat → SSE 流式输出 → 来源引用</text>
+      <path d="M865 407h484" stroke="#e5ecf3"/>
+      <text x="865" y="433" font-size="11" fill="#67809e">索引持久化</text><text x="989" y="433" font-size="11" fill="#67809e">额度与并发控制</text><text x="1142" y="433" font-size="11" fill="#67809e">Docker + HTTPS</text>
+      <text x="865" y="454" font-size="10" fill="#98a7ba">PUBLIC KNOWLEDGE · SERVER-SIDE SECRETS · SOURCE CITATIONS</text>
+    </g>
+    <path d="M770 320h45m-7-5 7 5-7 5" stroke="#7899bd" stroke-width="2"/><text x="778" y="303" font-size="9" fill="#7890aa">HTTPS</text>
+    <text x="64" y="511" font-size="11" fill="#7c90aa">产品与架构示意 · 对应本项目实际实现</text><text x="1376" y="511" font-size="11" text-anchor="end" fill="#7c90aa">WEB + API + RETRIEVAL + GENERATION</text>
+  </g>
+</svg>

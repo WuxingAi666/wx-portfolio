@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>仵星 · 个人作品集｜AI 应用开发 × 企业信息化 / OA 交付</title>
-<meta name="description" content="仵星 — 2027 届人工智能专业本科应届生，主攻 AI 应用开发：视觉检测（YOLOv8）、语音情感识别（HuBERT）、RAG 与智能体工作流、大模型 API 工程化落地；兼具央国企 OA 驻场交付经验（致远 V8，含 MySQL 数据操作、多环境补丁发布与日志排查）。求职方向：AI 应用开发、大模型应用、智能体开发，及企业信息化 / OA 建设运维。意向城市：上海。">
-<meta name="keywords" content="仵星,AI应用开发,大模型应用,智能体开发,RAG,工作流编排,Python,PyTorch,视觉检测,语音情感识别,FastAPI,企业信息化,OA运维,低代码,致远V8,MySQL,2027届校招">
+<title>仵星 · 个人作品集｜AI 应用与全栈开发 · 业务分析与工程交付</title>
+<meta name="description" content="仵星，2027 届人工智能本科，求职方向为 AI 应用与全栈开发。通过个人网站与 RAG 问答助手展示前后端编码、语义检索、接口联调与部署配置；结合企业 OA 驻场经历，呈现需求澄清、业务流程建模、SQL 数据校验、UAT 验收、跨团队沟通与问题闭环能力。意向城市：上海。">
+<meta name="keywords" content="仵星,AI应用开发,全栈开发,业务需求分析,工程交付,问题闭环,RAG,LangChain,FAISS,Python,FastAPI,JavaScript,接口联调,企业信息化,低代码,MySQL,2027届校招">
 
 <!-- ═══ 分享卡片：发到微信 / BOSS / 牛客时显示标题与缩略图 ═══ -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wuxingai666.github.io/wx-portfolio/">
-<meta property="og:title" content="仵星 · 个人作品集｜AI 应用开发 × 企业信息化 / OA 交付">
-<meta property="og:description" content="2027 届人工智能本科 · 专业前 12%｜视觉检测 93% · 自建数据集 8000+｜RAG 与智能体工作流落地｜央企总部 OA 驻场交付">
+<meta property="og:title" content="仵星 · AI 应用与全栈开发作品集">
+<meta property="og:description" content="从需求分析、前后端编码到联调验收与问题闭环。在线体验个人 RAG 问答助手，了解项目实现、业务理解与企业交付实践。">
 <meta property="og:image" content="https://wuxingai666.github.io/wx-portfolio/assets/og-cover.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -26,7 +26,7 @@
   "mainEntity": {
     "@type": "Person",
     "name": "仵星",
-    "description": "2027 届人工智能专业本科应届生，主攻 AI 应用开发：视觉检测、语音情感识别、RAG 与智能体工作流、大模型 API 工程化落地；兼具央国企 OA 驻场交付经验。求职方向：AI 应用开发、大模型应用、智能体开发，及企业信息化 / OA 建设运维。",
+    "description": "2027 届人工智能本科，主攻 AI 应用与全栈开发。实践覆盖业务需求分析、前后端编码、RAG 语义检索、接口联调与部署配置，并具备企业 OA 驻场实施、UAT 验收、沟通协同与问题排查经验。",
     "url": "https://wuxingai666.github.io/wx-portfolio/",
     "image": "https://wuxingai666.github.io/wx-portfolio/assets/og-cover.png",
     "sameAs": [
@@ -34,6 +34,9 @@
     ],
     "knowsAbout": [
       "AI 应用开发",
+      "全栈应用开发",
+      "业务需求分析与流程建模",
+      "接口联调与问题闭环",
       "大模型应用落地",
       "RAG 与智能体工作流",
       "Python / PyTorch",
@@ -60,7 +63,8 @@
   ════════════════════════════════════════════════════════════
 -->
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=20261027-projects">
+<link rel="stylesheet" href="css/assistant.css?v=20261027-layout">
 <!-- ═══ 无 JS 兜底：防止渐显动画未执行导致整页白屏 ═══ -->
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -77,7 +81,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">关于</a></li>
       <li><a href="#exp">实习</a></li>
-      <li><a href="#oa">OA 能力</a></li>
+      <li><a href="#oa">业务交付</a></li>
       <li><a href="#campus">校园</a></li>
       <li><a href="#proj">项目</a></li>
       <li><a href="#skills">技能</a></li>
@@ -95,33 +99,34 @@
 <section id="home" class="hero">
   <img class="avatar" src="assets/avatar.jpg" alt="仵星证件照" width="108" height="108" fetchpriority="high" decoding="async">
   <h1 class="reveal">仵星</h1>
-  <div class="role reveal">2027 届本科应届生 · 人工智能专业｜意向：AI 应用开发 · 大模型 / 智能体（兼企业信息化 OA 交付）｜base 地：上海</div>
+  <div class="role reveal">2027 届人工智能本科 · AI 应用 / 全栈开发 · 意向城市：上海</div>
   <div class="chips reveal">
-    <span class="chip accent">AI 应用开发</span>
-    <span class="chip accent">视觉 / 语音算法</span>
-    <span class="chip">企业信息化 / OA 交付</span>
+    <span class="chip accent">业务需求分析</span>
+    <span class="chip accent">AI 应用与全栈开发</span>
+    <span class="chip">工程交付与协同排障</span>
   </div>
-  <p class="intro reveal">主攻 AI 应用开发——从数据处理、模型训练到接口封装、智能体编排与上线部署；兼具央国企 OA 系统驻场交付经验，能把模型能力真正接进业务流程</p>
+  <p class="intro reveal">从业务需求拆解，到前后端编码、模型集成与联调验收，把方案做成可运行的应用。结合企业 OA 驻场实践，与业务方澄清规则、与开发协同排障，推进问题闭环。</p>
   <div class="btn-row reveal">
-    <a class="btn primary" href="#resume">查看在线简历 ↓</a>
+    <button class="btn primary hero-assistant-cta" type="button" data-open-assistant>体验我的 RAG 助手 ↗</button>
+    <a class="btn ghost" href="#resume">查看在线简历 ↓</a>
     <a class="btn ghost" href="https://github.com/wuxingai666" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
 
-  <!-- 数字证据条：6 秒内给出可核实的硬指标 -->
+  <!-- 能力与技术证据：每项都能在项目或实习中展开 -->
   <ul class="evidence reveal">
-    <li><b>前 12%</b><span>专业排名 5 / 39</span></li>
-    <li><b>93%</b><span>视觉检测准确率</span></li>
-    <li><b>8000+</b><span>自建标注数据集</span></li>
-    <li><b>央企总部</b><span>OA 驻场交付经验</span></li>
+    <li><b>需求转化</b><span>业务规则 · 流程与权限</span></li>
+    <li><b>全栈实现</b><span>HTML / JS · FastAPI</span></li>
+    <li><b>AI 集成</b><span>LangChain · FAISS · RAG</span></li>
+    <li><b>交付闭环</b><span>联调验收 · 日志排查</span></li>
   </ul>
 </section>
 
 <!-- ═════════ ③ 关于我 ═════════ -->
 <section id="about" class="shade">
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head reveal" data-label="PROFILE">
       <h2 class="sec-title"><span class="sec-no">01</span>关于我</h2>
-      <p class="sec-sub">教育背景、学业表现与核心专业奖项，30 秒看清我的硬实力。</p>
+      <p class="sec-sub">以 AI 应用开发为主线，将业务理解、编码实现和沟通交付连接起来。能力通过可体验项目与实习职责展开。</p>
     </div>
 
     <div class="about-grid">
@@ -134,20 +139,20 @@
           <li>连续两年校级三等奖学金</li>
         </ul>
       </div>
-      <div class="info-card reveal"><h3>一句话定位</h3>
-        <p class="bio">以 AI 开发为主攻方向——从数据处理、模型训练到接口封装与智能体编排落地；同时具备央国企 OA 系统驻场交付能力，能把 AI 能力接入真实业务流程而不只停留在 Demo。</p>
+      <div class="info-card reveal"><h3>开发与交付定位</h3>
+        <p class="bio">以 Python、前端交互和模型 API 集成为工具，将需求拆解为页面、接口与数据流程；结合 OA 实施中的需求沟通、数据校验和测试经验，关注应用能否被理解、使用和维护。</p>
       </div>
     </div>
 
     <div class="cap-list">
       <div class="cap-item reveal"><span class="no">1</span>
-        <div><h4>AI 应用开发</h4><p>大模型 API 工程化接入、RAG 与智能体工作流编排（Coze），把模型能力封装成可调用、可上线的服务。</p></div></div>
+        <div><h4>业务分析与需求转化</h4><p>澄清业务目标、角色权限和例外场景，将客户诉求拆解为表单字段、流程规则与验收用例，跟踪需求变更。</p></div></div>
       <div class="cap-item reveal"><span class="no">2</span>
-        <div><h4>AI 算法与数据</h4><p>Python + PyTorch 模型训练与调优；视觉检测（YOLOv8）、语音情感识别（HuBERT + Whisper）、数据标注与增广。</p></div></div>
+        <div><h4>编码实现与 AI 集成</h4><p>使用 Python、FastAPI、LangChain 和 FAISS 实现模型调用、语义检索与问答接口，并具备视觉、语音与数据处理实践。</p></div></div>
       <div class="cap-item reveal"><span class="no">3</span>
-        <div><h4>全栈开发基础</h4><p>FastAPI 后端 + Vue3 前端 + MySQL / SQLite，熟练使用 Codex、Claude 辅助开发与调试，能独立完成小型系统。</p></div></div>
+        <div><h4>前后端联调与工程交付</h4><p>围绕个人全栈作品实现响应式页面、API 契约、SSE 流式交互与数据持久化，配套环境配置、测试和部署说明。</p></div></div>
       <div class="cap-item reveal"><span class="no">4</span>
-        <div><h4>低代码平台实施</h4><p>致远 V8 表单搭建、审批流配置、权限与 UAT 测试（央国企驻场实战，辅以数据库操作与多环境发布运维）。</p></div></div>
+        <div><h4>沟通协同与问题闭环</h4><p>通过客户演示、SQL 核对、日志分析与缺陷复现对齐问题，协同业务方和开发推进修复、回归验证与交付确认。</p></div></div>
     </div>
   </div>
 </section>
@@ -155,9 +160,9 @@
 <!-- ═════════ ④ 实习经历（本站点最值钱的一段） ═════════ -->
 <section id="exp">
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head reveal" data-label="EXPERIENCE">
       <h2 class="sec-title"><span class="sec-no">02</span>实习经历</h2>
-      <p class="sec-sub">央国企驻场，独立承担模块搭建与交付，并直接负责数据库操作、多环境补丁发布与日志排查。以下工作内容均可在面试中逐条展开。</p>
+      <p class="sec-sub">企业 OA 驻场实施：从需求澄清与流程配置，到数据校验、客户演示和 UAT 验收，在跨方协作中推进交付与问题闭环。</p>
     </div>
 
     <div class="timeline">
@@ -177,8 +182,8 @@
           <li><b>业务搭建：</b>基于致远 V8 低代码平台独立搭建业务表单与审批流程，配置多级审批节点流转逻辑与字段级权限，覆盖客户核心 OA 业务模块。</li>
           <li><b>数据落地：</b>负责办公用品库系统存量数据的导入与维护——按客户模板清洗、核对仓库清点数据，修正管理员编号等字段映射关系，保障生产环境数据准确上线。</li>
           <li><b>数据库操作：</b>直接编写 <b>MySQL 查询与更新语句</b>完成表单数据核对、字段映射修正与问题数据批量处理，用于存量数据导入前后的校验与回滚，不依赖平台界面逐条操作。</li>
-          <li><b>需求对接：</b>驻场对接客户部门负责人与分管领导，将零散业务诉求转化为可落地的表单与流程方案，输出需求确认文档并跟踪变更。</li>
-          <li><b>测试交付：</b>编写 UAT 测试用例覆盖正常、异常、边界场景，跟进缺陷闭环；与客户、招商金科方协同完成 OA 模块验收与交付。</li>
+          <li><b>需求分析与方案转化：</b>驻场对接客户部门负责人与分管领导，澄清业务规则、审批职责和例外场景，转化为表单与流程方案，输出需求确认文档并跟踪变更。</li>
+          <li><b>沟通协同与验收：</b>通过功能演示对齐业务预期，编写 UAT 用例覆盖正常、异常与边界场景；向开发提供复现步骤与日志线索，跟踪修复和回归，与客户及协同方确认验收结果。</li>
           <li><b>环境运维与问题排查：</b>按开发、测试、预生产、生产多环境<b>打补丁包并发布验证</b>；通过查询系统<b>运行日志</b>定位报错来源、还原问题现场，配合开发侧完成缺陷复现与修复闭环。</li>
           <li><b>合规意识：</b>在央国企合规框架下推进交付，熟悉数据留痕、审批可追溯与权限最小化对流程设计的影响。</li>
         </ul>
@@ -198,9 +203,9 @@
 <!-- ═════════ ⑤ OA 流程交付能力（差异化核心板块） ═════════ -->
 <section id="oa" class="shade">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <h2 class="sec-title"><span class="sec-no">03</span>OA 流程交付能力</h2>
-      <p class="sec-sub">低代码实施的核心不是拖拽控件，而是把业务规则翻译成可运行、可回退、能扛住例外场景的流程。以下五类是我在真实项目里反复处理的。</p>
+    <div class="sec-head reveal" data-label="BUSINESS & DELIVERY">
+      <h2 class="sec-title"><span class="sec-no">03</span>业务分析与 OA 交付</h2>
+      <p class="sec-sub">将业务规则转化为流程模型、数据结构和权限边界，通过角色走查、数据校验与验收用例验证方案，形成需求到交付的完整链路。</p>
     </div>
 
     <!-- ① 标准交付链路 -->
@@ -280,51 +285,51 @@
     <div class="oa-grid">
       <div class="oa-card reveal">
         <div class="oa-head"><span class="oa-ic">01</span><h3>审批流配置</h3></div>
-        <p class="oa-desc">把「谁来批、按什么顺序批、什么情况要加签」翻译成流程节点。</p>
+        <p class="oa-desc">梳理审批职责、节点顺序与例外处理规则，建立可执行的流程模型。</p>
         <ul class="oa-ul">
           <li>多级审批节点编排：串行逐级、并行会签 / 或签</li>
           <li>条件分支路由：按金额区间、单据类型、发起部门自动选路</li>
           <li>节点动作：同意 / 驳回 / 退回指定节点 / 加签 / 转办 / 撤回</li>
         </ul>
-        <div class="oa-pit"><b>坑点：</b>退回后单据状态与已填数据不一致；条件分支遗漏默认路由导致流程卡死。</div>
+        <div class="oa-pit"><b>关注点：</b>退回后的状态与数据一致性、条件分支覆盖和默认路由，避免流程停滞。</div>
       </div>
 
       <div class="oa-card reveal">
         <div class="oa-head"><span class="oa-ic">02</span><h3>表单设计</h3></div>
-        <p class="oa-desc">结构决定后续流程能不能跑通、数据能不能统计。</p>
+        <p class="oa-desc">根据业务对象设计主从表、字段约束与联动规则，兼顾流程使用和数据统计。</p>
         <ul class="oa-ul">
           <li>主表 + 明细表：如领用申请单下挂多项物资明细</li>
           <li>校验规则：必填、格式、唯一性、数量与库存联动校验</li>
           <li>字段级权限：同一张表单，不同角色可见 / 可编辑字段不同</li>
         </ul>
-        <div class="oa-pit"><b>坑点：</b>明细表未做数量合计导致审批人看不到总额；字段权限与流程节点权限冲突。</div>
+        <div class="oa-pit"><b>关注点：</b>明细汇总与审批信息完整性、字段权限和流程节点权限的一致性。</div>
       </div>
 
       <div class="oa-card reveal">
         <div class="oa-head"><span class="oa-ic">03</span><h3>权限体系</h3></div>
-        <p class="oa-desc">国企场景下，权限的边界往往比功能本身更敏感。</p>
+        <p class="oa-desc">明确组织、角色与数据范围的授权边界，落实最小权限与职责分离。</p>
         <ul class="oa-ul">
           <li>组织 / 角色 / 人员三级授权，支持按岗位自动匹配审批人</li>
           <li>数据范围权限：仅本部门 / 含下级部门 / 全公司</li>
           <li>遵循最小权限原则，管理员与审批人职责分离</li>
         </ul>
-        <div class="oa-pit"><b>坑点：</b>多角色权限叠加时取并集还是交集不清晰；代理 / 兼职人员审批归属不明。</div>
+        <div class="oa-pit"><b>关注点：</b>明确多角色权限叠加规则，以及代理、兼职人员的审批归属。</div>
       </div>
 
       <div class="oa-card reveal">
         <div class="oa-head"><span class="oa-ic">04</span><h3>UAT 测试</h3></div>
-        <p class="oa-desc">流程类系统的缺陷大多藏在「例外场景」里，不在正常流。</p>
+        <p class="oa-desc">从角色、分支和异常路径设计验收用例，以回归结果推动缺陷闭环。</p>
         <ul class="oa-ul">
           <li>用例设计方法：等价类划分、边界值分析、异常流、角色走查</li>
           <li>必测场景：正常审批、驳回重提、退回修改、越权访问、并发提交</li>
           <li>缺陷登记 → 修复 → 回归验证闭环，输出测试结论再交付</li>
         </ul>
-        <div class="oa-pit"><b>坑点：</b>只测发起人视角，忽略审批人 / 管理员视角；边界值（正好等于阈值）最易漏。</div>
+        <div class="oa-pit"><b>关注点：</b>覆盖发起人、审批人、管理员视角，并验证金额阈值等边界条件。</div>
       </div>
 
       <div class="oa-card reveal">
         <div class="oa-head"><span class="oa-ic">05</span><h3>数据迁移</h3></div>
-        <p class="oa-desc">系统上线前最后一公里，错了就是生产事故。</p>
+        <p class="oa-desc">通过清洗、映射、试导与校验保证数据一致性，保留备份与回滚预案。</p>
         <ul class="oa-ul">
           <li>存量数据清洗：SQL 去重、格式归一、空值与脏数据处理</li>
           <li>字段映射核对：源表与目标表逐字段比对，含编码与编号映射</li>
@@ -349,8 +354,9 @@
 <!-- ═════════ ⑥ 校园经历 ═════════ -->
 <section id="campus">
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head reveal" data-label="COLLABORATION">
       <h2 class="sec-title"><span class="sec-no">04</span>校园经历</h2>
+      <p class="sec-sub">在活动策划、资源协调与现场执行中，积累跨部门沟通和任务推进经验。</p>
     </div>
     <div class="timeline">
       <div class="tl-item reveal">
@@ -374,213 +380,139 @@
 </section>
 
 <!-- ═════════ ⑦ 项目作品 ═════════ -->
+<!-- PROJECTS:START -->
 <section id="proj" class="shade">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <h2 class="sec-title"><span class="sec-no">05</span>项目作品</h2>
-      <p class="sec-sub">按含金量排序，全部描述基于项目真实源码评审输出——架构、功能、量化指标可在面试中展开。</p>
-    </div>
-
-    <div class="proj-list">
-
-      <!-- 核心项目 P1：果蔬成熟度智能检测系统 -->
-      <article class="proj-card core reveal">
-        <div class="proj-top">
-          <div class="proj-media">
-            <img src="assets/fruit-sample.jpg" srcset="assets/fruit-sample-480.jpg 480w, assets/fruit-sample.jpg 1536w" sizes="(max-width: 1023px) 100vw, 80vw" alt="果蔬成熟度检测系统识别样例" loading="lazy" decoding="async">
-          </div>
-          <div class="proj-body">
-            <div class="proj-head">
-              <h3>果蔬成熟度智能检测系统</h3>
-              <span class="badge">核心项目 · P1</span>
-            </div>
-            <p>基于 YOLOv8 + ResNet50 的果蔬检测与成熟度分类桌面系统。自建 8000+ 张标注数据集，支持图片、视频、摄像头、批量目录四种推理模式，检测结果实时呈现于可视化表格，并可导出标注后的检测视频。</p>
-            <ul class="hl">
-              <li><b>双模型架构：</b>YOLOv8 目标检测定位果实区域 + ResNet50 成熟度分类，综合识别准确率 <b>93%</b>。</li>
-              <li><b>工程化桌面端：</b>PyQt5 + OpenCV 构建 GUI，QThread 后台线程执行推理避免界面卡顿，GPU / CPU 环境自适应。</li>
-              <li><b>结果可视化与交互：</b>检测框绘制、目标下拉筛选、置信度 / IOU 阈值实时调节、检测视频后台导出与进度反馈。</li>
-            </ul>
-            <div class="proj-challenge">
-              <div class="pc-title">难点与解决方案</div>
-              <div class="pc-item"><b>光照干扰 →</b>果园实拍图存在过曝、阴影视差，单一归一化泛化差。前置自适应预处理流水线：白平衡校正 + CLAHE 限制对比度直方图均衡 + 通道归一化，统一不同光照下果实表观特征，降低误检。</div>
-              <div class="pc-item"><b>小目标漏检 →</b>果实密集场景下小果（远处 / 遮挡）易漏检。基于 k-means 对标注框聚类重设计锚框（anchor）适配果实尺度分布，提升输入分辨率并增加小目标检测层；配合 NMS 阈值调优抑制重叠误框，小目标召回率明显改善。</div>
-              <div class="pc-item"><b>成效 →</b>预处理 + 锚框优化将综合识别准确率提升至 <b>93%</b>，误检率下降，密集果实场景鲁棒性增强。</div>
-            </div>
-            <div class="proj-foot">
-              <div class="tags">
-                <span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">YOLOv8</span>
-                <span class="tag">ResNet50</span><span class="tag">OpenCV</span><span class="tag">PyQt5</span>
-              </div>
-              <div class="proj-links"><span class="local-tag">本地项目 · 未开源</span>
-                <span class="local-note">课程设计项目，涉及本地环境依赖暂未开源</span>
-              </div>
-            </div>
-          </div>
+    <div class="sec-head reveal" data-label="SELECTED PROJECTS"><h2 class="sec-title"><span class="sec-no">05</span>项目作品</h2><p class="sec-sub">以 AI 应用与工程实现为主线，依次展示全栈问答、语音分析、浏览器集成与产品实践。每个项目说明实际完成的内容、技术取舍和当前状态。</p></div>
+    <nav class="project-index" aria-label="项目快速定位"><a href="#rag-project"><span>01</span> RAG 全栈应用</a><a href="#speech-project"><span>02</span> 语音情感分析</a><a href="#boss-project"><span>03</span> 浏览器与 API 集成</a><a href="#ledger-project"><span>04</span> 持续使用的 Web 产品</a><a href="#fruit-project"><span>05</span> 视觉识别实践</a><a href="#coze-project"><span>06</span> 低代码 AI 实践</a></nav>
+    <div class="proj-list"><article class="proj-card core reveal" id="rag-project" data-project="rag">
+      <div class="proj-identity"><span class="proj-index"><span class="project-rank">01</span> P1 · 全栈 AI 应用</span><span class="proj-state">本地联调 · 公网后端待接入</span></div>
+      <div class="proj-top">
+        <div class="proj-media project-flow"><picture><source media="(max-width:768px)" srcset="assets/project-rag-mobile.svg"><img src="assets/project-rag.svg" alt="个人作品集网站 × RAG 智能问答助手处理流程示意：公开资料 → 分块与向量 → FAISS 召回 → 流式问答" loading="lazy" decoding="async"></picture></div>
+        <div class="proj-body">
+          <div class="proj-head"><h3>个人作品集网站 × RAG 智能问答助手</h3></div>
+          <p>面向面试官快速了解个人经历的需求，将作品集网站、公开知识库和独立问答服务组合为完整应用。访客可以浏览项目，也可以通过对话追问实现细节并查看参考来源。</p>
+          <ul class="hl"><li><b>检索与生成：</b>TextLoader 加载 TXT，LangChain 重叠分块，BGE-M3 向量化与 FAISS 语义召回，再由 DeepSeek 基于资料生成回答。</li><li><b>前后端交互：</b>原生 JavaScript 聊天小窗支持拖动、调整尺寸、SSE 流式回答、停止重试与来源展开；手机端全屏适配。</li><li><b>服务与交付：</b>FastAPI 提供问答接口，配套索引持久化、调用额度、并发限制、边界测试及 Docker / HTTPS 部署配置。</li></ul>
+          <details class="proj-details"><summary>设计思路与实践复盘<span class="detail-cue" aria-hidden="true"></span></summary><div class="proj-challenge"><div class="pc-title">实现、取舍与下一步</div><div class="pc-item"><b>追问如何保留主题 →</b>结合最近对话补全检索问题，再进行向量召回；历史帮助理解指代，公开资料作为事实依据。</div><div class="pc-item"><b>知识更新如何生效 →</b>知识内容、向量模型和切分配置共同生成索引指纹；以 FAISS 二进制与 JSON 保存索引，更新资料后重新建库并重启服务。</div><div class="pc-item"><b>公开体验如何控制成本 →</b>SQLite 原子预约控制单 IP / 全局额度及并发；浏览器不持有模型密钥，模型文本通过安全 DOM 节点展示。</div></div></details>
+          <p class="proj-note">已完成本地真实 API 联调。网站可公开访问；在线生成问答仍需接入公网后端。默认使用云端向量和生成 API。</p>
+          <div class="proj-foot"><div class="tags"><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">BGE-M3</span><span class="tag">FastAPI</span><span class="tag">SSE</span><span class="tag">JavaScript</span><span class="tag">Docker</span></div><div class="proj-links"><button class="btn primary pa-card-cta" type="button" data-open-assistant>打开问答助手 ↗</button><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/portfolio-rag" target="_blank" rel="noopener noreferrer">查看完整源码 ↗</a></div></div>
         </div>
-      </article>
-
-      <!-- 核心项目 P2：BOSS 直聘自动化投递助手 -->
-      <article class="proj-card core reveal">
-        <div class="proj-top">
-          <div class="proj-media">
-            <img src="assets/boss-dashboard.jpg" alt="BOSS 直聘自动化投递助手实时看板界面示意" loading="lazy" decoding="async">
-          </div>
-          <div class="proj-body">
-            <div class="proj-head">
-              <h3>BOSS 直聘自动化投递助手</h3>
-              <span class="badge">核心项目 · P2</span>
-            </div>
-            <p>浏览器脚本 + FastAPI 后端 + 实时看板三层架构的求职辅助工具：基于大模型 API 生成个性化招呼语与对话回复，投递记录持久化存储，并通过 SSE 实时推送至监控看板。</p>
-            <ul class="hl">
-              <li><b>页面交互层：</b>Tampermonkey 用户脚本实现滚动加载、焦点、键入、点击事件模拟，多选择器方案适配不同页面结构。</li>
-              <li><b>智能对话引擎：</b>接入 DeepSeek API，结合职位上下文生成招呼语与多轮回复，支持失败重试。</li>
-              <li><b>数据与看板：</b>SQLAlchemy + SQLite 持久化投递日志与每日统计，SSE 实时推送，看板呈现今日、累计数据与投递明细。</li>
-              <li><b>四层风控：</b>限速等待、频控识别、异常熔断、拟人化操作，控制运行频率（设计逻辑见下方难点）。</li>
-            </ul>
-            <div class="proj-challenge">
-              <div class="pc-title">难点与解决方案</div>
-              <div class="pc-item"><b>页面改版适配 →</b>BOSS 页面随版本迭代，DOM 结构变动致脚本定位失效。为关键元素（职位卡、沟通按钮、输入框）维护多组候选选择器，运行时按「先主后备、命中即停」逐级匹配，单点失效不影响整体；页面解析抽为独立模块，改版只更新选择器配置。</div>
-              <div class="pc-item"><b>反爬与风控应对 →</b>平台对高频自动化有频控与校验。设计四层策略：① 分级等待 + 随机化操作间隔模拟真人节奏；② 频控弹窗 / 滑块校验识别并暂停重试；③ 连续异常（被拦截 / 无响应）触发熔断降级，规避账号风险；④ 拟人化操作序列（滚动、停顿、非匀速键入）。限速参数集中配置、默认保守。</div>
-              <div class="pc-item"><b>成效 →</b>多次页面改版下仍可稳定运行，结合限速与熔断将自动化对平台影响控制在低水平，仅用于个人求职辅助。</div>
-            </div>
-            <div class="proj-note">※ 仅作技术学习与个人求职辅助用途，内置限速与熔断以控制运行频率、降低对平台的影响。</div>
-            <div class="proj-foot last">
-              <div class="tags">
-                <span class="tag">JavaScript</span><span class="tag">Tampermonkey</span><span class="tag">FastAPI</span>
-                <span class="tag">SQLite</span><span class="tag">SSE</span><span class="tag">LLM API</span>
-              </div>
-              <div class="proj-links">
-                <a class="gh-btn" href="https://github.com/wuxingai666/-boss-automation-" target="_blank" rel="noopener">GitHub ↗ 开源仓库</a>
-              </div>
-            </div>
-          </div>
+      </div>
+    </article><article class="proj-card core reveal" id="speech-project" data-project="speech">
+      <div class="proj-identity"><span class="proj-index"><span class="project-rank">02</span> P4 · 语音 AI · 毕业设计</span><span class="proj-state">应用原型 · 评测待完善</span></div>
+      <div class="proj-top">
+        <div class="proj-media project-flow"><picture><source media="(max-width:768px)" srcset="assets/project-speech-mobile.svg"><img src="assets/project-speech.svg" alt="中文语音情感分析系统处理流程示意：录音 / 上传 → 声学与转写 → 语义与融合 → 图表与历史" loading="lazy" decoding="async"></picture></div>
+        <div class="proj-body">
+          <div class="proj-head"><h3>中文语音情感分析系统</h3></div>
+          <p>围绕中文短语音的情感分析，搭建录音上传、语音转写、声学与文本语义分析、结果对比和历史管理流程。重点实践语音模型、大模型 API 与前后端应用的集成。</p>
+          <ul class="hl"><li><b>双通道分析：</b>接入声学分析模块与 faster-whisper 转写，调用 DeepSeek 输出六类情感分布、判断说明和关键短语。</li><li><b>决策与展示：</b>采用按质量标记与置信度规则加权的 Late Fusion；Vue 3 / ECharts 展示声学、语义及融合结果，配套波形、梅尔频谱与语音反馈。</li><li><b>训练与服务：</b>基于本地 1,200 条六类样本编写冻结 HuBERT 特征的分类头训练流程；FastAPI 配合 SQLite 保存分析记录，实现模型按需加载与失败兜底。</li></ul>
+          <details class="proj-details"><summary>设计思路与实践复盘<span class="detail-cue" aria-hidden="true"></span></summary><div class="proj-challenge"><div class="pc-title">实现、取舍与下一步</div><div class="pc-item"><b>为什么结合声音与文本 →</b>声学通道关注声音表达，语义通道分析转写内容；统一六类输出后在决策层融合，并保留各通道结果供对照。</div><div class="pc-item"><b>如何组织应用链路 →</b>音频统一为 16 kHz 单声道，重模型延迟加载并使用加载锁；接口层、模型层、服务层和数据层分工，前端管理录音与分析状态。</div><div class="pc-item"><b>当前研发重点 →</b>当前 HuBERT 推理尚未加载已保存的分类头权重；需补齐训练与推理接入、独立评测及单通道对照，暂不报告系统准确率。</div></div></details>
+          <p class="proj-note">毕业设计初版。训练为冻结 HuBERT 特征后训练分类头；默认融合是规则驱动的 Late Fusion，算法效果仍需独立验证。</p>
+          <div class="proj-foot"><div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">HuBERT</span><span class="tag">faster-whisper</span><span class="tag">DeepSeek</span><span class="tag">FastAPI</span><span class="tag">Vue 3</span><span class="tag">ECharts</span></div><div class="proj-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/speech-emotion" target="_blank" rel="noopener noreferrer">查看源码与研发说明 ↗</a></div></div>
         </div>
-      </article>
-
-      <!-- P3：中文语音情感识别系统 -->
-      <article class="proj-card normal reveal">
-        <div class="proj-top">
-          <div class="proj-media">
-            <img src="assets/speech-emotion.jpg" alt="中文语音情感识别系统分析界面示意" loading="lazy" decoding="async">
-          </div>
-          <div class="proj-body">
-            <div class="proj-head"><h3>中文语音情感识别系统</h3><span class="badge gray">P3 · 毕业设计</span></div>
-            <p>声学 + 语义双通道的语音情感识别系统：HuBERT 声学分类、Whisper 语音识别与 DeepSeek 语义分析并行，动态加权融合输出情感结论。</p>
-            <ul class="hl">
-              <li>HuBERT 微调情感分类，CASIA 中文情感语音数据集（1200 条 · 6 类），准确率 <b>79.6%</b>。</li>
-              <li>ASR + LLM 语义 + 声学特征动态加权 Late Fusion。</li>
-              <li>FastAPI 分层后端 + Vue3 + Element Plus + ECharts 前端。</li>
-            </ul>
-            <div class="proj-challenge">
-              <div class="pc-title">难点与解决方案</div>
-              <div class="pc-item"><b>低信噪比声学优化 →</b>真实录音含环境噪声与混响，信噪比低致声学模型掉点。前端加 VAD 剔除静音段、谱减法 / 维纳滤波降噪；特征层用 HuBERT 深层语义表征替代浅层 MFCC，对噪声更鲁棒；对低质量样本做加噪、变速、混响数据增强提升泛化。</div>
-              <div class="pc-item"><b>多模态融合权重调优 →</b>声学与语义在不同样本置信度不一致，固定权重易偏科。采用动态加权 Late Fusion——以各模态在验证集上的置信度 / 一致性为权重自适应融合，并对长尾情感类别做类别加权损失缓解不均衡；经网格搜索确定最优融合系数。</div>
-              <div class="pc-item"><b>成效 →</b>CASIA 六类中文情感数据集上准确率达 <b>79.6%</b>，低信噪比样本与长尾类别识别稳定性提升。</div>
-            </div>
-            <div class="proj-foot">
-              <div class="tags"><span class="tag">Python</span><span class="tag">HuBERT</span><span class="tag">faster-whisper</span><span class="tag">DeepSeek</span><span class="tag">FastAPI</span><span class="tag">Vue3</span></div>
-              <div class="proj-links"><span class="local-tag">本地项目 · 毕业设计</span>
-                <span class="local-note">涉及本地环境依赖暂未开源</span>
-              </div>
-            </div>
-          </div>
+      </div>
+    </article><article class="proj-card core reveal" id="boss-project" data-project="boss">
+      <div class="proj-identity"><span class="proj-index"><span class="project-rank">03</span> P3 · 自动化 · API 集成</span><span class="proj-state">源码公开 · 个人技术实践</span></div>
+      <div class="proj-top">
+        <div class="proj-media project-flow"><picture><source media="(max-width:768px)" srcset="assets/project-boss-mobile.svg"><img src="assets/project-boss.svg" alt="BOSS 求职辅助与本地监控工具处理流程示意：页面与筛选 → 预设招呼 / 回复 → 本地事件记录 → SSE 看板" loading="lazy" decoding="async"></picture></div>
+        <div class="proj-body">
+          <div class="proj-head"><h3>BOSS 求职辅助与本地监控工具</h3></div>
+          <p>围绕个人求职中的职位筛选、重复操作与消息回复，采用 Tampermonkey 浏览器脚本连接 DeepSeek，并以本地 FastAPI 服务记录操作事件、展示统计与运行反馈。</p>
+          <ul class="hl"><li><b>浏览器交互：</b>集中维护多组候选选择器，处理职位包含 / 排除筛选、滚动翻页、焦点与输入事件；提供手动启停和运行日志。</li><li><b>模型调用：</b>使用最近八条聊天消息作为上下文调用 DeepSeek 生成回复；招呼语使用用户预设内容，配置通过 GM 存储保留。</li><li><b>本地监控：</b>FastAPI 接收事件，SQLAlchemy / SQLite 保存记录与每日计数，SSE 向看板推送更新，并提供本地简历图片接口。</li></ul>
+          <details class="proj-details"><summary>设计思路与实践复盘<span class="detail-cue" aria-hidden="true"></span></summary><div class="proj-challenge"><div class="pc-title">实现、取舍与下一步</div><div class="pc-item"><b>方案怎样演变 →</b>最初尝试程序启动浏览器并由本人登录，但出现空白页、未完成该方案；最终改为在已登录浏览器内运行用户脚本。空白页根因尚未确定。</div><div class="pc-item"><b>页面定位怎样处理 →</b>针对元素抓取不准，集中配置候选选择器并依次尝试，兼容点击、焦点和输入事件。平台页面变化仍可能导致脚本失效。</div><div class="pc-item"><b>如何理解统计结果 →</b>看板统计来自脚本上报的操作事件，不等于平台确认投递成功；尚需完善在途请求取消、会话一致性和发送确认。</div></div></details>
+          <p class="proj-note">仅展示个人技术实践。实际遇到过元素定位与平台拦截问题，尚未证明可靠解决；不宣称绕过检测或无人值守运行。</p>
+          <div class="proj-foot"><div class="tags"><span class="tag">JavaScript</span><span class="tag">Tampermonkey</span><span class="tag">DeepSeek API</span><span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span><span class="tag">SQLite</span><span class="tag">SSE</span></div><div class="proj-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/boss-assistant" target="_blank" rel="noopener noreferrer">查看整理版源码 ↗</a></div></div>
         </div>
-      </article>
-
-      <!-- P4：AI 智能体与自动化工作流实践（原 Coze 两卡合并） -->
-      <article class="proj-card normal reveal">
-        <div class="proj-top">
-          <div class="proj-media">
-            <img src="assets/coze-workflow.jpg" alt="AI 智能体工作流编排示意" loading="lazy" decoding="async">
-          </div>
-          <div class="proj-body">
-            <div class="proj-head"><h3>AI 智能体与自动化工作流实践</h3><span class="badge gray">P4 · Coze 平台</span></div>
-            <p>在 Coze 平台面向真实业务场景搭建可对话智能体与自动化工作流：以知识库 + RAG 注入领域资料，用插件扩展外部能力，并以可视化节点编排多步任务。</p>
-            <ul class="hl">
-              <li><b>知识库 + RAG：</b>上传业务文档构建知识库并开启检索增强，降低模型幻觉。</li>
-              <li><b>工作流编排：</b>可视化串联「意图识别 → 知识检索 → 生成 → 回流」，支持条件分支、循环与定时触发。</li>
-              <li><b>插件与集成：</b>接入平台插件与外部 API，扩展联网搜索、数据查询等能力。</li>
-            </ul>
-            <div class="proj-foot">
-              <div class="tags"><span class="tag">Coze</span><span class="tag">智能体</span><span class="tag">RAG</span><span class="tag">工作流编排</span><span class="tag">提示词工程</span></div>
-              <div class="proj-links"><span class="local-tag">平台内项目 · 无公开仓库</span></div>
-            </div>
-          </div>
+      </div>
+    </article><div class="project-group" id="more-projects"><h3>产品迭代与场景实践</h3><p>从持续使用的工具，到视觉应用和平台学习，保留每项实践的真实范围。</p></div><article class="proj-card normal reveal" id="ledger-project" data-project="ledger">
+      <div class="proj-identity"><span class="proj-index"><span class="project-rank">04</span> P6 · Web 产品 · AI 辅助开发</span><span class="proj-state">已上线 · 本人持续使用</span></div>
+      <div class="proj-top">
+        <div class="proj-media project-flow"><picture><source media="(max-width:768px)" srcset="assets/project-ledger-mobile.svg"><img src="assets/project-ledger-mobile.svg" alt="仵星的记账本处理流程示意：日常收支 → 周期与预算 → 本地持久化 → 统计与备份" loading="lazy" decoding="async"></picture></div>
+        <div class="proj-body">
+          <div class="proj-head"><h3>仵星的记账本</h3></div>
+          <p>从个人记账与发薪周期预算需求出发，通过 AI 辅助开发构建零依赖单文件应用，并在 GitHub Pages 部署。持续使用中逐步完善业务规则、数据兼容与交互。</p>
+          <ul class="hl"><li><b>业务规则：</b>日常 / 大额 / 固定支出、自定义周期分组、预算与储蓄目标、待办完成关联记账。</li><li><b>输入与统计：</b>快捷模板、浏览器语音识别加规则解析、筛选查询，以及原生 SVG 分类占比和收支图表。</li><li><b>持久化与迭代：</b>localStorage 分模块保存，提供 JSON / CSV 与快照入口；Git 记录保留金额类型、固定支出同步和日均统计等迭代。</li></ul>
+          <details class="proj-details"><summary>设计思路与实践复盘<span class="detail-cue" aria-hidden="true"></span></summary><div class="proj-challenge"><div class="pc-title">实现、取舍与下一步</div><div class="pc-item"><b>从使用中发现问题 →</b>金额字符串参与求和曾造成总额异常，因此同时处理输入转换、核算与旧字段类型迁移。</div><div class="pc-item"><b>数据生命周期 →</b>删除周期分组时保留手动记录，清理相应自动固定支出；当前继续完善备份结构、月末扣款日和跨周期核算。</div></div></details>
+          <p class="proj-note">数据保存在当前浏览器，不提供云同步。核心记账可本地运行；语音识别依浏览器支持。</p>
+          <div class="proj-foot"><div class="tags"><span class="tag">Vibe Coding</span><span class="tag">JavaScript</span><span class="tag">localStorage</span><span class="tag">SVG</span><span class="tag">Web Speech API</span></div><div class="proj-links"><a href="https://wuxingai666.github.io/xiaozhangben/" target="_blank" rel="noopener noreferrer">在线使用 ↗</a><a href="https://github.com/WuxingAi666/xiaozhangben" target="_blank" rel="noopener noreferrer">GitHub 源码 ↗</a></div></div>
         </div>
-      </article>
-
-      <!-- P5：网页记账本系统 -->
-      <article class="proj-card normal reveal">
-        <div class="proj-top">
-          <div class="proj-media">
-            <img src="assets/ledger-live.jpg" alt="网页记账本系统真实运行界面" loading="lazy" decoding="async">
-          </div>
-          <div class="proj-body">
-            <div class="proj-head"><h3>网页记账本系统</h3><span class="badge gray">P5 · 已上线</span></div>
-            <p>单文件 HTML 实现的轻量记账应用，零依赖部署于 GitHub Pages，已上线并被多人日常使用。围绕日常、大额、固定三类支出设计数据结构与预算占用逻辑，提供完整的增删改查与统计可视化。</p>
-            <ul class="hl">
-              <li><b>真实使用：</b>上线后处于<b>多人日常记账使用中</b>，覆盖真实收支场景，持续迭代维护。</li>
-              <li>业务建模：三类支出分类与可用预算（availableBudget）计算，固定支出不计入当期占用额度。</li>
-              <li>数据持久化：localStorage 分表存储，含数据结构版本迁移与旧数据兼容。</li>
-              <li>增量式迭代：v1 → v3.1，以「// 优化-xxx」注释规范标注每次改动。</li>
-            </ul>
-            <div class="proj-foot">
-              <div class="tags"><span class="tag">HTML / CSS / JS</span><span class="tag">localStorage</span><span class="tag">ECharts</span><span class="tag">GitHub Pages</span></div>
-              <div class="proj-links">
-                <a href="https://wuxingai666.github.io/xiaozhangben/" target="_blank" rel="noopener">在线访问 ↗</a>
-                <a class="gh-btn" href="https://github.com/wuxingai666/xiaozhangben" target="_blank" rel="noopener">GitHub ↗</a>
-              </div>
-            </div>
-          </div>
+      </div>
+    </article><article class="proj-card normal reveal" id="fruit-project" data-project="fruit">
+      <div class="proj-identity"><span class="proj-index"><span class="project-rank">05</span> P2 · 计算机视觉应用</span><span class="proj-state">项目经历 · 暂不提供源码</span></div>
+      <div class="proj-top">
+        <div class="proj-media project-flow"><picture><source media="(max-width:768px)" srcset="assets/project-fruit-mobile.svg"><img src="assets/project-fruit-mobile.svg" alt="果蔬成熟度识别与语音采摘辅助处理流程示意：三阶段样本 → 视觉模型训练 → 图片 / 视频 / 摄像头 → 播报与建议" loading="lazy" decoding="async"></picture></div>
+        <div class="proj-body">
+          <div class="proj-head"><h3>果蔬成熟度识别与语音采摘辅助</h3></div>
+          <p>围绕果蔬成熟度初步判断，收集并整理成熟、半成熟、未成熟三类样本，训练视觉模型，并将识别结果连接语音助手，提供结果播报与采摘参考。</p>
+          <ul class="hl"><li><b>数据与训练：</b>使用 YOLOv8 开展成熟度识别模型训练，积累样本准备与模型应用经验。</li><li><b>多种输入：</b>结合 OpenCV 处理本地图片、视频上传及电脑摄像头在线识别。</li><li><b>交互反馈：</b>接入 API 语音助手播报结果、给出采摘建议，串联视觉识别与使用反馈。</li></ul>
+          <details class="proj-details"><summary>设计思路与实践复盘<span class="detail-cue" aria-hidden="true"></span></summary><div class="proj-challenge"><div class="pc-title">实现、取舍与下一步</div><div class="pc-item"><b>业务链路 →</b>将成熟度阶段作为识别输出，再面向使用者提供播报和采摘参考，实践数据、模型和交互的应用集成。</div><div class="pc-item"><b>材料与后续 →</b>当前按本人开发经历整理，源码与训练报告待找回；后续补充具体品种、标注标准、任务类型和独立评测。</div></div></details>
+          <p class="proj-note">当前提供项目说明。尚无可复核的数据规模、模型评测或运行速度记录。</p>
+          <div class="proj-foot"><div class="tags"><span class="tag">YOLOv8</span><span class="tag">OpenCV</span><span class="tag">成熟度识别</span><span class="tag">API 语音交互</span></div><div class="proj-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/fruit-ripeness" target="_blank" rel="noopener noreferrer">GitHub 项目说明 ↗</a></div></div>
         </div>
-      </article>
-
-    </div>
+      </div>
+    </article><article class="proj-card normal reveal" id="coze-project" data-project="coze">
+      <div class="proj-identity"><span class="proj-index"><span class="project-rank">06</span> P5 · 低代码 · 学习实践</span><span class="proj-state">基础搭建与了解</span></div>
+      <div class="proj-top">
+        <div class="proj-media project-flow"><picture><source media="(max-width:768px)" srcset="assets/project-coze-mobile.svg"><img src="assets/project-coze-mobile.svg" alt="Coze 智能体与知识库问答实践处理流程示意：平台配置 → 简单智能体 → 基础工作流 → 知识库问答" loading="lazy" decoding="async"></picture></div>
+        <div class="proj-body">
+          <div class="proj-head"><h3>Coze 智能体与知识库问答实践</h3></div>
+          <p>使用 Coze 等低代码平台搭建简单智能体、基础工作流及知识库 RAG 问答，了解从平台配置到交互测试的基本过程，补充低代码 AI 应用实践。</p>
+          <ul class="hl"><li><b>智能体：</b>实践平台内简单对话智能体的基础配置与使用。</li><li><b>工作流：</b>通过可视化编排完成基础流程搭建，了解节点衔接与执行过程。</li><li><b>知识库 RAG：</b>使用平台提供的知识库和检索能力搭建问答，初步理解检索与模型回答结合的方式。</li></ul>
+          <details class="proj-details"><summary>设计思路与实践复盘<span class="detail-cue" aria-hidden="true"></span></summary><div class="proj-challenge"><div class="pc-title">实现、取舍与下一步</div><div class="pc-item"><b>实践定位 →</b>作为低代码平台使用与概念学习，重点理解智能体、工作流和知识库问答之间的关系。</div><div class="pc-item"><b>与代码项目的关系 →</b>平台内搭建用于快速理解应用流程；LangChain / FAISS 的代码实践另见 RAG 全栈项目，两者分别展示。</div></div></details>
+          <p class="proj-note">当前提供实践说明，尚未整理工作流导出文件；范围为简单搭建与基础了解。</p>
+          <div class="proj-foot"><div class="tags"><span class="tag">Coze</span><span class="tag">基础智能体</span><span class="tag">工作流</span><span class="tag">知识库问答</span></div><div class="proj-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/coze-practice" target="_blank" rel="noopener noreferrer">GitHub 实践说明 ↗</a></div></div>
+        </div>
+      </div>
+    </article></div>
   </div>
 </section>
+<!-- PROJECTS:END -->
 
 <!-- ═════════ ⑧ 技能栈 ═════════ -->
 <section id="skills">
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head reveal" data-label="CAPABILITIES">
       <h2 class="sec-title"><span class="sec-no">06</span>技能栈</h2>
-      <p class="sec-sub">标签按熟练度深浅区分：颜色越深代表越熟练，详见下方图例。</p>
+      <p class="sec-sub">围绕需求分析、编码实现、模型集成、测试部署与协作交付组织技术能力；标签深浅表示熟悉程度，具体以项目实现与实践经历为依据。</p>
     </div>
     <div class="skill-legend reveal">
-      <span><i class="lg4"></i>精通</span><span><i class="lg3"></i>熟练</span><span><i class="lg2"></i>掌握</span><span><i class="lg1"></i>了解</span>
+      <span><i class="lg4"></i>反复实践</span><span><i class="lg3"></i>项目应用</span><span><i class="lg2"></i>基础实践</span><span><i class="lg1"></i>了解</span>
     </div>
     <div class="skill-grid">
       <div class="skill-card reveal">
         <h3>AI 应用开发</h3>
         <div class="tags">
-          <span class="tag l3">大模型 API 工程落地</span><span class="tag l3">智能体与工作流编排</span>
-          <span class="tag l3">Coze 工作流</span><span class="tag l3">DeepSeek 接入</span>
-          <span class="tag l2">RAG 全链路</span><span class="tag l2">提示词工程</span>
+          <span class="tag l3">大模型 API 集成</span><span class="tag l3">DeepSeek 接入</span>
+          <span class="tag l3">RAG 检索与生成</span><span class="tag l2">提示词设计</span>
+          <span class="tag l3">LangChain / FAISS</span><span class="tag l3">Embedding 语义检索</span>
+          <span class="tag l1">Coze 智能体 / 工作流</span>
         </div>
       </div>
       <div class="skill-card reveal">
         <h3>AI 算法与数据</h3>
         <div class="tags">
-          <span class="tag l4">Python</span><span class="tag l4">PyTorch</span>
-          <span class="tag l3">YOLO / ResNet 视觉算法</span><span class="tag l3">数据标注与增广</span>
-          <span class="tag l3">语音情感识别（HuBERT / Whisper）</span><span class="tag l2">模型评估与调优</span>
+          <span class="tag l4">Python</span><span class="tag l3">PyTorch</span>
+          <span class="tag l2">YOLOv8 / OpenCV</span><span class="tag l2">数据整理与训练流程</span>
+          <span class="tag l3">HuBERT / faster-whisper 集成</span><span class="tag l2">分类头训练与评测基础</span>
         </div>
       </div>
       <div class="skill-card reveal">
-        <h3>工程与部署</h3>
+        <h3>全栈开发与工程实现</h3>
         <div class="tags">
           <span class="tag l3">FastAPI</span><span class="tag l3">MySQL / SQL</span><span class="tag l3">Git</span>
           <span class="tag l3">HTML / CSS / JS</span>
+          <span class="tag l2">REST API / SSE</span><span class="tag l2">SQLite 持久化</span>
           <span class="tag l2">Linux 基础</span><span class="tag l2">Vue3 基础</span>
-          <span class="tag l2">PyQt5 桌面端</span><span class="tag l2">日志排查与问题定位</span>
-          <span class="tag l2">多环境补丁发布</span><span class="tag l1">Docker 简易部署</span>
+          <span class="tag l2">浏览器用户脚本</span><span class="tag l2">日志排查与问题定位</span>
+          <span class="tag l2">多环境补丁发布</span><span class="tag l2">接口联调与边界测试</span><span class="tag l1">Docker 部署配置</span>
         </div>
       </div>
       <div class="skill-card reveal">
-        <h3>AI 辅助开发</h3>
+        <h3>业务分析与需求工程</h3>
         <div class="tags">
-          <span class="tag l4">Codex</span><span class="tag l4">Claude</span>
-          <span class="tag l3">AI 智能体辅助全栈开发</span><span class="tag l3">AI 辅助调试与自动化</span>
+          <span class="tag l3">需求澄清与方案转化</span><span class="tag l3">业务流程建模</span>
+          <span class="tag l2">角色与权限分析</span><span class="tag l2">字段映射与数据校验</span>
+          <span class="tag l2">验收标准与边界场景</span><span class="tag l2">需求确认与变更跟踪</span>
         </div>
       </div>
       <div class="skill-card reveal">
@@ -592,10 +524,11 @@
         </div>
       </div>
       <div class="skill-card reveal">
-        <h3>交付协同与文档</h3>
+        <h3>沟通协同与问题解决</h3>
         <div class="tags">
           <span class="tag l3">跨方协同（甲方 / 乙方 / 多供应商）</span><span class="tag l3">生产环境数据迁移与校验</span>
-          <span class="tag l3">测试用例与验收文档</span><span class="tag l2">面向管理层方案汇报</span>
+          <span class="tag l3">测试用例与验收文档</span><span class="tag l2">面向业务方方案演示</span>
+          <span class="tag l2">缺陷复现与回归验证</span><span class="tag l2">日志分析与问题闭环</span>
         </div>
       </div>
     </div>
@@ -605,15 +538,15 @@
 <!-- ═════════ ⑧ 在线简历（取代 PDF 下载，永不版本漂移） ═════════ -->
 <section id="resume">
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head reveal" data-label="RESUME">
       <h2 class="sec-title"><span class="sec-no">07</span>在线简历</h2>
-      <p class="sec-sub">一页速览版，内容与投递附件一致。需要存档请直接「打印 / 存为 PDF」——网页即是最新版，不存在版本漂移。</p>
+      <p class="sec-sub">集中查看职业定位、实习职责、项目实现与技术能力。需要投递或存档时，可直接打印 / 存为 PDF。</p>
     </div>
 
     <div class="rsm reveal">
       <div class="rsm-head">
         <div class="rsm-name">仵　星</div>
-        <div class="rsm-intent">求职意向：AI 应用开发 / 大模型应用　·　企业信息化 / OA 建设运维　·　低代码实施交付</div>
+        <div class="rsm-intent">求职意向：AI 应用 / 大模型应用开发 · 全栈应用开发 · 企业信息化交付</div>
         <ul class="rsm-meta">
           <li>电话 / 微信：198 4395 6389</li>
           <li>邮箱：842081814@qq.com</li>
@@ -629,6 +562,16 @@
           <ul>
             <li>GPA 3.66 / 4.0，专业排名 5 / 39（前 12%）</li>
             <li>主修：机器学习、深度学习、计算机视觉、NLP、神经网络、数据结构、数据库原理</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rsm-row">
+        <div class="rsm-k">职业概述</div>
+        <div class="rsm-v">
+          <ul>
+            <li><b>业务到代码：</b>具备业务需求澄清、流程与权限分析经验，使用 Python、FastAPI 和前端技术实现小型应用，实践 RAG 检索、模型 API 集成和流式交互。</li>
+            <li><b>协同到交付：</b>参与企业 OA 驻场实施、客户演示、SQL 数据校验和 UAT 验收，通过日志分析、缺陷复现与回归验证推进问题闭环；使用 AI 工具辅助编码、调试和文档整理。</li>
           </ul>
         </div>
       </div>
@@ -651,44 +594,16 @@
         </div>
       </div>
 
-      <div class="rsm-row">
-        <div class="rsm-k">项目经验</div>
-        <div class="rsm-v">
-          <div class="rsm-t">AI 智能体与自动化工作流实践（Coze 平台）<span class="rsm-date">2026.05 - 2026.07</span></div>
-          <div class="rsm-org">技术栈：Coze · 智能体 · RAG · 工作流编排 · 提示词工程</div>
-          <ul>
-            <li>以知识库 + RAG 注入业务文档降低模型幻觉；可视化编排「意图识别 → 知识检索 → 生成 → 回流」工作流，支持条件分支、循环与定时触发。</li>
-            <li>接入平台插件与外部 API，扩展联网搜索与数据查询能力。</li>
-          </ul>
-
-          <div class="rsm-t sub">BOSS 直聘自动化投递助手（已开源）<span class="rsm-date">2026.05 - 2026.06</span></div>
-          <div class="rsm-org">技术栈：Tampermonkey · Python · FastAPI · DeepSeek · SQLite</div>
-          <ul>
-            <li>解析 Shadow DOM 绕过反自动化检测；接入 DeepSeek 自动识别 HR 消息并生成上下文回复，配套敏感内容人工审核。</li>
-            <li>SSE 实时刷新投递看板，四层风控模拟真人操作。</li>
-          </ul>
-
-          <div class="rsm-t sub">中文语音情感识别系统（毕业设计）<span class="rsm-date">独立完成</span></div>
-          <div class="rsm-org">技术栈：HuBERT · faster-whisper · DeepSeek · FastAPI · Vue 3</div>
-          <ul>
-            <li>HuBERT 微调情感分类，CASIA 中文情感语音数据集（1200 条 · 6 类），准确率 <b>79.6%</b>；平台完整可运行。</li>
-          </ul>
-
-          <div class="rsm-t sub">基于 CV 的果蔬成熟度智能检测系统<span class="rsm-date">独立完成</span></div>
-          <div class="rsm-org">技术栈：YOLOv8 · ResNet50 · PyTorch · FastAPI</div>
-          <ul>
-            <li>自主采集标注 <b>8000+ 张</b>果蔬图像；YOLOv8 + ResNet50 分级分类，检测准确率 <b>93%</b>；FastAPI 封装推理接口并完成 Linux 部署。</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="rsm-row">
+      <!-- RESUME-PROJECTS:START -->
+<div class="rsm-row"><div class="rsm-k">项目经验</div><div class="rsm-v"><div class="rsm-t sub">个人作品集网站 × RAG 智能问答助手<span class="rsm-date">P1 · 本地联调 · 公网后端待接入</span></div><div class="rsm-org">技术栈：LangChain · FAISS · BGE-M3 · FastAPI · SSE · JavaScript · Docker</div><ul><li>构建响应式作品集与独立 RAG 服务，实现 TXT 加载、重叠分块、BGE-M3 / FAISS 语义检索及带来源的流式问答。</li><li>实现可拖动缩放聊天小窗、连续追问、调用额度、持久化索引和异常处理，配套本地验收与前后端部署说明。</li></ul><div class="rsm-t sub">中文语音情感分析系统<span class="rsm-date">P4 · 应用原型 · 评测待完善</span></div><div class="rsm-org">技术栈：Python · PyTorch · HuBERT · faster-whisper · DeepSeek · FastAPI · Vue 3 · ECharts</div><ul><li>使用 FastAPI、Vue 3 和 SQLite 集成录音上传、Whisper 转写、DeepSeek 结构化语义分析及多通道可视化。</li><li>实现规则加权 Late Fusion 与冻结 HuBERT 的分类头训练流程；当前继续完善权重推理接入与独立评测。</li></ul><div class="rsm-t sub">BOSS 求职辅助与本地监控工具<span class="rsm-date">P3 · 源码公开 · 个人技术实践</span></div><div class="rsm-org">技术栈：JavaScript · Tampermonkey · DeepSeek API · FastAPI · SQLAlchemy · SQLite · SSE</div><ul><li>集成 Tampermonkey 页面交互、职位关键词筛选、预设招呼与 DeepSeek 上下文回复，最终采用已登录浏览器内的用户脚本方案。</li><li>连接 FastAPI / SQLite 记录操作事件，以 SSE 更新本地监控看板；实践页面定位、接口联调和基础异常排查。</li></ul><div class="rsm-t sub">仵星的记账本<span class="rsm-date">P6 · 已上线 · 本人持续使用</span></div><div class="rsm-org">技术栈：Vibe Coding · JavaScript · localStorage · SVG · Web Speech API</div><ul><li>通过 AI 辅助开发并上线个人记账应用，目前本人持续使用；实现周期预算、三类支出、待办联动和 SVG 统计。</li><li>使用 localStorage 保存数据，支持 JSON / CSV 管理；结合真实使用反馈持续迭代金额类型与固定支出一致性。</li></ul><div class="rsm-t sub">果蔬成熟度识别与语音采摘辅助<span class="rsm-date">P2 · 项目经历 · 暂不提供源码</span></div><div class="rsm-org">技术栈：YOLOv8 · OpenCV · 成熟度识别 · API 语音交互</div><ul><li>收集成熟、半成熟、未成熟三类样本，使用 YOLOv8 与 OpenCV 实践本地图片、视频及摄像头成熟度识别。</li><li>接入 API 语音助手播报结果并提供采摘参考；当前源码待找回，数据规模和评测指标暂不列出。</li></ul><div class="rsm-t sub">Coze 智能体与知识库问答实践<span class="rsm-date">P5 · 基础搭建与了解</span></div><div class="rsm-org">技术栈：Coze · 基础智能体 · 工作流 · 知识库问答</div><ul><li>使用 Coze 等低代码平台完成简单智能体、基础工作流和知识库 RAG 问答搭建，积累平台配置与基础编排经验。</li></ul></div></div>
+<!-- RESUME-PROJECTS:END --><div class="rsm-row">
         <div class="rsm-k">技能特长</div>
         <div class="rsm-v">
           <ul class="rsm-compact">
-            <li><b>AI 应用：</b>Coze 智能体与插件封装、RAG 全链路、工作流编排、提示词工程、大模型 API 工程落地、DeepSeek 接入</li>
-            <li><b>AI 算法：</b>Python、PyTorch、YOLO / ResNet 视觉算法、语音情感识别（HuBERT / Whisper）、数据标注与增广</li>
-            <li><b>工程能力：</b>FastAPI、MySQL / SQL、Git、HTML / CSS / JS、Vue 3、Linux 基础、多环境补丁发布与日志排查</li>
+            <li><b>AI 应用：</b>LangChain / FAISS、Embedding 语义检索、RAG 检索与生成、DeepSeek API 集成、提示词设计；了解 Coze 简单智能体与基础工作流搭建</li>
+            <li><b>模型与数据实践：</b>Python、PyTorch、YOLOv8 / OpenCV、HuBERT / faster-whisper 集成、分类头训练与评测基础</li>
+            <li><b>全栈工程：</b>Python / FastAPI、HTML / CSS / JavaScript、REST API / SSE、MySQL / SQLite、Git、Vue 3 基础、Docker 部署配置与 Linux 基础</li>
+            <li><b>业务与协作：</b>需求澄清、流程建模、权限分析、客户演示、跨团队联调、SQL 数据校验、日志定位、缺陷复现与回归验证</li>
             <li><b>信息化与低代码：</b>致远 V8 平台、表单搭建（主表 + 明细表、校验规则、字段级权限）、审批流配置（串行逐级 / 并行会签或签 / 条件分支路由 / 退回、加签、转办、撤回）、权限体系（组织·角色·人员三级授权、数据范围、最小权限原则）、UAT 测试、数据迁移</li>
             <li><b>熟悉业务场景：</b>用章申请、合同审批、办公用品领用、采购申请、请假与出差、公文流转、资产登记、印章管理</li>
           </ul>
@@ -717,15 +632,15 @@
 <!-- ═════════ ⑨ 联系方式 ═════════ -->
 <section id="contact" class="contact">
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head reveal" data-label="GET IN TOUCH">
       <h2 class="sec-title"><span class="sec-no">08</span>联系方式</h2>
     </div>
-    <p class="tip reveal">2027 届本科，毕业后可全职入职（意向城市：上海），实习时间可协商。欢迎邮件或电话联系。</p>
+    <p class="tip reveal">期待参与 AI 应用与全栈开发，将业务需求转化为可使用的产品。2027 届本科，2027 年 6 月后可全职，实习时间可协商；欢迎就项目实现、需求分析与交付实践进一步交流。</p>
     <div class="channels reveal">
       <a class="channel" href="mailto:842081814@qq.com"><span class="ci">✉️</span><span class="ct"><span class="k">邮箱</span><span class="v">842081814@qq.com</span></span></a>
       <a class="channel" href="tel:19843956389"><span class="ci">📱</span><span class="ct"><span class="k">电话</span><span class="v">19843956389</span></span></a>
       <a class="channel" href="https://github.com/wuxingai666" target="_blank" rel="noopener"><span class="ci">🐙</span><span class="ct"><span class="k">GitHub</span><span class="v">wuxingai666</span></span></a>
-      <span class="channel static"><span class="ci">🎯</span><span class="ct"><span class="k">意向岗位</span><span class="v">AI 应用开发 / 低代码实施</span></span></span>
+      <span class="channel static"><span class="ci">🎯</span><span class="ct"><span class="k">意向岗位</span><span class="v">AI 应用 / 全栈开发</span></span></span>
       <span class="channel static"><span class="ci">📍</span><span class="ct"><span class="k">意向城市</span><span class="v">上海</span></span></span>
       <span class="channel static"><span class="ci">🗓</span><span class="ct"><span class="k">到岗时间</span><span class="v">2027.06 后可全职 · 实习可协商</span></span></span>
     </div>
@@ -736,10 +651,12 @@
   </div>
 </section>
 
-<footer>© 2026 仵星 · 求职向个人作品集 ｜ 最后更新：2026-10-14</footer>
+<footer>© 2026 仵星 · 求职向个人作品集 ｜ 最后更新：2026-10-27</footer>
 
 <button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
 
-<script src="js/main.js"></script>
+<script src="js/main.js?v=20261027-layout"></script>
+<script src="js/assistant-config.js"></script>
+<script src="js/assistant.js" defer></script>
 </body>
 </html>

@@ -63,9 +63,9 @@
   ════════════════════════════════════════════════════════════
 -->
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/style.css?v=20261027-refined">
-<link rel="stylesheet" href="css/assistant.css?v=20261027-refined">
-<link rel="stylesheet" href="css/layout.css?v=20261027-refined">
+<link rel="stylesheet" href="css/style.css?v=20261027-showcase">
+<link rel="stylesheet" href="css/assistant.css?v=20261027-showcase">
+<link rel="stylesheet" href="css/layout.css?v=20261027-showcase">
 <!-- ═══ 无 JS 兜底：防止渐显动画未执行导致整页白屏 ═══ -->
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -163,12 +163,14 @@
     <div class="sec-head reveal" data-label="SELECTED PROJECTS"><h2 class="sec-title"><span class="sec-no">02</span>项目作品</h2><p class="sec-sub">六个项目，连接业务需求、模型集成与应用交付。查看详情，了解完整实现、技术取舍与当前状态。</p></div>
     <nav class="project-index" aria-label="项目快速定位"><a href="#rag-project"><span>01</span> RAG</a><a href="#speech-project"><span>02</span> 语音情感</a><a href="#boss-project"><span>03</span> BOSS 工具</a><a href="#ledger-project"><span>04</span> 记账本</a><a href="#fruit-project"><span>05</span> 果蔬识别</a><a href="#coze-project"><span>06</span> Coze</a></nav>
     <div class="work-grid"><article class="work-card reveal" id="rag-project" data-project="rag">
+      <figure class="work-cover work-cover-rag"><picture><source media="(max-width:600px)" srcset="assets/portfolio-rag-mobile.svg"><img src="assets/portfolio-rag.svg" alt="个人网站、FastAPI、BGE-M3 与 FAISS 及 DeepSeek 的全栈架构示意" loading="lazy" decoding="async" width="1440" height="540"></picture><figcaption>全栈架构示意</figcaption></figure>
+      <div class="work-body">
       <div class="work-kicker"><span class="work-category"><span class="project-rank">01</span>全栈 AI 应用</span><span class="work-feature">重点项目</span></div>
       <h3 class="work-title">个人作品集网站 × RAG 智能问答助手</h3>
       <p class="work-state"><span aria-hidden="true"></span>本地联调 · 公网后端待接入</p>
       <p class="work-summary">将作品集、公开知识库与问答服务连接，让访客通过对话了解项目和经历。</p>
-      <ul class="work-highlights"><li><b>语义问答</b><span>BGE-M3 / FAISS 召回，DeepSeek 生成带来源回答。</span></li><li><b>全栈集成</b><span>FastAPI / SSE、聊天小窗、持久化索引与调用额度。</span></li></ul>
-      <div class="work-tags tags" aria-label="主要技术"><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">BGE-M3</span><span class="tag">FastAPI</span></div>
+      <ul class="work-highlights"><li><b>语义问答</b><span><strong class="tech-term">BGE-M3</strong> / <strong class="tech-term">FAISS</strong> 召回，<strong class="tech-term">DeepSeek</strong> 生成带来源回答。</span></li><li><b>全栈集成</b><span><strong class="tech-term">FastAPI</strong> / <strong class="tech-term">SSE</strong>、聊天小窗、持久化索引与调用额度。</span></li></ul>
+      <div class="work-stack"><span class="work-stack-label">核心技术</span><div class="work-tags tags" aria-label="核心技术"><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">BGE-M3</span><span class="tag">FastAPI</span><span class="tag">SSE</span><span class="tag">JavaScript</span><span class="tag">Docker</span></div></div>
       <div class="work-footer">
         <details class="work-detail" id="details-rag" data-title="个人作品集网站 × RAG 智能问答助手" data-rank="01">
           <summary>查看项目详情<span aria-hidden="true">↗</span></summary>
@@ -183,15 +185,18 @@
             <div class="detail-section"><h3>源码与相关入口</h3><div class="detail-links"><a class="detail-link" href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/portfolio-rag" target="_blank" rel="noopener noreferrer">查看完整源码 ↗</a></div></div>
           </div>
         </details>
-        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/portfolio-rag" target="_blank" rel="noopener noreferrer" aria-label="个人作品集网站 × RAG 智能问答助手：GitHub 源码或说明">GitHub ↗</a></div>
+        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/portfolio-rag" target="_blank" rel="noopener noreferrer">查看完整源码 <span aria-hidden="true">↗</span></a><button type="button" class="work-assistant" data-open-assistant>体验问答助手 <span aria-hidden="true">↗</span></button></div>
+      </div>
       </div>
     </article><article class="work-card reveal" id="speech-project" data-project="speech">
+      <figure class="work-cover work-cover-speech"><picture><img src="assets/speech-emotion.jpg" alt="语音情感分析的波形、频谱与情感分布界面示意" loading="lazy" decoding="async" width="900" height="570"></picture><figcaption>语音分析界面示意</figcaption></figure>
+      <div class="work-body">
       <div class="work-kicker"><span class="work-category"><span class="project-rank">02</span>语音 AI · 毕业设计</span></div>
       <h3 class="work-title">中文语音情感分析系统</h3>
       <p class="work-state"><span aria-hidden="true"></span>应用原型 · 评测待完善</p>
       <p class="work-summary">面向中文短语音，串联声音与文本分析，形成可交互、可回看结果的毕业设计原型。</p>
-      <ul class="work-highlights"><li><b>多通道集成</b><span>声学分析、Whisper 转写与 DeepSeek 语义分析，规则加权融合。</span></li><li><b>应用闭环</b><span>Vue 3 可视化、录音上传与分析历史；模型效果待独立验证。</span></li></ul>
-      <div class="work-tags tags" aria-label="主要技术"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">HuBERT</span><span class="tag">faster-whisper</span></div>
+      <ul class="work-highlights"><li><b>多通道集成</b><span>声学分析、<strong class="tech-term">Whisper</strong> 转写与 <strong class="tech-term">DeepSeek</strong> 语义分析，规则加权融合。</span></li><li><b>应用闭环</b><span><strong class="tech-term">Vue 3</strong> 可视化、录音上传与分析历史；模型效果待独立验证。</span></li></ul>
+      <div class="work-stack"><span class="work-stack-label">核心技术</span><div class="work-tags tags" aria-label="核心技术"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">HuBERT</span><span class="tag">faster-whisper</span><span class="tag">DeepSeek</span><span class="tag">FastAPI</span><span class="tag">Vue 3</span><span class="tag">ECharts</span></div></div>
       <div class="work-footer">
         <details class="work-detail" id="details-speech" data-title="中文语音情感分析系统" data-rank="02">
           <summary>查看项目详情<span aria-hidden="true">↗</span></summary>
@@ -206,15 +211,18 @@
             <div class="detail-section"><h3>源码与相关入口</h3><div class="detail-links"><a class="detail-link" href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/speech-emotion" target="_blank" rel="noopener noreferrer">查看源码与研发说明 ↗</a></div></div>
           </div>
         </details>
-        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/speech-emotion" target="_blank" rel="noopener noreferrer" aria-label="中文语音情感分析系统：GitHub 源码或说明">GitHub ↗</a></div>
+        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/speech-emotion" target="_blank" rel="noopener noreferrer">查看源码与研发说明 <span aria-hidden="true">↗</span></a></div>
+      </div>
       </div>
     </article><article class="work-card reveal" id="boss-project" data-project="boss">
+      <figure class="work-cover work-cover-boss"><picture><img src="assets/boss-dashboard.jpg" alt="求职辅助工具的本地事件记录与统计看板示意" loading="lazy" decoding="async" width="1536" height="972"></picture><figcaption>本地监控看板示意</figcaption></figure>
+      <div class="work-body">
       <div class="work-kicker"><span class="work-category"><span class="project-rank">03</span>自动化 · API 集成</span></div>
       <h3 class="work-title">BOSS 求职辅助与本地监控工具</h3>
       <p class="work-state"><span aria-hidden="true"></span>源码公开 · 个人技术实践</p>
       <p class="work-summary">围绕个人求职中的筛选、重复操作与消息回复，实践浏览器脚本和模型 API 集成。</p>
-      <ul class="work-highlights"><li><b>浏览器交互</b><span>候选选择器回退、职位筛选与上下文回复，支持手动启停。</span></li><li><b>本地监控</b><span>FastAPI / SQLite 保存操作事件，SSE 更新本地看板。</span></li></ul>
-      <div class="work-tags tags" aria-label="主要技术"><span class="tag">JavaScript</span><span class="tag">Tampermonkey</span><span class="tag">DeepSeek API</span><span class="tag">FastAPI</span></div>
+      <ul class="work-highlights"><li><b>浏览器交互</b><span>候选选择器回退、职位筛选与上下文回复，支持手动启停。</span></li><li><b>本地监控</b><span><strong class="tech-term">FastAPI</strong> / <strong class="tech-term">SQLite</strong> 保存操作事件，<strong class="tech-term">SSE</strong> 更新本地看板。</span></li></ul>
+      <div class="work-stack"><span class="work-stack-label">核心技术</span><div class="work-tags tags" aria-label="核心技术"><span class="tag">JavaScript</span><span class="tag">Tampermonkey</span><span class="tag">DeepSeek API</span><span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span><span class="tag">SQLite</span><span class="tag">SSE</span></div></div>
       <div class="work-footer">
         <details class="work-detail" id="details-boss" data-title="BOSS 求职辅助与本地监控工具" data-rank="03">
           <summary>查看项目详情<span aria-hidden="true">↗</span></summary>
@@ -229,15 +237,18 @@
             <div class="detail-section"><h3>源码与相关入口</h3><div class="detail-links"><a class="detail-link" href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/boss-assistant" target="_blank" rel="noopener noreferrer">查看整理版源码 ↗</a></div></div>
           </div>
         </details>
-        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/boss-assistant" target="_blank" rel="noopener noreferrer" aria-label="BOSS 求职辅助与本地监控工具：GitHub 源码或说明">GitHub ↗</a></div>
+        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/boss-assistant" target="_blank" rel="noopener noreferrer">查看整理版源码 <span aria-hidden="true">↗</span></a></div>
+      </div>
       </div>
     </article><article class="work-card reveal" id="ledger-project" data-project="ledger">
+      <figure class="work-cover work-cover-ledger"><picture><img src="assets/ledger-live.jpg" alt="个人记账本的收支记录与统计界面示意" loading="lazy" decoding="async" width="900" height="568"></picture><figcaption>记账功能界面示意</figcaption></figure>
+      <div class="work-body">
       <div class="work-kicker"><span class="work-category"><span class="project-rank">04</span>Web 产品 · AI 辅助开发</span></div>
       <h3 class="work-title">仵星的记账本</h3>
       <p class="work-state"><span aria-hidden="true"></span>已上线 · 本人持续使用</p>
       <p class="work-summary">从自己的记账与周期预算需求出发，用 AI 辅助开发并持续使用、迭代的 Web 工具。</p>
-      <ul class="work-highlights"><li><b>业务规则</b><span>收支分类、周期预算、储蓄目标与待办记账联动。</span></li><li><b>数据与反馈</b><span>localStorage、SVG 统计和 JSON / CSV 入口，已部署上线。</span></li></ul>
-      <div class="work-tags tags" aria-label="主要技术"><span class="tag">Vibe Coding</span><span class="tag">JavaScript</span><span class="tag">localStorage</span><span class="tag">SVG</span></div>
+      <ul class="work-highlights"><li><b>业务规则</b><span>收支分类、周期预算、储蓄目标与待办记账联动。</span></li><li><b>数据与反馈</b><span><strong class="tech-term">localStorage</strong>、<strong class="tech-term">SVG</strong> 统计和 JSON / CSV 入口，已部署上线。</span></li></ul>
+      <div class="work-stack"><span class="work-stack-label">核心技术</span><div class="work-tags tags" aria-label="核心技术"><span class="tag">Vibe Coding</span><span class="tag">JavaScript</span><span class="tag">localStorage</span><span class="tag">SVG</span><span class="tag">Web Speech API</span></div></div>
       <div class="work-footer">
         <details class="work-detail" id="details-ledger" data-title="仵星的记账本" data-rank="04">
           <summary>查看项目详情<span aria-hidden="true">↗</span></summary>
@@ -252,15 +263,18 @@
             <div class="detail-section"><h3>源码与相关入口</h3><div class="detail-links"><a class="detail-link" href="https://wuxingai666.github.io/xiaozhangben/" target="_blank" rel="noopener noreferrer">在线使用 ↗</a><a class="detail-link" href="https://github.com/WuxingAi666/xiaozhangben" target="_blank" rel="noopener noreferrer">GitHub 源码 ↗</a></div></div>
           </div>
         </details>
-        <div class="work-links"><a href="https://github.com/WuxingAi666/xiaozhangben" target="_blank" rel="noopener noreferrer" aria-label="仵星的记账本：GitHub 源码或说明">GitHub ↗</a><a href="https://wuxingai666.github.io/xiaozhangben/" target="_blank" rel="noopener noreferrer">在线体验 ↗</a></div>
+        <div class="work-links"><a href="https://wuxingai666.github.io/xiaozhangben/" target="_blank" rel="noopener noreferrer">在线使用 <span aria-hidden="true">↗</span></a><a href="https://github.com/WuxingAi666/xiaozhangben" target="_blank" rel="noopener noreferrer">GitHub 源码 <span aria-hidden="true">↗</span></a></div>
+      </div>
       </div>
     </article><article class="work-card reveal" id="fruit-project" data-project="fruit">
+      <figure class="work-cover work-cover-fruit"><picture><img src="assets/fruit-sample.jpg" alt="果蔬图片的目标检测与识别场景示意" loading="lazy" decoding="async" width="1536" height="972"></picture><figcaption>果蔬识别场景示意</figcaption></figure>
+      <div class="work-body">
       <div class="work-kicker"><span class="work-category"><span class="project-rank">05</span>计算机视觉应用</span></div>
       <h3 class="work-title">果蔬成熟度识别与语音采摘辅助</h3>
       <p class="work-state"><span aria-hidden="true"></span>项目经历 · 暂不提供源码</p>
       <p class="work-summary">将果蔬成熟度识别与语音反馈串联，提供图片、视频及摄像头识别的应用实践。</p>
-      <ul class="work-highlights"><li><b>视觉应用</b><span>三类成熟度样本，使用 YOLOv8 / OpenCV 训练与识别。</span></li><li><b>交互反馈</b><span>接入 API 语音助手播报结果并提供采摘参考。</span></li></ul>
-      <div class="work-tags tags" aria-label="主要技术"><span class="tag">YOLOv8</span><span class="tag">OpenCV</span><span class="tag">成熟度识别</span><span class="tag">API 语音交互</span></div>
+      <ul class="work-highlights"><li><b>视觉应用</b><span>三类成熟度样本，使用 <strong class="tech-term">YOLOv8</strong> / <strong class="tech-term">OpenCV</strong> 训练与识别。</span></li><li><b>交互反馈</b><span>接入 API 语音助手播报结果并提供采摘参考。</span></li></ul>
+      <div class="work-stack"><span class="work-stack-label">核心技术</span><div class="work-tags tags" aria-label="核心技术"><span class="tag">YOLOv8</span><span class="tag">OpenCV</span><span class="tag">成熟度识别</span><span class="tag">API 语音交互</span></div></div>
       <div class="work-footer">
         <details class="work-detail" id="details-fruit" data-title="果蔬成熟度识别与语音采摘辅助" data-rank="05">
           <summary>查看项目详情<span aria-hidden="true">↗</span></summary>
@@ -275,15 +289,18 @@
             <div class="detail-section"><h3>源码与相关入口</h3><div class="detail-links"><a class="detail-link" href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/fruit-ripeness" target="_blank" rel="noopener noreferrer">GitHub 项目说明 ↗</a></div></div>
           </div>
         </details>
-        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/fruit-ripeness" target="_blank" rel="noopener noreferrer" aria-label="果蔬成熟度识别与语音采摘辅助：GitHub 源码或说明">GitHub ↗</a></div>
+        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/fruit-ripeness" target="_blank" rel="noopener noreferrer">GitHub 项目说明 <span aria-hidden="true">↗</span></a></div>
+      </div>
       </div>
     </article><article class="work-card reveal" id="coze-project" data-project="coze">
+      <figure class="work-cover work-cover-coze"><picture><img src="assets/coze-workflow.jpg" alt="智能体、知识库与工作流节点连接示意" loading="lazy" decoding="async" width="900" height="566"></picture><figcaption>工作流概念示意</figcaption></figure>
+      <div class="work-body">
       <div class="work-kicker"><span class="work-category"><span class="project-rank">06</span>低代码 · 学习实践</span></div>
       <h3 class="work-title">Coze 智能体与知识库问答实践</h3>
       <p class="work-state"><span aria-hidden="true"></span>基础搭建与了解</p>
       <p class="work-summary">接触并使用 Coze 等低代码平台，了解智能体、基础工作流与知识库问答的搭建方式。</p>
-      <ul class="work-highlights"><li><b>平台实践</b><span>完成简单智能体配置和基础工作流搭建。</span></li><li><b>知识库问答</b><span>使用平台提供的检索能力，了解 RAG 与模型回答的结合。</span></li></ul>
-      <div class="work-tags tags" aria-label="主要技术"><span class="tag">Coze</span><span class="tag">基础智能体</span><span class="tag">工作流</span><span class="tag">知识库问答</span></div>
+      <ul class="work-highlights"><li><b>平台实践</b><span>完成简单智能体配置和基础<strong class="tech-term">工作流</strong>搭建。</span></li><li><b>知识库问答</b><span>使用平台提供的检索能力，了解 RAG 与模型回答的结合。</span></li></ul>
+      <div class="work-stack"><span class="work-stack-label">核心技术</span><div class="work-tags tags" aria-label="核心技术"><span class="tag">Coze</span><span class="tag">基础智能体</span><span class="tag">工作流</span><span class="tag">知识库问答</span></div></div>
       <div class="work-footer">
         <details class="work-detail" id="details-coze" data-title="Coze 智能体与知识库问答实践" data-rank="06">
           <summary>查看项目详情<span aria-hidden="true">↗</span></summary>
@@ -298,7 +315,8 @@
             <div class="detail-section"><h3>源码与相关入口</h3><div class="detail-links"><a class="detail-link" href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/coze-practice" target="_blank" rel="noopener noreferrer">GitHub 实践说明 ↗</a></div></div>
           </div>
         </details>
-        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/coze-practice" target="_blank" rel="noopener noreferrer" aria-label="Coze 智能体与知识库问答实践：GitHub 源码或说明">GitHub ↗</a></div>
+        <div class="work-links"><a href="https://github.com/WuxingAi666/ai-application-projects/tree/main/projects/coze-practice" target="_blank" rel="noopener noreferrer">GitHub 实践说明 <span aria-hidden="true">↗</span></a></div>
+      </div>
       </div>
     </article></div>
   </div>
@@ -708,9 +726,9 @@
 
 <button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
 
-<script src="js/main.js?v=20261027-refined"></script>
-<script src="js/projects.js?v=20261027-refined"></script>
+<script src="js/main.js?v=20261027-showcase"></script>
+<script src="js/projects.js?v=20261027-showcase"></script>
 <script src="js/assistant-config.js"></script>
-<script src="js/assistant.js?v=20261027-refined" defer></script>
+<script src="js/assistant.js?v=20261027-showcase" defer></script>
 </body>
 </html>

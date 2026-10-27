@@ -118,8 +118,9 @@ function onScroll() {
   progress.style.width = (isFinite(p) ? p : 0) + '%';
 
   // 当前栏目高亮（取视口顶部的 section）
+  const sectionThreshold = nav.offsetHeight + Math.min(150, innerHeight * .16);
   let cur = sections[0].id;
-  for (const s of sections) { if (s.getBoundingClientRect().top <= 120) cur = s.id; }
+  for (const s of sections) { if (s.getBoundingClientRect().top <= sectionThreshold) cur = s.id; }
   links.forEach(link => {
     const active = link.getAttribute('href') === '#' + cur;
     link.classList.toggle('active', active);

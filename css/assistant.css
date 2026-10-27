@@ -103,5 +103,12 @@
  .pa-icon-btn{width:38px;min-width:38px;height:44px}
 }
 @media(max-width:360px){.pa-avatar{display:none}.pa-heading h2{font-size:13px}.pa-foot{font-size:8px}}
+@media(max-width:600px){
+ .pa-launcher.is-compact{left:auto;right:14px;bottom:78px;width:50px;min-width:50px;height:50px;min-height:50px;padding:8px;border-radius:16px;gap:0;max-width:50px}
+ .pa-launcher.is-compact .pa-launcher-copy,.pa-launcher.is-compact .pa-launcher-dot{display:none}
+ .pa-launcher.is-compact svg{width:32px;height:32px;flex:none}
+ .pa-launcher.is-compact:focus-visible{max-width:calc(100vw - 84px);width:max-content;gap:8px}
+ .pa-launcher.is-compact:focus-visible .pa-launcher-copy{display:flex}
+}
 @media(prefers-reduced-motion:reduce){.pa-launcher,.pa-suggestion{transition:none}.pa-status.is-busy::before{animation:none}}
 @media print{body{padding-bottom:0!important}.pa-launcher,.pa-panel{display:none!important}}

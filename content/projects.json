@@ -2,7 +2,6 @@
   {
     "id": "rag",
     "anchor": "rag-project",
-    "layout": "core",
     "title": "个人作品集网站 × RAG 智能问答助手",
     "nav": "RAG 全栈应用",
     "category": "全栈 AI 应用",
@@ -65,12 +64,22 @@
     ],
     "evidence": "实现与本地联调",
     "knowledge_id": "rag",
-    "knowledge_file": "04-rag.txt"
+    "knowledge_file": "04-rag.txt",
+    "summary": "将作品集、公开知识库与问答服务连接，让访客通过对话了解项目和经历。",
+    "preview": [
+      [
+        "语义问答",
+        "BGE-M3 / FAISS 召回，DeepSeek 生成带来源回答。"
+      ],
+      [
+        "全栈集成",
+        "FastAPI / SSE、聊天小窗、持久化索引与调用额度。"
+      ]
+    ]
   },
   {
     "id": "speech",
     "anchor": "speech-project",
-    "layout": "core",
     "title": "中文语音情感分析系统",
     "nav": "语音情感分析",
     "category": "语音 AI · 毕业设计",
@@ -133,12 +142,22 @@
     ],
     "evidence": "源码核对",
     "knowledge_id": "speech",
-    "knowledge_file": "07-speech.txt"
+    "knowledge_file": "07-speech.txt",
+    "summary": "面向中文短语音，串联声音与文本分析，形成可交互、可回看结果的毕业设计原型。",
+    "preview": [
+      [
+        "多通道集成",
+        "声学分析、Whisper 转写与 DeepSeek 语义分析，规则加权融合。"
+      ],
+      [
+        "应用闭环",
+        "Vue 3 可视化、录音上传与分析历史；模型效果待独立验证。"
+      ]
+    ]
   },
   {
     "id": "boss",
     "anchor": "boss-project",
-    "layout": "core",
     "title": "BOSS 求职辅助与本地监控工具",
     "nav": "浏览器与 API 集成",
     "category": "自动化 · API 集成",
@@ -200,12 +219,22 @@
     ],
     "evidence": "脚本与公开后端核对",
     "knowledge_id": "boss",
-    "knowledge_file": "11-boss.txt"
+    "knowledge_file": "11-boss.txt",
+    "summary": "围绕个人求职中的筛选、重复操作与消息回复，实践浏览器脚本和模型 API 集成。",
+    "preview": [
+      [
+        "浏览器交互",
+        "候选选择器回退、职位筛选与上下文回复，支持手动启停。"
+      ],
+      [
+        "本地监控",
+        "FastAPI / SQLite 保存操作事件，SSE 更新本地看板。"
+      ]
+    ]
   },
   {
     "id": "ledger",
     "anchor": "ledger-project",
-    "layout": "normal",
     "title": "仵星的记账本",
     "nav": "持续使用的 Web 产品",
     "category": "Web 产品 · AI 辅助开发",
@@ -265,12 +294,22 @@
     ],
     "evidence": "线上与源码核对",
     "knowledge_id": "ledger",
-    "knowledge_file": "12-ledger.txt"
+    "knowledge_file": "12-ledger.txt",
+    "summary": "从自己的记账与周期预算需求出发，用 AI 辅助开发并持续使用、迭代的 Web 工具。",
+    "preview": [
+      [
+        "业务规则",
+        "收支分类、周期预算、储蓄目标与待办记账联动。"
+      ],
+      [
+        "数据与反馈",
+        "localStorage、SVG 统计和 JSON / CSV 入口，已部署上线。"
+      ]
+    ]
   },
   {
     "id": "fruit",
     "anchor": "fruit-project",
-    "layout": "normal",
     "title": "果蔬成熟度识别与语音采摘辅助",
     "nav": "视觉识别实践",
     "category": "计算机视觉应用",
@@ -325,12 +364,22 @@
     ],
     "evidence": "本人经历说明",
     "knowledge_id": "vision",
-    "knowledge_file": "06-vision.txt"
+    "knowledge_file": "06-vision.txt",
+    "summary": "将果蔬成熟度识别与语音反馈串联，提供图片、视频及摄像头识别的应用实践。",
+    "preview": [
+      [
+        "视觉应用",
+        "三类成熟度样本，使用 YOLOv8 / OpenCV 训练与识别。"
+      ],
+      [
+        "交互反馈",
+        "接入 API 语音助手播报结果并提供采摘参考。"
+      ]
+    ]
   },
   {
     "id": "coze",
     "anchor": "coze-project",
-    "layout": "normal",
     "title": "Coze 智能体与知识库问答实践",
     "nav": "低代码 AI 实践",
     "category": "低代码 · 学习实践",
@@ -384,6 +433,17 @@
     ],
     "evidence": "本人实践说明",
     "knowledge_id": "coze",
-    "knowledge_file": "13-coze.txt"
+    "knowledge_file": "13-coze.txt",
+    "summary": "接触并使用 Coze 等低代码平台，了解智能体、基础工作流与知识库问答的搭建方式。",
+    "preview": [
+      [
+        "平台实践",
+        "完成简单智能体配置和基础工作流搭建。"
+      ],
+      [
+        "知识库问答",
+        "使用平台提供的检索能力，了解 RAG 与模型回答的结合。"
+      ]
+    ]
   }
 ]

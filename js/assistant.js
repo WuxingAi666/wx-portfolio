@@ -487,6 +487,18 @@
     }
   }
   launcher.addEventListener("click", () => setOpen(true));
+  // On small screens, keep the full invitation at the top and a compact icon
+  // while reading. Pointer drag keeps its existing position behavior.
+  let compactFrame = 0;
+  const syncLauncher = () => {
+    compactFrame = 0;
+    launcher.classList.toggle("is-compact", compactScreen.matches && window.scrollY > 180);
+  };
+  window.addEventListener("scroll", () => {
+    if (!compactFrame) compactFrame = requestAnimationFrame(syncLauncher);
+  }, { passive: true });
+  compactScreen.addEventListener("change", syncLauncher);
+  syncLauncher();
   panel.querySelector(".pa-close").addEventListener("click", () => setOpen(false));
   panel.querySelector(".pa-clear").addEventListener("click", () => {
     version++;

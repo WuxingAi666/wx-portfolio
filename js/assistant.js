@@ -513,7 +513,7 @@
   });
   panel.querySelector(".pa-foot a").addEventListener("click", () => setOpen(false));
   panel.addEventListener("click", event => {
-    const link = event.target.closest(".pa-source a,.pa-bubble a");
+      const link = event.target.closest(".pa-source a,.pa-bubble a,.pa-foot a");
     if (link && new URL(link.href).origin === location.origin && new URL(link.href).hash) setOpen(false);
   });
   form.addEventListener("submit", event => {

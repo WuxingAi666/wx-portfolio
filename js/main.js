@@ -125,7 +125,7 @@ finePointer.addEventListener('change', () => resetMediaEffects.forEach(reset => 
 
 // ── 3. 导航高亮当前栏目 + 滚动收缩 + 阅读进度 + 回到顶部 ──
 const nav       = document.getElementById('nav');
-const sections  = [...document.querySelectorAll('section[id]')];
+const sections  = [...document.querySelectorAll('body>section[id]')];
 const links     = [...navLinks.querySelectorAll('a')];
 const progress  = document.getElementById('progress');
 const toTop     = document.getElementById('toTop');
@@ -192,6 +192,7 @@ function smoothScrollTo(targetY, duration = 500) {
 // 锚点跳转：全局平滑滚动 500ms（偏移按导航栏实际高度动态取，避免改了导航高度后标题被盖住）
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', (e) => {
+    if (a.hasAttribute('data-resume-open') || a.getAttribute('href') === '#resume') return;
     const id = a.getAttribute('href').slice(1);
     const target = id ? document.getElementById(id) : null;
     if (!target) return;                                  // 空锚点（#）放行默认
@@ -205,16 +206,4 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 // 回到顶部
 toTop.addEventListener('click', () => smoothScrollTo(0, 500));
 
-/* ── 在线简历：只打印该区块（替代静态 PDF 下载，输出永远与网页同步，杜绝版本漂移） ── */
-(function () {
-  const btn = document.getElementById('printResume');
-  if (!btn) return;
-  const reset = () => document.body.classList.remove('print-only-resume');
-
-  btn.addEventListener('click', () => {
-    document.body.classList.add('print-only-resume');
-    window.print();
-    setTimeout(reset, 1200);          // 兜底：部分浏览器 print() 非阻塞
-  });
-  window.addEventListener('afterprint', reset);
-})();
+// 完整简历窗口与打印由 resume.js 管理。

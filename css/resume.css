@@ -1,0 +1,109 @@
+/* Resume sheet, shared button feedback and restrained folding transitions. */
+.experience-branch{display:inline;font-size:.78em;font-weight:600}
+.experience-points{gap:16px;margin-top:24px}
+.experience-points li{line-height:1.95}
+.experience-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px;margin-top:26px;padding-top:20px;border-top:1px solid #e3e8ef}
+.experience-actions>span{font-size:12px;color:#4b5563}
+.resume-source{margin-top:20px;text-align:left}
+.resume-source>summary{width:max-content;max-width:100%;cursor:pointer;list-style:none}
+.resume-source>summary::-webkit-details-marker{display:none}
+.resume-source[open]>.rsm{margin-top:24px}
+.resume-source.is-enhanced{display:none}
+body.has-resume-dialog{overflow:hidden;scrollbar-gutter:stable}
+.resume-dialog{position:fixed;inset:0;margin:auto;padding:0;width:min(1080px,calc(100vw - 64px));max-width:100vw;
+  height:min(900px,calc(100dvh - 64px));max-height:100dvh;border:1px solid #cfdaea;border-radius:20px;
+  background:#fff;color:#111827;box-shadow:0 28px 90px #14274733;transform-origin:50% 12%}
+.resume-dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr);animation:sheet-unfold .38s cubic-bezier(.2,.75,.25,1) both}
+.resume-dialog::backdrop{background:#14223870;animation:detail-backdrop .2s ease both}
+.resume-dialog-header{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:20px 28px;border-bottom:1px solid #d8e2ef;background:#f7faff}
+.resume-dialog-heading p{font-size:10px;color:#4b5563;letter-spacing:1.5px;margin-bottom:5px}
+.resume-dialog-heading h2{font-size:23px;line-height:1.4;color:#111827}
+.resume-dialog-actions{display:flex;align-items:center;gap:12px;flex:none}
+.resume-dialog-actions .btn{font-family:inherit;border:1px solid #2563eb;cursor:pointer;min-height:44px;padding:9px 16px}
+.resume-dialog-close{display:grid;place-items:center;flex:none;width:44px;height:44px;border:1px solid #cbd7e7;border-radius:10px;
+  background:#fff;color:#334155;font-size:25px;line-height:1;cursor:pointer}
+.resume-dialog-content{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:30px 36px 42px;scrollbar-gutter:stable;text-align:left}
+.resume-dialog .rsm{margin:0;padding:0;border:0;border-radius:0;box-shadow:none;max-width:none;text-align:left}
+.resume-dialog .rsm :is(h1,h2,h3,h4,b,strong){color:#111827;font-weight:700}
+.resume-dialog .rsm :is(p,li){color:#374151}
+.resume-dialog .rsm :is(.rsm-k,.rsm-date,.rsm-org,.rsm-intent,.rsm-tip){color:#4b5563}
+.resume-dialog .rsm-foot{margin-top:24px}
+.resume-dialog .rsm-row{grid-template-columns:82px minmax(0,1fr);gap:20px}
+#resume-print-root{display:none}
+
+/* A shallow screen fold settles before reading; the light sweep stays on chrome. */
+@keyframes sheet-unfold{
+  from{transform:perspective(1600px) translateY(12px) rotateX(4deg) scale(.985)}
+  to{transform:none}
+}
+@keyframes sheet-light{
+  from{transform:translateX(-100%);opacity:0}
+  25%{opacity:1}
+  to{transform:translateX(100%);opacity:0}
+}
+.project-dialog[open]{animation:sheet-unfold .34s cubic-bezier(.2,.75,.25,1) both}
+.project-dialog-header{position:relative;isolation:isolate;overflow:hidden;background:#f7faff}
+.resume-dialog-header::after,.project-dialog-header::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(105deg,transparent 20%,#dbeafe85 45%,#ffffffd9 55%,transparent 80%);transform:translateX(-100%)}
+.resume-dialog[open] .resume-dialog-header::after,.project-dialog[open] .project-dialog-header::after{animation:sheet-light .7s ease-out both}
+:is(.btn,.work-detail>summary,.work-links a,.work-links button,.detail-link,.project-dialog-close,.resume-dialog-close,.project-index a,.nav-links a,.channel[href],.pa-icon-btn,.pa-clear,.pa-send,.pa-suggestion,.pa-retry){
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background-color .2s ease,color .2s ease}
+:is(.btn,.work-detail>summary,.work-links a,.work-links button,.detail-link,.project-index a){position:relative;isolation:isolate;overflow:hidden}
+:is(.btn,.work-detail>summary,.work-links a,.work-links button,.detail-link,.project-index a)::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(105deg,transparent 10%,#ffffff40 50%,transparent 90%);
+  transform:translateX(-130%);transition:transform .5s ease}
+:is(.btn,.work-detail>summary,.work-links a,.work-links button,.detail-link,.resume-dialog-close,.project-dialog-close,.pa-icon-btn,.pa-clear,.pa-send,.pa-suggestion,.pa-retry):focus-visible{
+  outline:3px solid #93b4f4;outline-offset:3px}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  :root :is(.btn,.work-detail>summary,.work-links a,.work-links button,.detail-link,.project-index a):hover{
+    transform:perspective(800px) translateY(-2px) rotateX(2deg);box-shadow:0 5px 14px #1e40af1c}
+  :is(.btn,.work-detail>summary,.work-links a,.work-links button,.detail-link,.project-index a):hover::after{transform:translateX(130%)}
+  :is(.project-dialog-close,.resume-dialog-close,.pa-icon-btn,.pa-clear,.pa-send:not(:disabled),.pa-retry):hover{
+    transform:translateY(-1px);box-shadow:0 3px 9px #1e40af18}
+  .nav-links a:hover{transform:translateY(-1px);background:#edf4ff}
+  .channel[href]:hover{transform:translateY(-2px);box-shadow:0 5px 14px #1e40af12}
+  .pa-suggestion:hover{transform:translateY(-2px);box-shadow:0 4px 12px #183f3314}
+  .pa-launcher:hover{box-shadow:0 9px 30px #123e3340}
+  :root :is(.btn,.work-detail>summary,.work-links a,.work-links button,.detail-link,.project-dialog-close,.resume-dialog-close,.pa-send):active{transform:translateY(0);box-shadow:none}
+}
+@media(max-width:768px){
+  .experience-card h3{font-size:21px}.experience-branch{display:block;margin-top:2px;font-size:14px}
+  .experience-points{gap:16px}.experience-actions{margin-top:22px;gap:10px}
+  .resume-dialog{width:calc(100vw - 16px);height:calc(100dvh - 20px);border-radius:15px}
+  .resume-dialog-header{padding:16px 14px;gap:10px;align-items:center}
+  .resume-dialog-heading p{font-size:9px;letter-spacing:.8px}.resume-dialog-heading h2{font-size:18px}
+  .resume-dialog-actions{gap:8px}.resume-dialog-actions .btn{font-size:11px;padding:8px 10px;min-height:42px}
+  .resume-dialog-close{width:40px;height:42px;font-size:23px}
+  .resume-dialog-content{padding:24px 18px max(32px,env(safe-area-inset-bottom))}
+  .resume-dialog .rsm-row{grid-template-columns:1fr;gap:8px}
+  .resume-dialog .rsm-t{font-size:14px;line-height:1.75;gap:4px 10px}
+  .resume-dialog .rsm-v li{font-size:12.5px;line-height:1.85}
+  @keyframes sheet-unfold{from{transform:perspective(1200px) translateY(6px) rotateX(2deg)}to{transform:none}}
+}
+@media(max-width:360px){
+  .resume-dialog-heading p{display:none}.resume-dialog-heading h2{font-size:17px}
+  .resume-dialog-header{padding:14px 12px}.resume-dialog-actions .btn{padding:8px;font-size:10.5px}
+  .resume-dialog-content{padding:22px 14px 32px}
+}
+@media(prefers-reduced-motion:reduce){
+  .resume-dialog[open],.project-dialog[open],.resume-dialog::backdrop,
+  .resume-dialog[open] .resume-dialog-header::after,.project-dialog[open] .project-dialog-header::after{animation:none}
+  :is(.btn,.work-detail>summary,.work-links a,.work-links button,.detail-link,.project-dialog-close,.resume-dialog-close,.project-index a,.nav-links a,.channel[href],.pa-icon-btn,.pa-clear,.pa-send,.pa-suggestion,.pa-retry){transition:none}
+  :is(.btn,.work-detail>summary,.work-links a,.work-links button,.detail-link,.project-index a)::after{display:none}
+}
+@media print{
+  @page{size:A4;margin:13mm}
+  .resume-dialog,.resume-source>summary{display:none!important}
+  body.print-only-resume{padding:0!important;margin:0!important;overflow:visible!important;background:#fff}
+  body.print-only-resume>*:not(#resume-print-root){display:none!important}
+  body.print-only-resume>#resume-print-root{display:block!important;color:#111827}
+  #resume-print-root .rsm{margin:0;padding:0;border:0;box-shadow:none;max-width:none;color:#111827;font-size:12px}
+  #resume-print-root .rsm-row{display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;break-inside:auto;padding:14px 0}
+  #resume-print-root .rsm-t{font-size:13px;break-after:avoid}
+  #resume-print-root .rsm-k{color:#111827;font-size:12px;break-after:avoid}
+  #resume-print-root .rsm-org,#resume-print-root .rsm-date{font-size:11px;color:#4b5563}
+  #resume-print-root .rsm-v li{font-size:11.5px;line-height:1.75;break-inside:avoid}
+  #resume-print-root .rsm :is(b,strong){color:#111827}
+  #resume-print-root .rsm-foot{display:none!important}
+}

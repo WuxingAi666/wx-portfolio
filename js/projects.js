@@ -19,6 +19,7 @@
   const closeButton = dialog.querySelector("button");
   let active = null;
   let closing = false;
+  let restoreOnClose = true;
 
   function returnContent(restoreFocus) {
     if (!active) return;
@@ -32,6 +33,8 @@
 
   function openProject(entry) {
     if (active && active.entry === entry) return;
+    document.dispatchEvent(new CustomEvent('portfolio:open-modal', { detail: { type: 'project' } }));
+    restoreOnClose = true;
     returnContent(false);
     const summary = entry.querySelector("summary");
     const body = entry.querySelector(".work-detail-body");
@@ -95,9 +98,15 @@
     if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) closeProject();
   });
   dialog.addEventListener("close", () => {
-    returnContent(true);
+    returnContent(restoreOnClose && !document.querySelector('dialog[open]'));
+    restoreOnClose = true;
     closing = false;
     document.body.classList.remove("has-project-dialog");
+  });
+  document.addEventListener('portfolio:open-modal', event => {
+    if (event.detail.type === 'project' || !dialog.open) return;
+    restoreOnClose = false;
+    dialog.close();
   });
   window.addEventListener("popstate", syncLocation);
   window.addEventListener("hashchange", syncLocation);

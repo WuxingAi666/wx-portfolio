@@ -1,18 +1,17 @@
 /* Reading layout: section panels, consistent project previews and native details.
  * Loaded after the original blue/white theme. Assistant colors remain isolated.
  */
-:root{--page-canvas:#edf1f7;--panel-edge:#cbd5e3;--panel-gap:32px}
+:root{--page-canvas:#f4f6f9;--panel-edge:#d5dde7;--panel-gap:32px;--surface:#f4f6f9;--border:#d5dde7}
 html{scrollbar-gutter:stable}
 body{background:var(--page-canvas)}
 body>section:not(#home){background:transparent;border:0;padding:0;margin:var(--panel-gap) 0;scroll-margin-top:16px}
 body>section:not(#home)>.wrap{width:calc(100% - 64px);max-width:1200px;padding:36px;
-  background:#fff;border:1px solid var(--panel-edge);border-top:3px solid #b5c9e5;border-radius:20px;
-  box-shadow:0 8px 26px #21385906}
+  background:#fff;border:1px solid var(--panel-edge);border-radius:20px;box-shadow:none}
 .sec-head{padding-bottom:24px;margin-bottom:28px;border-bottom:1px solid #d5dfec}
 .sec-title{font-size:30px;gap:14px}
 .sec-no{background:#2563eb;border-color:#2563eb;color:#fff;border-radius:10px;font-size:13px}
 .sec-sub{margin-left:58px;font-size:14px;max-width:720px}
-.hero{padding:56px 24px 44px;background:radial-gradient(ellipse at 50% 0,#eaf2ff 0,transparent 60%),#fff;border-bottom:1px solid #cbd5e3}
+.hero{padding:56px 24px 44px;background:#fff;border-bottom:1px solid var(--panel-edge)}
 .hero .avatar{width:88px;height:88px;margin-bottom:18px}
 .hero h1{font-size:40px;margin-bottom:8px}
 .hero p.intro{max-width:660px;font-size:15px;margin-bottom:24px}
@@ -22,7 +21,7 @@ body>section:not(#home)>.wrap{width:calc(100% - 64px);max-width:1200px;padding:3
 .nav-links a{display:inline-flex;align-items:center;min-height:36px;padding:4px 10px;border-radius:7px}
 .nav-links a.active{background:#e8f0ff;color:#1d4ed8}
 .nav-links a.active::after{display:none}
-.info-card,.cap-item,.skill-card{background:#f8fafd;border-color:#dee5ee;box-shadow:none}
+.info-card,.cap-item,.skill-card{background:#fff;border-color:var(--panel-edge);box-shadow:none}
 .timeline{border-left-color:#a9bfde}
 .tl-item{border-color:#d0dbea;box-shadow:none}
 .oa-card{background:#f8fafd;border-color:#d9e2ee;box-shadow:none}
@@ -62,6 +61,14 @@ body>section:not(#home)>.wrap{width:calc(100% - 64px);max-width:1200px;padding:3
 .delivery-eyebrow{font-size:12px;color:#526f98;font-weight:600;margin-bottom:8px}
 .delivery-summary h3{font-size:25px;color:#193251;line-height:1.5;margin-bottom:14px}
 .delivery-intro{font-size:15px;line-height:1.9;max-width:950px;color:#52627a}
+.delivery-journey{list-style:none;counter-reset:delivery-stage;margin:22px 0 0;padding:0}
+.delivery-journey>li{counter-increment:delivery-stage;position:relative;padding:18px 0 18px 34px;border-bottom:1px solid #e3e8ef}
+.delivery-journey>li::before{content:counter(delivery-stage,decimal-leading-zero);position:absolute;left:0;top:20px;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:#4b5563}
+.delivery-journey>li:first-child{padding-top:0}.delivery-journey>li:first-child::before{top:2px}
+.delivery-journey>li:last-child{border-bottom:0;padding-bottom:0}
+.delivery-journey h4{font-size:15px;font-weight:700;line-height:1.6;margin-bottom:6px}
+.delivery-journey p{font-size:14px;line-height:1.9;max-width:960px}
+.delivery-outcome{margin-top:24px;padding-top:18px;border-top:1px solid #e3e8ef;font-size:13px;line-height:1.9}
 .delivery-method{margin:22px 0;border-top:1px solid #dbe5f2}
 .delivery-method>div{display:grid;grid-template-columns:112px minmax(0,1fr);gap:20px;padding:13px 0;border-bottom:1px solid #dbe5f2}
 .delivery-method dt{font-size:13px;color:#274f83;font-weight:700}
@@ -77,14 +84,8 @@ body>section:not(#home)>.wrap{width:calc(100% - 64px);max-width:1200px;padding:3
 :is(#home,#about,#proj,#exp,#oa,#skills,#campus,#resume,#contact) :is(.tag,.chip,.experience-badge,.project-rank,.work-feature){color:#111827}
 #home .evidence span,#about .info-card :is(em,.num),#contact .channel :is(.k,.v){color:#4b5563}
 #about .cap-item .no{color:#111827}
-#skills .tag.l4{background:#d9dfe8;border-color:#c6cfdb}
-#skills .tag.l3{background:#e8ecf2;border-color:#d5dce6}
-#skills .tag.l2{background:#f1f3f7;border-color:#dfe4ec}
-#skills .tag.l1{background:#fafbfc;border-color:#e7eaf0}
-#skills .skill-legend .lg4{background:#d9dfe8;border:1px solid #c6cfdb}
-#skills .skill-legend .lg3{background:#e8ecf2;border-color:#d5dce6}
-#skills .skill-legend .lg2{background:#f1f3f7;border-color:#dfe4ec}
-#skills .skill-legend .lg1{background:#fafbfc;border-color:#e7eaf0}
+.skill-group+.skill-group{margin-top:18px}
+.skill-level{display:block;margin-bottom:8px;font-size:12px;font-weight:600;color:#4b5563}
 .project-dialog :is(h2,h3,h4,b,strong){color:#111827}
 .project-dialog :is(p,li){color:#374151}
 .project-dialog :is(.tag,.detail-state,.detail-caption,.project-dialog-eyebrow){color:#4b5563}
@@ -151,9 +152,9 @@ body>section:not(#home)>.wrap{width:calc(100% - 64px);max-width:1200px;padding:3
 .project-dialog{position:fixed;inset:0;margin:auto;width:min(860px,calc(100vw - 64px));max-width:100vw;height:min(780px,calc(100dvh - 80px));max-height:100dvh;
   padding:0;border:1px solid #d6e2f1;border-radius:18px;background:#fff;color:var(--text);box-shadow:0 32px 100px #10223a42,0 4px 20px #16385d1a;transform-origin:50% 65%}
 .project-dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr);animation:detail-enter .34s cubic-bezier(.2,.75,.25,1) both}
-.project-dialog::backdrop{background:#14273d75;backdrop-filter:blur(6px);animation:detail-backdrop .28s ease both}
+.project-dialog::backdrop{background:#11182766;animation:detail-backdrop .16s ease both}
 .project-dialog-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:24px 32px;
-  background:linear-gradient(135deg,#f1f6ff,#fbfcfe);border-bottom:1px solid #d5dfec}
+  background:#fff;border-bottom:1px solid #d5dfec}
 .project-dialog-eyebrow{font-size:11px;letter-spacing:1px;color:#637a98;margin-bottom:7px}
 .project-dialog-header h2{font-size:23px;line-height:1.5;overflow-wrap:anywhere}
 .project-dialog-close{flex:none;display:grid;place-items:center;width:44px;height:44px;border:1px solid #ccd7e6;
@@ -162,11 +163,30 @@ body>section:not(#home)>.wrap{width:calc(100% - 64px);max-width:1200px;padding:3
 body.has-project-dialog{overflow:hidden;scrollbar-gutter:stable}
 footer{border:0;background:transparent;color:#718097}
 @media(min-width:769px){.pa-launcher{bottom:26px}.to-top{right:284px;bottom:30px}}
-@keyframes detail-enter{from{transform:perspective(1400px) translateY(24px) rotateX(5deg) scale(.96);opacity:0;filter:blur(5px)}to{transform:none;opacity:1;filter:none}}
+@keyframes detail-enter{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
 @keyframes detail-backdrop{from{opacity:0}to{opacity:1}}
 @media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
-  .work-card:hover{transform:translateY(-3px);border-color:#9ab4da;box-shadow:0 12px 24px #203e6410}
+  .work-card:hover{border-color:#a4b7d1}
 }
+/* Stable reading surfaces: labels always have an explicit foreground/background pair. */
+header.nav,header.nav.scrolled{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;border-bottom-color:var(--panel-edge)}
+header.nav.scrolled{height:64px}
+.reveal,.reveal.in{opacity:1;transform:none;transition:none}
+.info-card:hover,.cap-item:hover,.skill-card:hover,.tl-item:hover,.channel:hover{transform:none;box-shadow:none}
+.hero .chip,.hero .chip.accent,#proj .tag,#skills .tag,#campus .tag,.project-dialog .tag{
+  color:#1f2937;background:#f3f6fa;border:1px solid #d5dde7;font-weight:500;line-height:1.6;
+  opacity:1;min-height:30px;max-width:100%;white-space:normal;overflow-wrap:anywhere;display:inline-flex;align-items:center}
+.hero .chip,.hero .chip.accent{padding:5px 14px}
+#skills .tag{padding:5px 11px;font-size:12.5px}
+#proj .tag,.project-dialog .tag{padding:4px 10px}
+#exp .experience-badge,#proj .work-feature,#proj .project-rank{color:#1f2937;background:#f3f6fa;border-color:#d5dde7;line-height:1.6}
+#proj .work-feature{font-size:11px;padding:3px 8px}
+.project-index a{color:#374151;background:#fff;border-color:var(--panel-edge)}
+.project-index a span{color:#111827}
+.project-dialog[open]{animation-duration:.18s}
+.project-dialog :is(.detail-flow,.detail-media img){background:#f4f6f9}
+.project-dialog .detail-media figcaption,.sec-head::after,footer{color:#4b5563}
+.skill-card h3{margin-bottom:20px}
 @media(max-width:1100px){
   body>section:not(#home)>.wrap{width:calc(100% - 48px);padding:28px}
   .work-body{padding:26px}.work-title{font-size:24px}
@@ -177,9 +197,10 @@ footer{border:0;background:transparent;color:#718097}
 }
 @media(max-width:768px){
   :root{--panel-gap:22px}
+  header.nav,header.nav.scrolled{height:56px}
   html{scrollbar-gutter:auto}
   body>section:not(#home){scroll-margin-top:16px}
-  body>section:not(#home)>.wrap{width:calc(100% - 24px);padding:24px 16px;border-radius:14px;border-top-width:3px}
+  body>section:not(#home)>.wrap{width:calc(100% - 24px);padding:24px 16px;border-radius:14px}
   .sec-head{padding-bottom:18px;margin-bottom:20px}.sec-title{font-size:23px;gap:10px}
   .sec-no{width:32px;height:32px;border-radius:8px;font-size:11px}
   .sec-sub{margin:10px 0 0;font-size:13px;line-height:1.75}
@@ -233,9 +254,14 @@ footer{border:0;background:transparent;color:#718097}
   .experience-contributions>div{grid-template-columns:1fr;gap:6px;padding:15px 0}
   .experience-contributions dt{font-size:14px}.experience-contributions dd{font-size:13px;line-height:1.9}
   .experience-foot{display:block;margin-top:16px}.experience-foot>span{display:block;margin-bottom:5px}.experience-foot p{font-size:11px}
-  .delivery-summary{padding:22px 18px;border-left-width:3px;border-radius:10px}
+  .delivery-summary{padding:22px 18px;border-radius:10px}
   .delivery-summary h3{font-size:21px;line-height:1.6;margin-bottom:12px}
   .delivery-eyebrow{font-size:11px}.delivery-intro{font-size:13px;line-height:1.9}
+  .delivery-journey{margin-top:20px}.delivery-journey>li{padding:16px 0 16px 28px}
+  .delivery-journey>li::before{top:18px;font-size:11px}.delivery-journey h4{font-size:14px}
+  .delivery-journey p{font-size:13px}.delivery-outcome{font-size:12px;margin-top:20px;padding-top:16px}
+  .skill-group+.skill-group{margin-top:16px}.skill-level{font-size:12px}
+  #skills .tag,#proj .tag{font-size:11.5px;padding:4px 9px;min-height:29px}
   .delivery-method{margin:18px 0}.delivery-method>div{grid-template-columns:1fr;gap:4px;padding:12px 0}
   .delivery-method dt{font-size:13px}.delivery-method dd{font-size:12px;line-height:1.9}
   .delivery-example{grid-template-columns:1fr;gap:5px;font-size:12px;line-height:1.9}

@@ -1,6 +1,6 @@
 /* ============================================================
    仵星 · 个人作品集  main.js
-   横滑导航 / 有界渐显 / 图片轻透视 / 导航高亮与进度 / 平滑定位 / 简历打印
+   横滑导航 / 清晰正文 / 图片轻透视 / 导航高亮与进度 / 平滑定位 / 简历打印
    纯原生 JS，无依赖；尊重 prefers-reduced-motion
    ============================================================ */
 
@@ -28,37 +28,14 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 768 && navLinks.classList.contains('open')) setMenu(false);
 });
 
-// ── 2. 滚动渐显：只给同批进入视野的元素错落，最长延迟 180ms ──
+// ── 2. 正文始终清晰可见，避免滚动时文字渐隐造成阅读跳变 ──
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 let reduceMotion = motionPreference.matches;
 const reveals = document.querySelectorAll('.reveal');
-let revealObserver;
 function showAllContent() {
-  if (revealObserver) revealObserver.disconnect();
   reveals.forEach(el => el.classList.remove('reveal', 'in'));
 }
-if (reduceMotion || !('IntersectionObserver' in window)) {
-  showAllContent();
-} else {
-  revealObserver = new IntersectionObserver(entries => {
-    const visible = entries.filter(entry => entry.isIntersecting);
-    visible.forEach((entry, index) => {
-      const el = entry.target;
-      const delay = Math.min(index * 60, 180);
-      el.style.transitionDelay = delay + 'ms';
-      el.classList.add('in');
-      revealObserver.unobserve(el);
-      setTimeout(() => {
-        el.classList.remove('reveal', 'in');
-        el.style.transitionDelay = '';
-      }, delay + 400);
-    });
-  // 不按元素高度计算阈值，避免长简历或展开后的项目永远达不到入场条件。
-  }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    reveals.forEach(el => revealObserver.observe(el));
-  }));
-}
+showAllContent();
 
 // ── 图片空间感：不变换文字卡片，不在滚动时持续计算 ───────────
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -109,7 +86,7 @@ const toTop     = document.getElementById('toTop');
 function onScroll() {
   const y = window.scrollY || document.documentElement.scrollTop;
 
-  // 导航栏：滚动超过 80px 后收缩为半透明白色悬浮栏（背景加深、高度收缩、阴影）
+  // 导航栏保持不透明白底与固定高度，滚动时只更新状态和当前栏目。
   nav.classList.toggle('scrolled', y > 80);
 
   // 阅读进度条

@@ -1,6 +1,6 @@
 /* ============================================================
    仵星 · 个人作品集  main.js
-   横滑导航 / 清晰正文 / 图片轻透视 / 导航高亮与进度 / 平滑定位 / 简历打印
+   横滑导航 / 轻量滚动入场 / 图片轻透视 / 导航高亮与进度 / 平滑定位 / 简历打印
    纯原生 JS，无依赖；尊重 prefers-reduced-motion
    ============================================================ */
 
@@ -28,7 +28,7 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 768 && navLinks.classList.contains('open')) setMenu(false);
 });
 
-// ── 2. 正文始终清晰可见，避免滚动时文字渐隐造成阅读跳变 ──
+// ── 2. 单次轻移入场：正文始终可见，不用模糊或透明度隐藏内容 ──
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 let reduceMotion = motionPreference.matches;
 const reveals = document.querySelectorAll('.reveal');
@@ -36,6 +36,50 @@ function showAllContent() {
   reveals.forEach(el => el.classList.remove('reveal', 'in'));
 }
 showAllContent();
+const entryTargets = document.querySelectorAll('.sec-head,.work-card,.experience-card,.delivery-summary,.skill-card,.info-card,.tl-item');
+const enteredTargets = new WeakSet();
+const entryAnimations = new Set();
+let entryObserver;
+function stopEntryMotion() {
+  if (entryObserver) entryObserver.disconnect();
+  entryAnimations.forEach(animation => animation.cancel());
+  entryAnimations.clear();
+}
+function startEntryMotion() {
+  if (reduceMotion || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
+  if (entryObserver) entryObserver.disconnect();
+  entryObserver = new IntersectionObserver(entries => {
+    let order = 0;
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const target = entry.target;
+      entryObserver.unobserve(target);
+      if (enteredTargets.has(target)) return;
+      enteredTargets.add(target);
+      // 直接锚点定位和已越过视口的内容保持静止，不重新播放。
+      if (reduceMotion || entry.boundingClientRect.top < 64) return;
+      const mobile = window.innerWidth <= 768;
+      const animation = target.animate(
+        [{ transform: `translateY(${mobile ? 6 : 10}px)` }, { transform: 'translateY(0)' }],
+        { duration: mobile ? 300 : 420, delay: Math.min(order++ * 40, 80), easing: 'cubic-bezier(.22,.61,.36,1)' }
+      );
+      entryAnimations.add(animation);
+      const cleanup = () => entryAnimations.delete(animation);
+      animation.addEventListener('finish', cleanup, { once: true });
+      animation.addEventListener('cancel', cleanup, { once: true });
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -20px 0px' });
+  entryTargets.forEach(target => { if (!enteredTargets.has(target)) entryObserver.observe(target); });
+}
+startEntryMotion();
+// 用户开始点击或键盘操作时，相关卡片立即停稳，保持控件位置可预测。
+function settleEntryTarget(event) {
+  entryAnimations.forEach(animation => {
+    if (animation.effect.target.contains(event.target)) animation.cancel();
+  });
+}
+document.addEventListener('pointerdown', settleEntryTarget, { passive: true });
+document.addEventListener('focusin', settleEntryTarget);
 
 // ── 图片空间感：不变换文字卡片，不在滚动时持续计算 ───────────
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -71,7 +115,10 @@ motionPreference.addEventListener('change', event => {
   reduceMotion = event.matches;
   if (reduceMotion) {
     showAllContent();
+    stopEntryMotion();
     resetMediaEffects.forEach(reset => reset());
+  } else {
+    startEntryMotion();
   }
 });
 finePointer.addEventListener('change', () => resetMediaEffects.forEach(reset => reset()));

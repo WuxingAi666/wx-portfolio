@@ -75,7 +75,7 @@ body>section:not(#home)>.wrap{width:calc(100% - 64px);max-width:1200px;padding:3
 .delivery-method dd{margin:0;font-size:14px;color:#52627a;line-height:1.8}
 .delivery-example{display:grid;grid-template-columns:180px minmax(0,1fr);gap:20px;font-size:13px;line-height:1.9;color:#526b83}
 .delivery-example b{font-size:12px;font-weight:650;color:#2e567e}
-/* Three neutral text roles; blue/green identify actions and surfaces only. */
+/* Neutral reading text; colored labels use their own tested foreground/background pairs. */
 :root{--text:#111827;--muted:#4b5563}
 :is(#home,#about,#proj,#exp,#oa,#skills,#campus,#resume,#contact) :is(p,li,dd){color:#374151}
 :is(#home,#about,#proj,#exp,#oa,#skills,#campus,#resume,#contact) :is(h1,h2,h3,h4,b,strong){color:#111827}
@@ -187,6 +187,41 @@ header.nav.scrolled{height:64px}
 .project-dialog :is(.detail-flow,.detail-media img){background:#f4f6f9}
 .project-dialog .detail-media figcaption,.sec-head::after,footer{color:#4b5563}
 .skill-card h3{margin-bottom:20px}
+/* Blue accents distinguish keywords from white cards; skill colors retain their meaning. */
+:root{--skill-solid:#1d4ed8;--skill-applied:#dbeafe;--skill-basic:#eff6ff;--skill-aware:#f8fafc}
+.hero .chip,.hero .chip.accent,#proj .tag,#campus .tag,.project-dialog .tag{
+  color:#244679;background:#edf4ff;border-color:#c8daf4;box-shadow:inset 0 1px 0 #ffffffb3}
+.hero .chip.accent{background:#e3eeff;border-color:#b8cff1;color:#1e3a8a;font-weight:600}
+#exp .experience-badge,#proj .work-feature{background:#e8f0ff;color:#1e3a8a;border-color:#c3d5f5}
+#skills .tag.l4{color:#fff;background:var(--skill-solid);border-color:var(--skill-solid);font-weight:600}
+#skills .tag.l3{color:#1e3a8a;background:var(--skill-applied);border-color:#b8cef0}
+#skills .tag.l2{color:#274b7a;background:var(--skill-basic);border-color:#d1dff2}
+#skills .tag.l1{color:#475569;background:var(--skill-aware);border-color:#dbe2ec}
+#skills .skill-legend{gap:10px 20px;margin-bottom:24px;color:#4b5563}
+#skills .skill-legend i{width:14px;height:14px;flex:none;border:1px solid #dbe2ec}
+#skills .skill-legend .lg4{background:var(--skill-solid);border-color:var(--skill-solid)}
+#skills .skill-legend .lg3{background:var(--skill-applied);border-color:#b8cef0}
+#skills .skill-legend .lg2{background:var(--skill-basic);border-color:#d1dff2}
+#skills .skill-legend .lg1{background:var(--skill-aware);border-color:#dbe2ec}
+.hero .chip,#proj .tag,#skills .tag,#campus .tag,.project-dialog .tag{
+  cursor:default;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.skill-card,.info-card,.experience-card,.delivery-summary{transition:border-color .22s ease,box-shadow .22s ease}
+.btn:focus-visible,.work-detail>summary:focus-visible,.work-links :is(a,button):focus-visible,.project-index a:focus-visible{
+  outline:3px solid #93b4f4;outline-offset:3px}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .hero .chip:hover,#proj .tag:hover,#skills .tag:hover,#campus .tag:hover,.project-dialog .tag:hover{
+    transform:translateY(-2px);box-shadow:0 4px 10px #1e40af18}
+  .skill-card:hover,.info-card:hover,.experience-card:hover,.delivery-summary:hover{
+    border-color:#b2c8e9;box-shadow:0 5px 18px #25477b09}
+  .work-card:hover{box-shadow:0 5px 18px #25477b0c}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero .chip,#proj .tag,#skills .tag,#campus .tag,.project-dialog .tag,
+  .skill-card,.info-card,.experience-card,.delivery-summary,#progress{transition:none}
+}
+@media print{
+  #skills .tag.l4{background:#fff;color:#111827;border-color:#64748b}
+}
 @media(max-width:1100px){
   body>section:not(#home)>.wrap{width:calc(100% - 48px);padding:28px}
   .work-body{padding:26px}.work-title{font-size:24px}

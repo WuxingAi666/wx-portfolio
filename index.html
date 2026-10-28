@@ -63,9 +63,9 @@
   ════════════════════════════════════════════════════════════
 -->
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/style.css?v=20261027-showcase">
-<link rel="stylesheet" href="css/assistant.css?v=20261027-showcase">
-<link rel="stylesheet" href="css/layout.css?v=20261027-showcase">
+<link rel="stylesheet" href="css/style.css?v=20261028-delivery">
+<link rel="stylesheet" href="css/assistant.css?v=20261028-delivery">
+<link rel="stylesheet" href="css/layout.css?v=20261028-delivery">
 <!-- ═══ 无 JS 兜底：防止渐显动画未执行导致整页白屏 ═══ -->
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -327,191 +327,51 @@
   <div class="wrap">
     <div class="sec-head reveal" data-label="EXPERIENCE">
       <h2 class="sec-title"><span class="sec-no">03</span>实习经历</h2>
-      <p class="sec-sub">企业 OA 驻场实施：从需求澄清与流程配置，到数据校验、客户演示和 UAT 验收，在跨方协作中推进交付与问题闭环。</p>
+      <p class="sec-sub">央国企客户驻场，面向业务与管理层沟通需求，以方案实施、数据核对和协同排障推进交付。</p>
     </div>
-
-    <div class="timeline">
-      <div class="tl-item reveal">
-        <div class="tl-head"><h3>实施工程师实习生</h3><span class="meta">2026.07 — 至今</span></div>
-        <div class="org">致远互联（上海）· V8 项目实施组 ｜ 招商局金融科技 OA 低代码实施项目</div>
-
-        <!-- 项目环境：一行讲清平台 / 客户 / 协同方 / 角色 -->
-        <div class="env-row">
-          <div class="env"><span class="ek">平台</span><span class="ev">致远互联 V8 低代码平台</span></div>
-          <div class="env"><span class="ek">客户</span><span class="ev">中国数联物流信息有限公司（总部）</span></div>
-          <div class="env"><span class="ek">协同方</span><span class="ev">招商局金融科技</span></div>
-          <div class="env"><span class="ek">我的角色</span><span class="ev">驻场实施，独立承担模块搭建与交付</span></div>
-        </div>
-
-        <ul>
-          <li><b>业务搭建：</b>基于致远 V8 低代码平台独立搭建业务表单与审批流程，配置多级审批节点流转逻辑与字段级权限，覆盖客户核心 OA 业务模块。</li>
-          <li><b>数据落地：</b>负责办公用品库系统存量数据的导入与维护——按客户模板清洗、核对仓库清点数据，修正管理员编号等字段映射关系，保障生产环境数据准确上线。</li>
-          <li><b>数据库操作：</b>直接编写 <b>MySQL 查询与更新语句</b>完成表单数据核对、字段映射修正与问题数据批量处理，用于存量数据导入前后的校验与回滚，不依赖平台界面逐条操作。</li>
-          <li><b>需求分析与方案转化：</b>驻场对接客户部门负责人与分管领导，澄清业务规则、审批职责和例外场景，转化为表单与流程方案，输出需求确认文档并跟踪变更。</li>
-          <li><b>沟通协同与验收：</b>通过功能演示对齐业务预期，编写 UAT 用例覆盖正常、异常与边界场景；向开发提供复现步骤与日志线索，跟踪修复和回归，与客户及协同方确认验收结果。</li>
-          <li><b>环境运维与问题排查：</b>按开发、测试、预生产、生产多环境<b>打补丁包并发布验证</b>；通过查询系统<b>运行日志</b>定位报错来源、还原问题现场，配合开发侧完成缺陷复现与修复闭环。</li>
-          <li><b>合规意识：</b>在央国企合规框架下推进交付，熟悉数据留痕、审批可追溯与权限最小化对流程设计的影响。</li>
-        </ul>
-
-        <div class="tl-tags">
-          <span class="tag">致远 V8</span><span class="tag">MySQL 查询与更新</span>
-          <span class="tag">多环境补丁发布</span><span class="tag">日志排查</span>
-          <span class="tag">表单搭建</span><span class="tag">审批流配置</span>
-          <span class="tag">字段级权限</span><span class="tag">UAT 测试</span>
-          <span class="tag">驻场需求对接</span><span class="tag">协同交付</span>
-        </div>
+    <article class="experience-card reveal" aria-labelledby="experience-title">
+      <div class="experience-topline"><span class="experience-badge">央国企客户驻场</span><span class="experience-date">2026.07 — 至今</span></div>
+      <h3 id="experience-title">致远互联（上海）</h3>
+      <p class="experience-role">V8 低代码实施实习生 · 独立承担业务模块搭建与交付</p>
+      <dl class="experience-context">
+        <div><dt>驻场客户</dt><dd>中国数联物流信息有限公司（总部）</dd></div>
+        <div><dt>协同团队</dt><dd>招商局金融科技</dd></div>
+        <div><dt>实施平台</dt><dd>致远互联 V8 低代码平台</dd></div>
+      </dl>
+      <p class="experience-lead">连接<strong>客户业务、实施方案与开发排障</strong>，参与行政办公、合同、人事、资产、三会管理与费控六大业务板块，推进需求确认、功能演示、测试和上线验证。</p>
+      <div class="experience-evidence" aria-label="实习实施与问题处理记录">
+        <div><b>20+<span> 张</span></b><span>业务表单配置与上线</span></div>
+        <div><b>10+<span> 条</span></b><span>审批流程配置与上线</span></div>
+        <div><b>30+<span> 项</span></b><span>迁移核对推动问题修复</span></div>
       </div>
-    </div>
+      <dl class="experience-contributions">
+        <div><dt>业务沟通与方案转化</dt><dd>参与 <strong>10+ 次客户需求沟通与功能演示</strong>，对接部门负责人和分管领导，澄清审批职责、权限与例外规则，输出需求确认并跟踪变更。</dd></div>
+        <div><dt>复杂流程独立实施</dt><dd>完成表单、字段校验、权限与条件分支配置；独立搭建咨询子合同<strong>六级审批链路</strong>，按合同类型、金额条件组织流转，兼顾审批留痕与权限最小化。</dd></div>
+        <div><dt>问题分析与数据核对</dt><dd>参与 <strong>V5 → V8 表单迁移</strong>的 PC / 移动端一致性核对，结合 <strong>MySQL 查询与更新、运行日志和复现步骤</strong>定位展示、映射与报错问题；核对办公用品数据及管理员编号映射。</dd></div>
+        <div><dt>跨团队协同与交付</dt><dd>与客户、招商局金融科技及开发团队对齐集成和发布节奏；编写 <strong>15 条 PC 端测试用例</strong>，参与 UAT / POC / 回归测试、多环境补丁发布及生产验证，跟进缺陷修复与验收确认。</dd></div>
+      </dl>
+      <div class="experience-foot"><span>核心实践</span><p>客户与管理层沟通 · 需求分析 · SQL 数据校验 · 日志排障 · UAT 验收 · 协同交付</p></div>
+    </article>
   </div>
 </section>
 
 <section id="oa" class="shade">
   <div class="wrap">
-    <div class="sec-head reveal" data-label="BUSINESS & DELIVERY">
-      <h2 class="sec-title"><span class="sec-no">04</span>业务分析与 OA 交付</h2>
-      <p class="sec-sub">将业务规则转化为流程模型、数据结构和权限边界，通过角色走查、数据校验与验收用例验证方案，形成需求到交付的完整链路。</p>
+    <div class="sec-head reveal" data-label="BUSINESS DELIVERY">
+      <h2 class="sec-title"><span class="sec-no">04</span>业务交付与问题解决</h2>
+      <p class="sec-sub">以业务沟通对齐目标，将需求转成可执行方案，再用数据与测试验证交付。</p>
     </div>
-
-    <!-- ① 标准交付链路 -->
-    <div class="oa-flow reveal">
-      <div class="flow-title">标准交付链路</div>
-      <div class="flow-steps">
-        <div class="fstep"><span class="fn">1</span><b>需求调研</b><p>对接部门负责人，梳理业务规则、审批层级与例外场景</p></div>
-        <div class="fstep"><span class="fn">2</span><b>表单搭建</b><p>主表 / 明细表结构设计，字段类型、校验规则与联动逻辑</p></div>
-        <div class="fstep"><span class="fn">3</span><b>流程配置</b><p>多级审批节点、条件分支路由、退回 / 加签 / 会签策略</p></div>
-        <div class="fstep"><span class="fn">4</span><b>权限设置</b><p>组织 / 角色 / 人员三级授权，字段级可见与可编辑控制</p></div>
-        <div class="fstep"><span class="fn">5</span><b>UAT 测试</b><p>用例覆盖正常流 / 异常流 / 边界值，按角色全链路走查</p></div>
-        <div class="fstep"><span class="fn">6</span><b>上线交付</b><p>数据初始化、用户培训、问题跟踪与验收确认</p></div>
-      </div>
-    </div>
-
-    <!-- ② 多级审批链路示意（内嵌 SVG，零额外请求） -->
-    <div class="oa-diagram reveal">
-      <div class="flow-title">典型多级审批链路（含条件分支与退回）</div>
-      <svg class="flow-svg" viewBox="0 0 920 300" role="img" aria-label="多级审批流程示意图：申请人提交后经部门负责人审批，按条件判断是否需要分管领导审批，通过后由管理员执行并归档，任一节点可退回申请人">
-
-        <rect x="10" y="124" width="104" height="52" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="62" y="146" text-anchor="middle" font-size="13" fill="#111827">申请人</text>
-        <text x="62" y="163" text-anchor="middle" font-size="13" fill="#111827">提交</text>
-
-        <rect x="152" y="124" width="124" height="52" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="214" y="146" text-anchor="middle" font-size="13" fill="#111827">部门负责人</text>
-        <text x="214" y="163" text-anchor="middle" font-size="13" fill="#111827">审批</text>
-
-        <polygon points="360,112 415,150 360,188 305,150" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="360" y="146" text-anchor="middle" font-size="12" fill="#1d4ed8">条件判断</text>
-        <text x="360" y="162" text-anchor="middle" font-size="11" fill="#6b7280">金额 / 类型</text>
-
-        <rect x="470" y="60" width="124" height="52" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="532" y="82" text-anchor="middle" font-size="13" fill="#111827">分管领导</text>
-        <text x="532" y="99" text-anchor="middle" font-size="13" fill="#111827">审批</text>
-
-        <rect x="470" y="188" width="124" height="52" rx="10" fill="#f6f8fb" stroke="#c7ccd6" stroke-width="1.5"/>
-        <text x="532" y="210" text-anchor="middle" font-size="13" fill="#6b7280">直接通过</text>
-        <text x="532" y="227" text-anchor="middle" font-size="12" fill="#9aa2b1">无需上级</text>
-
-        <rect x="650" y="124" width="110" height="52" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="705" y="146" text-anchor="middle" font-size="13" fill="#111827">管理员</text>
-        <text x="705" y="163" text-anchor="middle" font-size="13" fill="#111827">执行</text>
-
-        <rect x="800" y="124" width="100" height="52" rx="10" fill="#f6f8fb" stroke="#c7ccd6" stroke-width="1.5"/>
-        <text x="850" y="155" text-anchor="middle" font-size="13" fill="#6b7280">归档</text>
-
-        <text x="428" y="132" font-size="11" fill="#2563eb">是</text>
-        <text x="392" y="206" font-size="11" fill="#6b7280">否</text>
-        <text x="138" y="270" text-anchor="middle" font-size="11" fill="#9aa2b1">驳回 / 退回修改</text>
-      
-        <g stroke="#9aa2b1" stroke-width="1.5" fill="none">
-          <path d="M114 150 L139 150"/><path d="M276 150 L292 150"/>
-          <path d="M360 188 L360 214 L457 214"/>
-          <path d="M594 214 L622 214 L622 150"/>
-          <path d="M760 150 L787 150"/>
-        </g>
-        <g stroke="#2563eb" stroke-width="1.5" fill="none">
-          <path d="M415 150 L445 150 L445 86 L457 86"/>
-          <path d="M594 86 L622 86 L622 150 L637 150"/>
-        </g>
-        <path d="M214 176 L214 252 L62 252 L62 187" stroke="#c7ccd6" stroke-width="1.5" fill="none" stroke-dasharray="5 4"/>
-
-        <g fill="#9aa2b1">
-          <path d="M146 150 L139 146.5 L139 153.5 Z"/><path d="M299 150 L292 146.5 L292 153.5 Z"/>
-          <path d="M464 214 L457 210.5 L457 217.5 Z"/><path d="M794 150 L787 146.5 L787 153.5 Z"/>
-        </g>
-        <g fill="#2563eb">
-          <path d="M464 86 L457 82.5 L457 89.5 Z"/><path d="M644 150 L637 146.5 L637 153.5 Z"/>
-        </g>
-        <path d="M62 180 L58.5 187 L65.5 187 Z" fill="#c7ccd6"/>
-      </svg>
-      <p class="flow-note">审批节点可配置串行 / 并行（会签、或签），支持退回指定节点、加签、转办与撤回；条件分支需显式兜底默认路由，避免出现无节点承接的「悬空流程」。</p>
-    </div>
-
-    <!-- ③ 五类核心能力 -->
-    <div class="oa-grid">
-      <div class="oa-card reveal">
-        <div class="oa-head"><span class="oa-ic">01</span><h3>审批流配置</h3></div>
-        <p class="oa-desc">梳理审批职责、节点顺序与例外处理规则，建立可执行的流程模型。</p>
-        <ul class="oa-ul">
-          <li>多级审批节点编排：串行逐级、并行会签 / 或签</li>
-          <li>条件分支路由：按金额区间、单据类型、发起部门自动选路</li>
-          <li>节点动作：同意 / 驳回 / 退回指定节点 / 加签 / 转办 / 撤回</li>
-        </ul>
-        <div class="oa-pit"><b>关注点：</b>退回后的状态与数据一致性、条件分支覆盖和默认路由，避免流程停滞。</div>
-      </div>
-
-      <div class="oa-card reveal">
-        <div class="oa-head"><span class="oa-ic">02</span><h3>表单设计</h3></div>
-        <p class="oa-desc">根据业务对象设计主从表、字段约束与联动规则，兼顾流程使用和数据统计。</p>
-        <ul class="oa-ul">
-          <li>主表 + 明细表：如领用申请单下挂多项物资明细</li>
-          <li>校验规则：必填、格式、唯一性、数量与库存联动校验</li>
-          <li>字段级权限：同一张表单，不同角色可见 / 可编辑字段不同</li>
-        </ul>
-        <div class="oa-pit"><b>关注点：</b>明细汇总与审批信息完整性、字段权限和流程节点权限的一致性。</div>
-      </div>
-
-      <div class="oa-card reveal">
-        <div class="oa-head"><span class="oa-ic">03</span><h3>权限体系</h3></div>
-        <p class="oa-desc">明确组织、角色与数据范围的授权边界，落实最小权限与职责分离。</p>
-        <ul class="oa-ul">
-          <li>组织 / 角色 / 人员三级授权，支持按岗位自动匹配审批人</li>
-          <li>数据范围权限：仅本部门 / 含下级部门 / 全公司</li>
-          <li>遵循最小权限原则，管理员与审批人职责分离</li>
-        </ul>
-        <div class="oa-pit"><b>关注点：</b>明确多角色权限叠加规则，以及代理、兼职人员的审批归属。</div>
-      </div>
-
-      <div class="oa-card reveal">
-        <div class="oa-head"><span class="oa-ic">04</span><h3>UAT 测试</h3></div>
-        <p class="oa-desc">从角色、分支和异常路径设计验收用例，以回归结果推动缺陷闭环。</p>
-        <ul class="oa-ul">
-          <li>用例设计方法：等价类划分、边界值分析、异常流、角色走查</li>
-          <li>必测场景：正常审批、驳回重提、退回修改、越权访问、并发提交</li>
-          <li>缺陷登记 → 修复 → 回归验证闭环，输出测试结论再交付</li>
-        </ul>
-        <div class="oa-pit"><b>关注点：</b>覆盖发起人、审批人、管理员视角，并验证金额阈值等边界条件。</div>
-      </div>
-
-      <div class="oa-card reveal">
-        <div class="oa-head"><span class="oa-ic">05</span><h3>数据迁移</h3></div>
-        <p class="oa-desc">通过清洗、映射、试导与校验保证数据一致性，保留备份与回滚预案。</p>
-        <ul class="oa-ul">
-          <li>存量数据清洗：SQL 去重、格式归一、空值与脏数据处理</li>
-          <li>字段映射核对：源表与目标表逐字段比对，含编码与编号映射</li>
-          <li>导入前备份、小批量试导、校验后再全量，保留回滚预案</li>
-        </ul>
-        <div class="oa-pit"><b>实战：</b>办公用品库系统导入中逐项核对管理员编号映射关系，修正错误映射后完成数据上线。</div>
-      </div>
-    </div>
-
-    <!-- ④ 熟悉处理的业务场景类型 -->
-    <div class="oa-scenes reveal">
-      <div class="flow-title">可承接的 OA 业务场景类型</div>
-      <div class="tags">
-        <span class="tag">用章申请</span><span class="tag">合同审批</span><span class="tag">办公用品领用</span>
-        <span class="tag">采购申请</span><span class="tag">请假与出差</span><span class="tag">公文流转</span>
-        <span class="tag">资产登记</span><span class="tag">印章管理</span>
-      </div>
-    </div>
+    <article class="delivery-summary reveal" aria-labelledby="delivery-title">
+      <p class="delivery-eyebrow">业务沟通 · 方案实施 · 协同排障</p>
+      <h3 id="delivery-title">从需求对齐，到问题闭环</h3>
+      <p class="delivery-intro">在企业 OA 驻场实施中，串联<strong>需求澄清、表单与审批配置、权限设计、数据核对和 UAT 验收</strong>，与客户及开发共同推进上线交付。</p>
+      <dl class="delivery-method">
+        <div><dt>先对齐业务</dt><dd>与业务负责人确认角色职责、审批规则和例外场景，通过方案演示对齐预期。</dd></div>
+        <div><dt>再定位问题</dt><dd>结合复现步骤、运行日志与 SQL 核对，区分配置、数据和程序问题，协同对应团队处理。</dd></div>
+        <div><dt>用验证收口</dt><dd>按角色、正常流与异常分支回归，核对发布环境和业务数据，与客户确认交付结果。</dd></div>
+      </dl>
+      <p class="delivery-example"><b>实践切片 · 数据映射核对</b><span>办公用品库初始化时，逐项核对管理员编号映射，修正错误关系并校验上线数据，将业务反馈落实为可验证的处理结果。</span></p>
+    </article>
   </div>
 </section>
 
@@ -722,13 +582,13 @@
   </div>
 </section>
 
-<footer>© 2026 仵星 · 求职向个人作品集 ｜ 最后更新：2026-10-27</footer>
+<footer>© 2026 仵星 · 求职向个人作品集 ｜ 最后更新：2026-10-28</footer>
 
 <button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
 
-<script src="js/main.js?v=20261027-showcase"></script>
-<script src="js/projects.js?v=20261027-showcase"></script>
+<script src="js/main.js?v=20261028-delivery"></script>
+<script src="js/projects.js?v=20261028-delivery"></script>
 <script src="js/assistant-config.js"></script>
-<script src="js/assistant.js?v=20261027-showcase" defer></script>
+<script src="js/assistant.js?v=20261028-delivery" defer></script>
 </body>
 </html>

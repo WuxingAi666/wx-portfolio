@@ -1,0 +1,27 @@
+# For an existing host Nginx / panel / Caddy. No new public proxy is started.
+services:
+  api:
+    build: ../backend
+    restart: unless-stopped
+    env_file: ../backend/.env
+    environment:
+      ENVIRONMENT: production
+      ALLOWED_HOSTS: '["${API_DOMAIN:?Set API_DOMAIN}","localhost","127.0.0.1"]'
+      ALLOWED_ORIGINS: '["${SITE_ORIGIN:-https://wuxingai666.github.io}"]'
+      PUBLIC_SITE_URL: "${PUBLIC_SITE_URL:-https://wuxingai666.github.io/wx-portfolio/}"
+      STORAGE_DIR: /app/storage
+    ports: ["127.0.0.1:8010:8000"]
+    volumes: ["rag-storage:/app/storage"]
+    read_only: true
+    tmpfs: ["/tmp:uid=10001,gid=10001,mode=1777"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 1g
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  rag-storage:

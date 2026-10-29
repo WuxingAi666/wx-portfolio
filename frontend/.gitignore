@@ -1,0 +1,14 @@
+# 开发产物与过程文档（不进入 GitHub Pages 发布目录）
+.audit/
+audit_*.js
+probe_*.js
+shot_*.js
+make_og.py
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# 本地打包与预览脚本（保留在仓库根目录外）
+wx-portfolio.zip
+启动本地预览.bat

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "profile",
+    "file": "01-profile.txt",
+    "title": "个人介绍与教育背景",
+    "anchor": "about"
+  },
+  {
+    "id": "internship",
+    "file": "02-internship.txt",
+    "title": "央国企客户驻场与实习贡献",
+    "anchor": "exp"
+  },
+  {
+    "id": "oa",
+    "file": "03-oa.txt",
+    "title": "客户需求到上线维护的交付闭环",
+    "anchor": "oa"
+  },
+  {
+    "id": "rag-design",
+    "file": "05-rag-design.txt",
+    "title": "RAG 工程设计与边界",
+    "anchor": "rag-project"
+  },
+  {
+    "id": "other",
+    "file": "08-other.txt",
+    "title": "其他开发与智能体实践",
+    "anchor": "proj"
+  },
+  {
+    "id": "skills",
+    "file": "09-skills.txt",
+    "title": "技术能力、实践分级与业务场景",
+    "anchor": "skills"
+  },
+  {
+    "id": "contact",
+    "file": "10-contact.txt",
+    "title": "求职方向与到岗安排",
+    "anchor": "contact"
+  },
+  {
+    "id": "campus",
+    "file": "14-campus.txt",
+    "title": "校园组织、文体活动与奖项",
+    "anchor": "campus"
+  },
+  {
+    "id": "site-guide",
+    "file": "15-site-guide.txt",
+    "title": "网站、简历、源码与助手使用指南",
+    "anchor": "contact"
+  },
+  {
+    "id": "rag",
+    "file": "04-rag.txt",
+    "title": "个人作品集网站 × RAG 智能问答助手",
+    "anchor": "rag-project"
+  },
+  {
+    "id": "speech",
+    "file": "07-speech.txt",
+    "title": "中文语音情感分析系统",
+    "anchor": "speech-project"
+  },
+  {
+    "id": "boss",
+    "file": "11-boss.txt",
+    "title": "BOSS 求职辅助与本地监控工具",
+    "anchor": "boss-project"
+  },
+  {
+    "id": "ledger",
+    "file": "12-ledger.txt",
+    "title": "仵星的记账本",
+    "anchor": "ledger-project"
+  },
+  {
+    "id": "vision",
+    "file": "06-vision.txt",
+    "title": "果蔬成熟度识别与语音采摘辅助",
+    "anchor": "fruit-project"
+  },
+  {
+    "id": "coze",
+    "file": "13-coze.txt",
+    "title": "Coze 智能体与知识库问答实践",
+    "anchor": "coze-project"
+  }
+]

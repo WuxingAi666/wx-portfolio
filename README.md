@@ -1,70 +1,75 @@
-# 仵星 · AI 应用与全栈开发作品集
+# 仵星的作品集网站 × RAG 问答助手
 
-[线上网站](https://wuxingai666.github.io/wx-portfolio/) · [六个项目源码与说明](https://github.com/WuxingAi666/ai-application-projects)
+完整全栈项目：原生 HTML/CSS/JavaScript 作品集与独立 LangChain + FAISS + FastAPI 服务。
+正式入口：**https://llywjr.love/wx/**。GitHub 仅保存完整源码，本网站不再使用 GitHub Pages。
 
-原生 HTML / CSS / JavaScript，无前端构建依赖。延续蓝白风格，通过独立内容面板、统一项目卡片和概要 / 详情分层组织求职作品与企业实习经历。
+网站保留六个项目、实习经历、业务交付闭环、技能和完整可打印简历。
+「问问仵星的RAG问答助手」采用独立森林绿风格与嫩芽笑脸头像，桌面默认 400×560，
+支持拖动缩放和放大还原，手机适配全屏和软键盘。流式回答默认保留开头供阅读，
+提供主动跟随、来源、停止重试、连续追问、复制、导出、草稿和提问灵感。
 
-## 运行
+## 代码结构
+
+| 目录 | 内容 | 运行位置 |
+| --- | --- | --- |
+| frontend/ | 完整网站、静态图片、聊天组件、项目内容 | 云服务器 Nginx 静态目录 |
+| backend/ | FastAPI、RAG 链路、15 份公开 TXT、离线测试 | 云服务器 Python 3.12 + systemd |
+| deploy/native/ | systemd、Nginx、生产配置模板、续期钩子 | 同一云服务器 |
+| scripts/ | 本地运行、内容同步、检查、打包、版本激活 | 开发电脑 / 云服务器 |
+| docs/ | 架构、部署、知识维护和进度 | 开发与运维查阅 |
+| deploy/ci/ | 可选 GitHub Actions 检查模板，默认不启用 | GitHub 配置参考 |
+
+公开 ZIP 与仓库不包含真实密钥、运行存储、日志、原始备份或客户文档。
+开发配置在本地 backend/.env；生产配置在 /etc/wx-rag/backend.env，通过私有方式维护。
+
+## RAG 实现
+
+TextLoader 加载公开 TXT → RecursiveCharacterTextSplitter（420/80）→
+BGE-M3 Embedding → FAISS 归一化向量召回 → Prompt → DeepSeek 流式生成 → SSE 与来源展示。
+支持最近对话指代改写；无资料时提示不足，不以手写关键词打分替代向量检索。
+默认用硅基流动 BGE-M3 与 DeepSeek Chat API；可切换本地 BGE，需要另装相应依赖。
+这是自有服务器托管应用和知识库，**不是全离线推理**。
+
+FAISS 二进制 + JSON 安全持久化，无 pickle；内容指纹支持索引复用与更新。
+SQLite 原子预约控制单 IP / 全局请求额度和并发，管理统计独立鉴权。
+后端错误不暴露密钥和上游正文，浏览器以安全 DOM 显示模型文本。
+
+## 本地开发
+
+使用 Python 3.12/3.13，安装 backend/requirements.txt。
+首次复制 backend/.env.example 为 backend/.env 并私下填模型密钥；已有配置不要覆盖。
 
 ```powershell
-python -m http.server 8931 --bind 127.0.0.1
+python -m venv backend/.venv
+backend/.venv/Scripts/python -m pip install -r backend/requirements.txt
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1
 ```
 
-打开 http://127.0.0.1:8931 。完整 RAG 工程可通过上级目录 `scripts/start-local.ps1` 同时启动前后端。
-
-## 阅读结构
-
-首屏 → 关于 → 项目作品 → 实习经历 → 业务交付 → 技能 → 校园经历 → 联系方式。主导航保留七个内容入口；完整简历通过首屏、实习区和联系区按钮打开，不再占独立页面模块。
-
-- 六个项目全部保留，仅使用 01–06 当前序号，按 RAG、语音、BOSS、记账本、果蔬、Coze 排列。
-- 电脑与手机均一行一个项目，每个项目只保留一层外框：标题、定位简介与两条核心实现直接排版，关键技术词和要点使用黑色粗体；技术标签和操作按钮保留。
-- 配图与完整说明统一放入详情，按项目介绍、设计背景与目标、核心功能与个人实现、技术栈与链路、难点与取舍、项目图片、当前边界、相关入口排序。
-- JavaScript 将原生 details 内容移入一个居中 dialog：桌面独立小窗，手机保留边距自适应。入场为短暂浅角度翻折，标题栏有一次渐变扫光，正文无模糊、落稳后阅读；背景为单色遮罩，尊重减少动画设置。支持 Escape、遮罩、关闭按钮、浏览器前进 / 后退、直接链接和焦点恢复。
-- 详情内配图沿用项目架构图与相关界面图，保持比例并明确标注示意。各项目保留源码或说明入口，RAG 提供助手入口，记账本保留在线使用。
-- 无 JavaScript 或不支持 dialog 时，保留原生 details 展开阅读。完整项目内容直接写入 HTML，不依赖运行时拉取。
-- 项目详情链接示例：`#details-rag`、`#details-speech`；原 `#rag-project` 等卡片锚点继续有效。
-- 完整简历通过按钮在独立窗口阅读，顶部固定提供打印 / 保存 PDF 和关闭操作；支持键盘、前进后退与 `#resume` 直达。打印使用独立正文副本，避免滚动窗口截断；已验证输出两页 A4。无 JavaScript 时保留原生 details 阅读。
-- 实习采用项目背景和与完整简历一致的八条贡献，覆盖央国企驻场、管理层沟通、表单流程实施、六级审批、迁移排障、UAT / POC、跨团队交付和 SQL / 日志定位。业务交付区用一张卡片呈现四阶段闭环：需求分析与客户复盘确认 → 实施与反复测试 → 生产上线与交付演示 → 持续维护与问题关闭，说明模块级参与职责。
-- 内容文字统一为黑色与灰色，关键贡献使用黑色粗体；关键词气泡采用淡蓝底与深蓝文字，区别于纯白卡片。技能恢复四级蓝色配色、对应图例及文字分组，深蓝标签用白字，其余用深字；44 个技能及原有级别全部保留。奖学金为连续三年校级三等奖学金。
-- 页面采用纯白面板、统一浅灰画布与清晰细边框。模块首次进入视口轻移 6–10px，300–420ms 完成，最多 80ms 错落；正文始终可见，不用模糊和透明度隐藏。气泡在精细鼠标悬停时上浮 2px 并出现浅阴影，纯展示标签保持普通光标。手机不启用悬停位移，减少动画设置会停止入场和悬停动效。
-- 滚动入场使用 IntersectionObserver 与 Web Animations API，每个模块仅播放一次；用户点击或键盘操作时相关卡片立即停稳。导航固定高度、纯白不透明，保留锚点平滑定位和阅读进度。
-- 可点击按钮、导航、联系入口和助手操作提供统一鼠标反馈；主要按钮轻微上浮和扫光，手机触控不启用悬停位移。项目与简历弹窗协调互斥，避免叠加遮挡。
-
-## 问答助手
-
-浮动入口为「问问仵星的RAG问答助手」，窗口为「仵星的RAG问答助手」，采用独立墨绿与暖白配色。
-
-电脑端支持拖动、八向缩放、放大还原、最小化；手机端聊天全屏，入口在首屏展示名称，滚动阅读时收为可拖动的紧凑图标，键盘聚焦后展示完整提示。保留流式回答、停止、重试、连续追问和参考来源。
-
-`js/assistant-config.js` 的 `apiBase` 只填写公开后端 HTTPS 地址。模型密钥配置在服务器环境中，不能放入本目录。
-
-本地默认连接 http://127.0.0.1:8010 。GitHub Pages 未配置后端时明确提示问答准备中；Pages 只托管静态文件，不能运行 Python API。
-
-## 文件维护
-
-| 文件 | 用途 |
-| --- | --- |
-| `index.html` | 全部静态内容、项目预览与完整详情、在线简历 |
-| `content/projects.json` | 六个项目的统一事实、预览、排序与链接 |
-| `css/style.css` | 蓝白基础主题、OA 展示、简历与原有组件 |
-| `css/layout.css` | 模块面板、统一项目网格、详情面板和响应式排版 |
-| `js/main.js` | 导航、单次滚动入场与平滑定位 |
-| `js/projects.js` | 项目详情、地址历史与焦点管理 |
-| `css/resume.css` / `js/resume.js` | 简历窗口、独立打印、弹窗协调与统一按钮反馈 |
-| `css/assistant.css` / `js/assistant.js` | 独立问答组件 |
-| `assets/project-*.svg` | 自动生成的桌面 / 手机处理流程示意 |
-
-在完整工程根目录修改项目 JSON 后运行：
+当前开发电脑可显式加 `-PythonExe D:/jiqixuexi/python.exe`。
+网站 http://127.0.0.1:8931/，API http://127.0.0.1:8010/；仅本地开发模式开放 /docs。
+修改界面仍在本地查看，成品确认后再发布。
 
 ```powershell
 python scripts/sync-project-content.py
-python scripts/sync-project-content.py --check
+python scripts/sync-knowledge.py
+python scripts/check-local.py
+python scripts/package.py
 ```
 
-同步项目预览、完整详情、简历、公开知识与流程图。其他经历直接维护对应 HTML 和公开 TXT。动效尊重减少动画设置，触控设备不启用悬停位移。
+最后一步在工程旁生成统一成品包 **wx-fullstack.zip**。包含全部前后端公开代码与部署说明。
+check-local.py 检查 JS/Python 语法、内容同步、JSON 及 API/索引/配额边界，不调用模型。
+知识变化后启动或重启 API 自动重建索引；仅改样式不重建。
 
-## 发布
+## 云端部署
 
-本目录内容对应 `wx-portfolio` 仓库 main 分支根目录，由 GitHub Pages 发布。后端及部署配置位于项目合集的 `projects/portfolio-rag`，按其中 `docs/DEPLOYMENT.md` 单独部署。
+完整步骤见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)。
+Nginx 在 `/wx/` 提供前端，将 `/wx/api/` 和 `/wx/health/` 反向代理到回环端口 3001。
+systemd 以专用 wxrag 用户运行后端，自动重启、开机启动。
+证书自动续期；私有配置、FAISS 索引和 SQLite 与版本目录分离，支持版本回滚。
+现有 MySQL、SSH 和其他站点不参与本项目，不改其配置。
+旧 Docker/Caddy 文件保留为可选 API 示例，当前服务器不使用。
 
-不上传本地密钥、后端运行数据、录音、训练集和内部审阅材料。
+进度与实际验收见 [PROJECT-STATUS.md](docs/PROJECT-STATUS.md)，架构见
+[ARCHITECTURE.md](docs/ARCHITECTURE.md)，知识维护见 [KNOWLEDGE.md](docs/KNOWLEDGE.md)。
+
+CI 模板保存在 deploy/ci/checks.yml。当前 GitHub 凭据只有 repo 权限，无法创建 Actions 工作流；因此保留完整检查代码为模板，未启用自动工作流，也不部署 Pages。获得 workflow 权限后可复制到 .github/workflows/ 启用；本地和服务器的检查不依赖 Actions。

@@ -128,7 +128,7 @@ def render():
     outputs['10-contact.txt'] = [
         section('求职方向与到岗时间', [resume.one(cls='rsm-intent').text(), contact.one(cls='tip').text()]),
         section('公开联系方式', [n.text() for n in contact.all(cls='channel')]),
-        section('联系入口', '个人网站：https://llywjr.love/wx/ 。GitHub：https://github.com/wuxingai666 。完整简历可通过首屏、实习区和联系区按钮打开，支持打印与保存 PDF。'),
+        section('联系入口', '个人网站：http://cloud.8-152-192-126.sslip.io/wx/ 。GitHub：https://github.com/wuxingai666 。完整简历可通过首屏、实习区和联系区按钮打开，支持打印与保存 PDF。'),
         section('未知事项', '未记录的薪资期望、面试时间和临时到岗安排请联系本人确认。助手不能代约面试、发送消息、承诺录用或提供私人账号和密钥。')]
 
     campus = site.one(id='campus')
@@ -142,7 +142,7 @@ def render():
         section('完整简历与打印', '完整简历从首屏、实习区、联系区或助手顶部的查看简历按钮打开，支持滚动阅读、打印或保存为 PDF；不再占主导航独立章节。助手仅保留顶部一个简历入口。简历包含教育、职业概述、实习、六个项目、技能与荣誉。'),
         section('项目源码与在线入口', links),
         section('问答助手的使用', '悬浮入口名为问问仵星的RAG问答助手，窗口标题为仵星的RAG问答助手。电脑支持拖动、缩放、放大还原、最小化；手机适配可视区域。基于公开资料语义检索生成回答，可连续追问、停止、重试、查看来源。新增提问灵感、随机问题、复制回答、导出对话、字号切换、草稿恢复和回到最新回答。对话只保存在当前标签页，导出文件由访客主动下载。'),
-        section('部署事实', '网站与 FastAPI 问答后端统一部署到自有 Ubuntu 云服务器，入口为 https://llywjr.love/wx/ 。Nginx 提供 HTTPS 静态网站并反向代理同域问答接口，systemd 管理后端常驻与故障重启，FAISS 索引和 SQLite 配额独立持久化。GitHub 保存完整前后端源码，不通过 GitHub Pages 发布本网站。默认使用外部 BGE-M3 Embedding 和 DeepSeek API，不是全离线推理。')]
+        section('部署事实', '网站与 FastAPI 问答后端统一部署到自有 Ubuntu 云服务器，入口为 http://cloud.8-152-192-126.sslip.io/wx/ 。Nginx 提供 HTTP 静态网站并反向代理同域问答接口，systemd 管理后端常驻与故障重启，FAISS 索引和 SQLite 配额独立持久化。GitHub 保存完整前后端源码，不通过 GitHub Pages 发布本网站。默认使用外部 BGE-M3 Embedding 和 DeepSeek API，不是全离线推理。')]
     return {name: '\n\n'.join(parts) + '\n' for name, parts in outputs.items()}
 
 

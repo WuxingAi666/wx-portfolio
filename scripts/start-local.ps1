@@ -16,8 +16,8 @@ foreach ($taskPort in @(8010, 8931)) {
     }
 }
 New-Item -ItemType Directory -Path (Join-Path $taskRoot 'output') -Force | Out-Null
-$taskApi = Start-Process -FilePath $taskPython -WorkingDirectory (Join-Path $taskRoot 'backend') -ArgumentList @('main.py','--port','8010') -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $taskRoot 'output\api.log') -RedirectStandardError (Join-Path $taskRoot 'output\api-errors.log')
-$taskSite = Start-Process -FilePath $taskPython -WorkingDirectory (Join-Path $taskRoot 'frontend') -ArgumentList @('-m','http.server','8931','--bind','127.0.0.1') -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $taskRoot 'output\site.log') -RedirectStandardError (Join-Path $taskRoot 'output\site-errors.log')
+$taskApi = Start-Process -FilePath $taskPython -WorkingDirectory (Join-Path $taskRoot 'backend') -ArgumentList @('-B','main.py','--port','8010') -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $taskRoot 'output\api.log') -RedirectStandardError (Join-Path $taskRoot 'output\api-errors.log')
+$taskSite = Start-Process -FilePath $taskPython -WorkingDirectory (Join-Path $taskRoot 'frontend') -ArgumentList @('-B','-m','http.server','8931','--bind','127.0.0.1') -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $taskRoot 'output\site.log') -RedirectStandardError (Join-Path $taskRoot 'output\site-errors.log')
 Start-Sleep -Milliseconds 750
 if ($taskApi.HasExited -or $taskSite.HasExited) {
     foreach ($taskProcess in @($taskApi, $taskSite)) {

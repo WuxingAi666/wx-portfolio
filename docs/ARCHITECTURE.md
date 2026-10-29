@@ -102,6 +102,6 @@ sync-project-content.py 从项目 JSON 生成项目展示、简历项目和六�
 
 ## 当前生产拓扑
 
-浏览器 → https://llywjr.love/wx/ → Nginx 静态前端 / 同域反向代理 → 127.0.0.1:3001 FastAPI。
+浏览器 → http://cloud.8-152-192-126.sslip.io/wx/ → Nginx 静态前端 / 同域反向代理 → 127.0.0.1:3001 FastAPI。
 后端由 systemd 专用用户运行，环境变量与持久化目录独立于 release，GitHub 仅保存全栈源码。
 详见 DEPLOYMENT.md；旧 Docker 方案是可选示例，未作为当前部署方式。

@@ -26,11 +26,13 @@ class Settings(BaseSettings):
     hf_endpoint: str = "https://hf-mirror.com"
     data_dir: Path = BASE_DIR / "data" / "public"
     storage_dir: Path = BASE_DIR / "storage"
-    public_site_url: str = "https://llywjr.love/wx/"
+    public_site_url: str = "http://cloud.8-152-192-126.sslip.io/wx/"
     allowed_origins: list[str] = [
-        "https://llywjr.love",
+        "http://cloud.8-152-192-126.sslip.io",
         "http://127.0.0.1:8931",
         "http://localhost:8931",
+        "http://127.0.0.1:8932",
+        "http://localhost:8932",
     ]
     allowed_hosts: list[str] = ["localhost", "127.0.0.1", "testserver"]
     admin_token: SecretStr | None = None

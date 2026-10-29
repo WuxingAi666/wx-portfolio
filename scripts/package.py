@@ -48,8 +48,10 @@ def package(root, destination):
 
 
 if __name__ == "__main__":
+    destination = ROOT.parent / "成品压缩包"
+    destination.mkdir(exist_ok=True)
     releases = [
-        package(ROOT, ROOT.parent / "wx-fullstack.zip"),
+        package(ROOT, destination / "03-wx-fullstack.zip"),
     ]
     (ROOT / "output").mkdir(exist_ok=True)
     (ROOT / "output" / "release-manifest.json").write_text(json.dumps(releases, indent=2), encoding="utf-8")

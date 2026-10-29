@@ -34,8 +34,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--package', action='store_true', help='Rebuild local candidate archives after copy verification')
     args = parser.parse_args()
-    website = ROOT / 'output/github/wx-portfolio'
-    collection = ROOT / 'output/github/ai-application-projects'
+    website = ROOT.parent / '本机维护/github/wx-portfolio'
+    collection = ROOT.parent / '本机维护/github/ai-application-projects'
     for repo in (website, collection):
         if not (repo / '.git').exists():
             raise RuntimeError('Existing local checkout required; nothing will be cloned: ' + repo.name)
@@ -46,24 +46,20 @@ def main():
     # Check all content before starting the copy. Never enumerate private envs.
     for source, _ in project:
         public_content(source)
-    # One complete repository: migrate the old flat Pages layout into frontend/.
-    # Delete only known former frontend paths within this checkout, never .git.
-    for old in ['index.html', '.nojekyll', 'assets', 'css', 'js', 'content', 'deploy.bat', '.github/workflows/checks.yml']:
-        obsolete = website / old
-        if not obsolete.resolve().is_relative_to(website.resolve()):
-            raise RuntimeError('Migration path escaped checkout')
-        if obsolete.is_dir():
-            shutil.rmtree(obsolete)
-        elif obsolete.is_file():
-            obsolete.unlink()
+    # Only remove obsolete tracked files in this project's publication scope.
+    # git rm retains their history and refuses unreviewed local modifications.
+    expected = {relative.as_posix() for _, relative in project}
+    for repo, prefix in [(website, ''), (collection, 'projects/portfolio-rag/')]:
+        tracked_paths = git(repo, 'ls-files', '-z').split('\0')
+        stale = [path for path in tracked_paths if path and path.startswith(prefix)
+                 and path[len(prefix):] not in expected]
+        if stale:
+            git(repo, 'rm', '--', *stale)
     for source, relative in project:
         target = website / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
     project_root = collection / 'projects/portfolio-rag'
-    obsolete_workflow = project_root / '.github/workflows/checks.yml'
-    if obsolete_workflow.is_file():
-        obsolete_workflow.unlink()
     for source, relative in project:
         target = project_root / relative
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -79,26 +75,8 @@ def main():
         report['repositories'][repo.name] = {'head': git(repo, 'rev-parse', 'HEAD'), 'pending_paths': len(changes)}
 
     if args.package:
-        records = [release.package(ROOT, ROOT.parent / 'wx-fullstack.zip')]
-        tracked = git(collection, 'ls-files', '-z').split('\0')
-        tracked = [n for n in tracked if n and not n.startswith('projects/portfolio-rag/')]
-        paths = set(tracked) | {'projects/portfolio-rag/' + r.as_posix() for _, r in project}
-        target = ROOT.parent / 'AI-Application-Projects.zip'
-        with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as archive:
-            for name in sorted(paths):
-                source = collection / name
-                if not source.resolve().is_relative_to(collection.resolve()):
-                    raise RuntimeError('Invalid archive path')
-                public_content(source)
-                archive.write(source, name)
-        records.append({'file': target.name, 'files': len(paths), 'bytes': target.stat().st_size,
-                        'sha256': hashlib.sha256(target.read_bytes()).hexdigest()})
-        for record in records:
-            with zipfile.ZipFile(ROOT.parent / record['file']) as archive:
-                assert archive.testzip() is None
-        report['archives'] = records
-        report['archive_stage'] = 'local-candidate-not-deployed'
-        (ROOT / 'output/release-manifest.json').write_text(json.dumps(records, indent=2), encoding='utf-8')
+        subprocess.run([sys.executable, '-B', str(ROOT / 'scripts/build-deliverables.py')], check=True)
+    (ROOT / 'output').mkdir(exist_ok=True)
     (ROOT / 'output/local-sync.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     print(json.dumps(report, ensure_ascii=True, indent=2))
 

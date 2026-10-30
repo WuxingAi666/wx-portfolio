@@ -1,7 +1,7 @@
 # 当前云端部署
 
-入口：**http://cloud.8-152-192-126.sslip.io/wx/**。Nginx 直接提供 HTTP，前后端同域；不跳转旧域名，不依赖 443 放行。
-GitHub 只保存代码，Pages 已停用。新主机名由 sslip.io 公共 DNS 解析到 8.152.192.126。
+入口：**http://8.152.192.126/wx/**。Nginx 直接提供 HTTP，前后端同域；不跳转旧域名，不依赖 443 放行。
+GitHub 只保存代码，Pages 已停用。直接使用服务器公网 IP，无需域名解析；以前分享的长链接跳转到此入口。
 
 ## 运行目录
 
@@ -39,8 +39,8 @@ sudo bash /opt/wx-portfolio/releases/RELEASE/scripts/deploy-native.sh /opt/wx-po
 ## 常用检查
 
 ```bash
-curl -f http://cloud.8-152-192-126.sslip.io/wx/health/ready
-curl -N http://cloud.8-152-192-126.sslip.io/wx/api/v1/chat/stream -H 'Content-Type: application/json' -d '{"question":"介绍仵星的 RAG 项目","history":[]}'
+curl -f http://8.152.192.126/wx/health/ready
+curl -N http://8.152.192.126/wx/api/v1/chat/stream -H 'Content-Type: application/json' -d '{"question":"介绍仵星的 RAG 项目","history":[]}'
 sudo systemctl status wx-rag --no-pager
 sudo journalctl -u wx-rag -n 60 --no-pager
 sudo nginx -t

@@ -36,7 +36,7 @@ python main.py
 python chat.py
 ```
 
-云端全栈接口可用 `python chat.py --api http://cloud.8-152-192-126.sslip.io/wx` 测试。
+云端全栈接口可用 `python chat.py --api http://8.152.192.126/wx` 测试。
 本机现成环境为 D:/jiqixuexi/python.exe，可替代以上 python，避免 PATH 误选解释器。
 来源链接指向完整网站；没有启动作品集前端也能检索与生成回答。
 

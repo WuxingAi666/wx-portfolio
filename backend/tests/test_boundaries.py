@@ -132,11 +132,11 @@ class BoundaryTests(unittest.TestCase):
                     time.sleep(.01)
                 self.assertEqual(client.get("/health/ready").status_code, 200)
                 cors = client.options("/api/v1/qa", headers={
-                    "Origin": "http://cloud.8-152-192-126.sslip.io",
+                    "Origin": "http://8.152.192.126",
                     "Access-Control-Request-Method": "POST",
                     "Access-Control-Request-Headers": "content-type",
                 })
-                self.assertEqual(cors.headers.get("access-control-allow-origin"), "http://cloud.8-152-192-126.sslip.io")
+                self.assertEqual(cors.headers.get("access-control-allow-origin"), "http://8.152.192.126")
                 denied = client.post("/api/v1/qa", json={"question": "hi"}, headers={"Origin": "https://evil.example"})
                 self.assertEqual(denied.status_code, 403)
                 self.assertEqual(client.post("/api/v1/qa", json={"question": "  "}).status_code, 422)

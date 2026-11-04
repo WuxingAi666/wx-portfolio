@@ -7,7 +7,7 @@
 本机：scripts/preview.cmd，或 PowerShell 执行 scripts/start-local.ps1 -PythonExe D:/jiqixuexi/python.exe。
 网站 8931、API 8010。独立前端可单开 8932，连接同一 API；不要重复启动占用相同端口。
 后台：http://127.0.0.1:8010/kanban/。运行 scripts/init-secrets.py 初始化内部令牌，scripts/set-admin-password.py 单独设置看板密码；真实配置不公开。
-优先使用 backend/.venv 项目解释器。对话看板已进入用户授权的发布流程；后续调整仍先本地测试，设计详见 CONVERSATIONS.md。
+优先使用 backend/.venv 项目解释器。对话看板已完成用户授权的云端发布及 GitHub 同步；后续调整仍先本地测试，设计详见 CONVERSATIONS.md。
 
 修改项目事实：frontend/content/projects.json；其他经历：frontend/index.html。
 依次运行 sync-project-content.py、sync-knowledge.py、check-local.py。

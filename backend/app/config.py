@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     public_site_url: str = "http://8.152.192.126/wx/"
     allowed_origins: list[str] = [
         "http://8.152.192.126",
+        "https://8.152.192.126",
         "http://127.0.0.1:8931",
         "http://localhost:8931",
         "http://127.0.0.1:8932",
@@ -36,6 +37,10 @@ class Settings(BaseSettings):
     ]
     allowed_hosts: list[str] = ["localhost", "127.0.0.1", "testserver"]
     admin_token: SecretStr | None = None
+    admin_password_hash: SecretStr | None = None
+    conversation_recording: bool = True
+    conversation_retention_days: int = Field(30, ge=1, le=365)
+    admin_session_hours: int = Field(8, ge=1, le=24)
     rate_limit_salt: SecretStr = SecretStr("development-only-change-before-deploy")
     chunk_size: int = Field(420, ge=100, le=800)
     chunk_overlap: int = Field(80, ge=0)
@@ -52,6 +57,10 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_settings(self):
+        if self.admin_password_hash:
+            from app.passwords import valid_hash
+            if not valid_hash(self.admin_password_hash.get_secret_value()):
+                raise ValueError('ADMIN_PASSWORD_HASH is not a supported password hash')
         if self.chunk_overlap >= self.chunk_size:
             raise ValueError("CHUNK_OVERLAP must be smaller than CHUNK_SIZE")
         for name in ("data_dir", "storage_dir"):

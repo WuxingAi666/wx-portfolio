@@ -57,7 +57,7 @@
     '<details class="pa-menu"><summary aria-label="更多对话设置" title="更多操作">···</summary><div class="pa-menu-content">',
     '<button type="button" class="pa-clear" aria-label="开始新对话">＋ 新对话</button>',
     '<button type="button" class="pa-export">导出已完成对话 .md</button><button type="button" class="pa-font" aria-pressed="false">使用较大字号</button>',
-    '<button type="button" class="pa-reset-window">恢复窗口位置与大小</button><button type="button" class="pa-reconnect">重新检查连接</button><p>AI 回答请结合来源核对。问题与近期对话会交由模型服务处理，请勿输入敏感信息。对话与草稿仅存当前标签页。</p></div></details></div></nav>',
+    '<button type="button" class="pa-reset-window">恢复窗口位置与大小</button><button type="button" class="pa-reconnect">重新检查连接</button><p>AI 回答请结合来源核对。问题与近期对话会交由模型服务处理，请勿输入敏感信息。</p></div></details></div></nav>',
     '<div class="pa-chat-body"><div class="pa-messages" role="log" tabindex="0" aria-label="聊天记录" aria-live="off"></div>',
     '<button type="button" class="pa-jump" hidden>回到最新 ↓</button>',
     '<div class="pa-discovery-scrim" aria-hidden="true" hidden></div>',
@@ -81,6 +81,34 @@
   const state = panel.querySelector(".pa-state");
   const status = panel.querySelector(".pa-status");
   let entries = [], busy = false, controller = null, version = 0;
+  let visitorId = null, conversationId = null;
+  const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  function newId() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    const bytes = crypto.getRandomValues(new Uint8Array(16));
+    bytes[6] = (bytes[6] & 15) | 64; bytes[8] = (bytes[8] & 63) | 128;
+    const hex = [...bytes].map(b => b.toString(16).padStart(2, '0')).join('');
+    return [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join('-');
+  }
+  function rotateConversation() {
+    conversationId = newId();
+    try { sessionStorage.setItem(storageKey + '-conversation', conversationId); } catch (_) {}
+  }
+  try {
+    conversationId = sessionStorage.getItem(storageKey + '-conversation');
+  } catch (_) {}
+  if (!uuidPattern.test(conversationId || '')) rotateConversation();
+  function recordingIdentity() {
+    if (!visitorId) {
+      try { visitorId = localStorage.getItem(storageKey + '-visitor'); } catch (_) {}
+      if (!visitorId) { try { visitorId = sessionStorage.getItem(storageKey + '-visitor'); } catch (_) {} }
+      if (!uuidPattern.test(visitorId || '')) visitorId = newId();
+      try { localStorage.setItem(storageKey + '-visitor', visitorId); } catch (_) {
+        try { sessionStorage.setItem(storageKey + '-visitor', visitorId); } catch (_) {}
+      }
+    }
+    return { visitor_id: visitorId, conversation_id: conversationId };
+  }
   let previousFocus = null;
   let expanded = false, expandedPosition = null;
   const windowDefaults = { width: 400, height: 560 };
@@ -593,7 +621,7 @@
     try {
       const response = await fetch(base + '/api/v1/chat/stream', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, history: previousHistory }), signal: request.signal, credentials: 'omit'
+        body: JSON.stringify({ question, history: previousHistory, ...recordingIdentity() }), signal: request.signal, credentials: 'omit'
       });
       if (!response.ok) {
         const detail = await response.json().catch(() => ({}));
@@ -724,6 +752,7 @@
       clearTimer = setTimeout(disarmClear, 5000); return;
     }
     disarmClear(); version++; controller?.abort(); controller = null; entries = []; input.value = ''; inspirationsOpen = false;
+    rotateConversation();
     menu.open = false;
     setBusy(false); persist(); setStatus('', false); welcome(); syncInput(); input.focus({ preventScroll: true });
   });

@@ -1,4 +1,5 @@
 from typing import Literal
+from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
@@ -12,6 +13,9 @@ class QuestionRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question: str = Field(min_length=1, max_length=600)
     history: list[ChatMessage] = Field(default_factory=list, max_length=8)
+    visitor_id: UUID | None = None
+    conversation_id: UUID | None = None
+    record_conversation: bool = True
 
     @field_validator("question")
     @classmethod
@@ -42,3 +46,4 @@ class Answer(BaseModel):
     sources: list[Source]
     grounded: bool
     elapsed_ms: int
+    recording_saved: bool | None = None

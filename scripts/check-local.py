@@ -27,6 +27,8 @@ def main():
     else:
         for source in sorted((ROOT / 'frontend/js').glob('*.js')):
             run('JavaScript: ' + source.name, [node, '--check', str(source)])
+        for source in sorted((ROOT / 'backend/app/admin_assets').glob('*.js')):
+            run('Admin JavaScript: ' + source.name, [node, '--check', str(source)])
     for script in ['sync-project-content.py', 'sync-knowledge.py']:
         run('Content: ' + script, [sys.executable, '-B', str(ROOT / 'scripts' / script), '--check'])
 

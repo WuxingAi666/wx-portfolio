@@ -1,13 +1,12 @@
 import asyncio
 import contextlib
-import hmac
 import json
 import logging
 import time
 import uuid
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -18,6 +17,9 @@ from app.config import get_settings
 from app.guard import AdmissionError, RequestGuard
 from app.schemas import Answer, QuestionRequest, Source
 from app.service import RAGService
+from app.admin import admin_router
+from app.conversations import ConversationConflict, ConversationStore
+from app.recording import TurnRecording
 
 logger = logging.getLogger("portfolio.api")
 
@@ -34,6 +36,30 @@ def create_app(settings=None, service_factory=RAGService):
         app.state.guard = RequestGuard(settings)
         app.state.service = None
         app.state.startup_error = False
+        app.state.conversations = None
+        app.state.recording_error = False
+        app.state.recording_failures = 0
+        try:
+            app.state.conversations = await run_in_threadpool(ConversationStore, settings)
+            await run_in_threadpool(app.state.conversations.recover_interrupted)
+            await run_in_threadpool(app.state.conversations.cleanup)
+        except Exception as exc:
+            app.state.recording_error = True
+            app.state.recording_failures += 1
+            logger.error('conversation_startup_failed error_type=%s', type(exc).__name__)
+
+        async def maintain_records():
+            while True:
+                await asyncio.sleep(3600)
+                try:
+                    if app.state.conversations is None:
+                        app.state.conversations = await run_in_threadpool(ConversationStore, settings)
+                    if app.state.conversations:
+                        await run_in_threadpool(app.state.conversations.cleanup)
+                except Exception as exc:
+                    app.state.recording_error = True
+                    app.state.recording_failures += 1
+                    logger.error('conversation_cleanup_failed error_type=%s', type(exc).__name__)
 
         async def initialize():
             try:
@@ -47,7 +73,11 @@ def create_app(settings=None, service_factory=RAGService):
                 app.state.startup_error = True
                 logger.error("service_startup_failed error_type=%s", type(exc).__name__)
         task = asyncio.create_task(initialize())
+        maintenance = asyncio.create_task(maintain_records())
         yield
+        maintenance.cancel()
+        with contextlib.suppress(asyncio.CancelledError):
+            await maintenance
         task.cancel()
         with contextlib.suppress(asyncio.CancelledError):
             await task
@@ -64,9 +94,10 @@ def create_app(settings=None, service_factory=RAGService):
     async def request_boundary(request: Request, call_next):
         request.state.request_id = uuid.uuid4().hex
         started = time.monotonic()
-        if request.method == "POST":
+        if request.method in {"POST", "PATCH", "PUT"}:
             origin = request.headers.get("origin")
-            if origin and origin not in settings.allowed_origins:
+            admin_same_origin = request.url.path.startswith('/api/v1/admin/') and origin == str(request.base_url).rstrip('/')
+            if origin and origin not in settings.allowed_origins and not admin_same_origin:
                 return JSONResponse({"detail": "不允许的网页来源"}, status_code=403)
             # Enforce the actual received size, not just the untrusted header.
             body = bytearray()
@@ -107,11 +138,33 @@ def create_app(settings=None, service_factory=RAGService):
             raise HTTPException(503, "助手正在准备资料，请稍后重试")
         return service
 
-    async def admit(request):
+    async def admit(request, payload):
         service = ready(request)
         ip = request.client.host if request.client else "unknown"
         await run_in_threadpool(app.state.guard.reserve, request.state.request_id, ip)
-        return service
+        enabled = settings.conversation_recording and payload.record_conversation
+        recording = TurnRecording(app, request.state.request_id, enabled)
+        if enabled:
+            try:
+                if app.state.conversations is None:
+                    app.state.conversations = await run_in_threadpool(ConversationStore, settings)
+                await run_in_threadpool(app.state.conversations.begin, request.state.request_id, payload)
+                app.state.recording_error = False
+            except ConversationConflict:
+                app.state.guard.finish(request.state.request_id, 'error')
+                raise HTTPException(409, '会话标识不匹配，请开始新对话') from None
+            except Exception as exc:
+                app.state.recording_error = True
+                recording.enabled = False
+                recording.saved = False
+                app.state.recording_failures += 1
+                logger.error('conversation_begin_failed error_type=%s', type(exc).__name__)
+        return service, recording
+
+    @app.get('/api/v1/chat/config', tags=['问答'])
+    async def chat_config():
+        return {'recording_enabled': settings.conversation_recording,
+                'retention_days': settings.conversation_retention_days, 'notice_version': 'server-v2'}
 
     @app.get("/health/live", tags=["运行状态"])
     async def live():
@@ -130,13 +183,14 @@ def create_app(settings=None, service_factory=RAGService):
 
     @app.post("/api/v1/qa", response_model=Answer, tags=["问答"])
     async def qa(payload: QuestionRequest, request: Request):
-        service = await admit(request)
+        service, recording = await admit(request, payload)
         rid = request.state.request_id
         text, sources, done = "", [], {}
         status = "error"
         try:
             async with asyncio.timeout(settings.request_deadline):
                 async for event in service.events(payload, rid):
+                    recording.observe(event)
                     if event["event"] == "token":
                         text += event["data"]["text"]
                     elif event["event"] == "sources":
@@ -144,8 +198,10 @@ def create_app(settings=None, service_factory=RAGService):
                     elif event["event"] == "done":
                         done = event["data"]
             status = "ok"
+            recording.finish(status)
             return Answer(request_id=rid, answer=text, sources=sources,
-                          grounded=done.get("grounded", False), elapsed_ms=done.get("elapsed_ms", 0))
+                          grounded=done.get("grounded", False), elapsed_ms=done.get("elapsed_ms", 0),
+                          recording_saved=recording.saved)
         except asyncio.CancelledError:
             status = "cancelled"
             raise
@@ -153,11 +209,12 @@ def create_app(settings=None, service_factory=RAGService):
             logger.warning("qa_failed request_id=%s error_type=%s", rid, type(exc).__name__)
             raise HTTPException(503, "助手暂时无法完成回答，请稍后重试或查看在线简历") from None
         finally:
-            await run_in_threadpool(app.state.guard.finish, rid, status, done.get("tokens", 0))
+            recording.finish(status)
+            app.state.guard.finish(rid, status, done.get("tokens", 0))
 
     @app.post("/api/v1/chat/stream", tags=["问答"])
     async def stream(payload: QuestionRequest, request: Request):
-        service = await admit(request)
+        service, recording = await admit(request, payload)
         rid = request.state.request_id
 
         async def body():
@@ -191,9 +248,11 @@ def create_app(settings=None, service_factory=RAGService):
                         continue
                     if event is None:
                         break
+                    recording.observe(event)
                     if event["event"] == "done":
                         status = "ok"
                         tokens = event["data"].get("tokens", 0)
+                        recording.finish(status)
                     elif event["event"] == "error":
                         status = "error"
                     yield "event: " + event["event"] + "\ndata: " + json.dumps(event["data"], ensure_ascii=False) + "\n\n"
@@ -202,6 +261,7 @@ def create_app(settings=None, service_factory=RAGService):
                 with contextlib.suppress(asyncio.CancelledError):
                     await worker
                 # Synchronous tiny SQLite update ensures cleanup during disconnect.
+                recording.finish(status)
                 app.state.guard.finish(rid, status, tokens)
                 logger.info("stream_finished request_id=%s status=%s", rid, status)
 
@@ -210,11 +270,11 @@ def create_app(settings=None, service_factory=RAGService):
             "X-Accel-Buffering": "no",
         })
 
-    @app.get("/api/v1/admin/stats", tags=["管理"])
-    async def stats(authorization: str | None = Header(default=None)):
-        expected = settings.admin_token.get_secret_value() if settings.admin_token else None
-        if not expected or not hmac.compare_digest(authorization or "", "Bearer " + expected):
-            raise HTTPException(401, "需要管理员身份")
+    router, authorize_admin = admin_router(app, settings)
+    app.include_router(router)
+
+    @app.get("/api/v1/admin/stats", tags=["管理"], dependencies=[Depends(authorize_admin)])
+    async def stats():
         return await run_in_threadpool(app.state.guard.stats)
 
     # CORS is not authentication; quotas and separate admin access still apply.

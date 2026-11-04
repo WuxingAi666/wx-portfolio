@@ -8,6 +8,7 @@ import tempfile
 from pathlib import Path
 
 import faiss
+import numpy as np
 from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import FAISS
@@ -85,7 +86,9 @@ class KnowledgeIndex:
         snapshot.parent.mkdir(parents=True, exist_ok=True)
         staging = Path(tempfile.mkdtemp(prefix="index-", dir=snapshot.parent))
         try:
-            faiss.write_index(store.index, str(staging / "vectors.faiss"))
+            # FAISS C++ filename APIs do not support all Windows Unicode paths.
+            # Serialize the same FAISS binary through Python's Unicode-safe I/O.
+            (staging / "vectors.faiss").write_bytes(faiss.serialize_index(store.index).tobytes())
             payload = [
                 {"id": store.index_to_docstore_id[i],
                  "text": store.docstore.search(store.index_to_docstore_id[i]).page_content,
@@ -120,7 +123,7 @@ class KnowledgeIndex:
             if hashlib.sha256((snapshot / name).read_bytes()).hexdigest() != expected:
                 raise ValueError("Index checksum mismatch")
         rows = json.loads((snapshot / "documents.json").read_text(encoding="utf-8"))
-        index = faiss.read_index(str(snapshot / "vectors.faiss"))
+        index = faiss.deserialize_index(np.frombuffer((snapshot / "vectors.faiss").read_bytes(), dtype=np.uint8))
         if index.ntotal != len(rows) or index.d != metadata["dimension"]:
             raise ValueError("Index shape mismatch")
         self.store = FAISS(

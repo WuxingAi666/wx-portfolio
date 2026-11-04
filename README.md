@@ -2,7 +2,7 @@
 
 完整全栈主工程。公开入口：**http://8.152.192.126/wx/**。
 前端与后端统一在云服务器运行，GitHub 保存源码，本网站不启用 Pages。
-桌面成品集中在 WX-项目成品/：01 是独立 RAG，02 是独立前端，03（本目录）是后续唯一主工程。
+本机成品集中在 D:/求职与实习/WX-项目成品/：01 是独立 RAG，02 是独立前端，03（本目录）是后续唯一主工程。
 
 ## 目录
 
@@ -18,13 +18,15 @@
 ## 本机运行
 
 首次安装 backend/requirements.txt，复制 backend/.env.example 为 backend/.env 并私下配置模型密钥。
-本机整理目录已保留配置，避免覆盖。当前已验证的解释器是 D:/jiqixuexi/python.exe。
+本机整理目录已保留配置，避免覆盖。优先使用 backend/.venv 的项目解释器。
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1 -PythonExe D:/jiqixuexi/python.exe
+scripts/preview.cmd
 ```
 
 网站 http://127.0.0.1:8931/；API 文档 http://127.0.0.1:8010/docs。
+本地看板 http://127.0.0.1:8010/kanban/。运行 scripts/init-secrets.py 初始化内部令牌，再运行 scripts/set-admin-password.py 单独设置登录密码；仅在私有 .env 保存 PBKDF2 哈希。
+匿名聊天记录与私有 /admin/ 工作台支持访客归组、备注、收藏/已读、统计筛选、自动刷新、导出与删除，前台维持原助手体验。设计、配置和访问方式见 docs/CONVERSATIONS.md。云端看板入口为 https://8.152.192.126/wx/kanban/；需要服务器安全组允许 TCP 443，最新发布验收状态见 docs/PROJECT-STATUS.md。
 只运行一套本机 API；独立前端也可以连接同一 API。修改与测试仍先在本地完成。
 
 ## 检查与三份成品
@@ -45,4 +47,4 @@ python -B scripts/build-deliverables.py
 Nginx 在 /wx/ 提供前端，并代理 /wx/api/、/wx/health/ 到 127.0.0.1:3001。
 systemd 使用 wxrag 专用用户运行 API；私有配置和持久化数据独立于代码 release。
 完整步骤见 docs/DEPLOYMENT.md，实际验收状态见 docs/PROJECT-STATUS.md。
-新地址借助 sslip.io 公共 DNS 解析到自有服务器，不是本人注册的独立域名；以后可替换为自有域名。
+当前正式入口直接使用公网 IP；以后可替换为自有域名。

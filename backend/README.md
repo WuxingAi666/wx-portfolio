@@ -6,6 +6,8 @@
 链路：TextLoader → RecursiveCharacterTextSplitter（420/80）→ BGE-M3 Embedding → FAISS → DeepSeek。
 每个块附带所属文档标题，减少上下文丢失。默认使用云端模型 API，也支持可选本地 BGE。
 FAISS 索引与 SQLite 额度保存在 storage/；接口含输入校验、并发及调用额度管理。
+匿名问答记录独立保存在 storage/conversations.sqlite3，包含问题、回答、引用与状态，默认保留 30 天。前台不显示记录控件，服务端全局配置可关闭新记录。/admin/ 提供访客归组、备注、收藏、已读、筛选导出和自动刷新；升级自动保留旧版记录。
+管理看板为 /kanban/（兼容 /admin/），支持访客/会话归组、备注、收藏/已读、筛选统计和 JSON/CSV/Markdown 导出。使用 scripts/set-admin-password.py 生成 ADMIN_PASSWORD_HASH，登录密码与内部 Bearer 令牌 ADMIN_TOKEN 独立；公网管理访问需要 HTTPS。
 
 ## 运行
 
@@ -13,6 +15,7 @@ FAISS 索引与 SQLite 额度保存在 storage/；接口含输入校验、并发
 
 ```powershell
 python -m venv .venv
+.venv/Scripts/python -m pip install -r requirements-tooling.txt
 .venv/Scripts/python -m pip install -r requirements.txt
 ```
 
@@ -37,7 +40,7 @@ python chat.py
 ```
 
 云端全栈接口可用 `python chat.py --api http://8.152.192.126/wx` 测试。
-本机现成环境为 D:/jiqixuexi/python.exe，可替代以上 python，避免 PATH 误选解释器。
+优先使用安装了本版本 requirements.txt 的 .venv/Scripts/python.exe，避免 PATH 误选旧版本依赖。
 来源链接指向完整网站；没有启动作品集前端也能检索与生成回答。
 
 ## 维护与验证

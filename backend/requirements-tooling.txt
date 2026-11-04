@@ -1,0 +1,2 @@
+# Build tooling is separate from application runtime dependencies.
+pip==26.2.2

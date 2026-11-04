@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 EXCLUDE = {".git", ".venv", "__pycache__", ".playwright-cli", "backups", "storage", "output", "node_modules"}
 PUBLIC_DIRS = {"frontend", "backend", "deploy", "scripts", ".github"}
-PUBLIC_DOCS = {"ARCHITECTURE.md", "DEPLOYMENT.md", "KNOWLEDGE.md", "VALIDATION.md", "PROJECT-STATUS.md", "LOCAL-DEVELOPMENT.md"}
+PUBLIC_DOCS = {"ARCHITECTURE.md", "DEPLOYMENT.md", "KNOWLEDGE.md", "VALIDATION.md", "PROJECT-STATUS.md", "LOCAL-DEVELOPMENT.md", "CONVERSATIONS.md"}
 SECRET = re.compile(r"sk-[A-Za-z0-9]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|https://[^/\s]+:[^/@\s]+@github\.com")
 
 

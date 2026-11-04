@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>对话工作台 · 仵星</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/admin.css"><script src="assets/admin.js" defer></script></head>
+<body>
+  <section id="login-view" class="login-shell">
+    <div class="login-brand"><span class="brand-mark">WX</span><strong>仵星 · 助手管理</strong></div>
+    <form id="login-form" class="login-card">
+      <span class="eyebrow">OWNER WORKSPACE</span><h1>读懂每一次提问。</h1><p class="intro">从访客到会话，完整回看问题、回答与检索依据，把真实反馈变成下一次改进。</p>
+      <input type="text" class="sr-only" name="username" value="owner" autocomplete="username" readonly tabindex="-1" aria-hidden="true"><label for="admin-token">登录密码</label><input id="admin-token" type="password" autocomplete="current-password" maxlength="256" required placeholder="输入你的看板登录密码">
+      <button class="primary" type="submit">进入对话工作台 <span aria-hidden="true">→</span></button>
+      <p id="login-message" class="notice" role="status">密码仅用于登录，不保存在浏览器存储中。</p>
+      <details class="login-help"><summary>忘记登录密码？</summary><p>由网站所有者在服务器私有配置中重置密码。管理页面通过 HTTPS 或本机连接访问。</p></details>
+    </form><p class="login-caption">私有管理空间 · 匿名访客 · 独立于 RAG 知识库</p>
+  </section>
+  <div id="workspace" hidden>
+    <header class="topbar"><div class="brand"><span class="brand-mark">WX</span><div><strong>对话工作台</strong><small>仵星的 RAG 问答助手</small></div></div><div class="top-actions"><span id="recording-badge" class="badge">检查记录服务…</span><label class="auto-refresh"><input id="auto-refresh" type="checkbox" checked>自动刷新 <span>5 秒</span></label><button id="refresh" type="button">刷新</button><button id="logout" type="button" class="quiet">退出</button></div></header>
+    <main class="workspace-main">
+      <div class="page-heading"><div><span class="eyebrow">CONVERSATION INSIGHTS</span><h1>访客在关心什么</h1><p id="retention-note">匿名编号用于区分浏览器，不代表访客真实身份。</p></div><div class="heading-actions"><span id="last-updated">尚未同步</span><details class="export-menu"><summary>导出筛选结果 ↓</summary><div><button id="export-json" type="button">JSON · 完整数据</button><button id="export-csv" type="button">CSV · 表格分析</button><small>每次最多 2,000 条问答</small></div></details></div></div>
+      <section class="metrics" aria-label="当前筛选范围内的统计">
+        <article><span>匿名访客</span><strong id="metric-visitors">—</strong><small><b id="metric-conversations">—</b> 段会话</small></article>
+        <article><span>提问次数</span><strong id="metric-turns">—</strong><small><b id="metric-active">—</b> 条正在回答</small></article>
+        <article><span>回答完成率</span><strong id="metric-rate">—</strong><small id="metric-completed">完成数 / 提问数</small></article>
+        <article><span>平均完成耗时</span><strong id="metric-latency">—</strong><small>仅统计完成的回答</small></article>
+        <article><span>模型 Token</span><strong id="metric-tokens">—</strong><small>上游已回传用量，非账单</small></article>
+      </section>
+      <details class="analytics"><summary>提问趋势与高频原文 <span>最近 7 天 · 当前筛选范围</span></summary><div class="analytics-grid"><section><h2>每日提问</h2><div id="trend" class="trend" aria-label="最近七天的提问次数"></div></section><section><h2>高频问题 <small>相同原文计数</small></h2><div id="top-questions" class="top-questions"></div></section></div></details>
+      <section class="filter-bar" aria-label="记录筛选">
+        <form id="filters"><div class="search-box"><label class="sr-only" for="search">搜索问题、回答、访客编号或备注</label><input id="search" type="search" maxlength="100" placeholder="搜索问题、回答、访客编号或备注"><button type="submit" class="primary">搜索</button></div><label class="sr-only" for="filter-status">回答状态</label><select id="filter-status"><option value="">全部回答状态</option><option value="ok">已完成</option><option value="active">回答中</option><option value="cancelled">访客停止</option><option value="error">回答失败</option><option value="interrupted">服务中断</option></select><label class="sr-only" for="period">时间范围</label><select id="period"><option value="">全部保留记录</option><option value="today">今天</option><option value="7">最近 7 天</option><option value="30">最近 30 天</option><option value="custom">自定义日期</option></select><button id="reset-filters" type="button" class="quiet">重置</button><div id="custom-dates" class="custom-dates" hidden><label>起始日期<input id="date-from" type="date"></label><label>结束日期<input id="date-to" type="date"></label><span>北京时间</span></div></form>
+        <div class="filter-bottom"><nav id="attention-tabs" class="attention-tabs" aria-label="关注分类"><button type="button" data-attention="" aria-pressed="true">全部</button><button type="button" data-attention="unread" aria-pressed="false">未读</button><button type="button" data-attention="favorite" aria-pressed="false">已收藏</button><button type="button" data-attention="ungrounded" aria-pressed="false">未召回资料</button></nav><span id="filter-context">统计与导出均跟随当前筛选</span></div>
+      </section>
+      <div id="workspace-message" class="workspace-message" role="status" aria-live="polite"></div>
+      <nav class="mobile-path" aria-label="查看层级"><button id="path-visitors" type="button" aria-current="step">访客</button><span>›</span><button id="path-conversations" type="button">会话</button><span>›</span><button id="path-detail" type="button" disabled>问答详情</button></nav>
+      <section id="inbox" class="inbox" data-step="visitors" aria-label="访客、会话与问答详情">
+        <aside class="visitor-pane"><div class="pane-heading"><h2>访客</h2><span id="visitor-count">0 位</span></div><button id="all-visitors" type="button" class="all-visitors" aria-pressed="true"><strong>所有访客</strong><span>查看全部会话 →</span></button><div id="visitor-list" class="item-list"></div><nav class="pagination" aria-label="访客翻页"><button id="visitor-previous" type="button" aria-label="上一页访客">←</button><span id="visitor-page">1 / 1</span><button id="visitor-next" type="button" aria-label="下一页访客">→</button></nav></aside>
+        <aside class="session-pane"><div class="pane-heading"><h2>会话</h2><span id="result-count">0 段</span></div><div id="visitor-context" class="visitor-context"></div><div id="conversation-list" class="item-list"></div><nav class="pagination" aria-label="会话翻页"><button id="previous" type="button" aria-label="上一页会话">←</button><span id="page-note">1 / 1</span><button id="next" type="button" aria-label="下一页会话">→</button></nav></aside>
+        <section id="conversation-detail" class="conversation-detail" aria-label="问答详情"><div class="empty-state"><span class="empty-symbol">↗</span><h2>选择一段对话</h2><p>先找到访客，再回看完整的问答过程。<br>也可以从所有会话开始浏览。</p></div></section>
+      </section>
+      <footer class="workspace-footer"><span>匿名编号按浏览器区分；管理员备注不等于真实身份。同一人换设备可能显示为不同访客。</span><span id="footer-state">记录独立存储，不会自动加入知识库。</span></footer>
+    </main>
+  </div>
+  <dialog id="profile-dialog" aria-labelledby="profile-title"><form id="profile-form"><div class="dialog-heading"><h2 id="profile-title">访客备注</h2><button id="profile-close" type="button" aria-label="关闭备注窗口">×</button></div><p id="profile-label" class="muted"></p><label for="profile-name">管理员称呼 <span>仅后台可见</span></label><input id="profile-name" maxlength="40" placeholder="例如：关注 RAG 技术的访客"><label for="profile-notes">跟进备注</label><textarea id="profile-notes" rows="5" maxlength="1000" placeholder="记录关注方向、问题反馈或待改进事项"></textarea><p class="muted">这是你添加的识别标签，不是访客提供或验证过的身份。</p><p id="profile-message" class="notice" role="status"></p><div class="dialog-actions"><button id="profile-cancel" type="button">取消</button><button id="profile-save" class="primary" type="submit">保存备注</button></div></form></dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title"><div class="dialog-heading"><h2 id="delete-title">删除这段会话？</h2></div><p>此会话的全部问题、回答和引用将被删除，无法在后台撤销。该访客的其他会话不受影响。</p><p id="delete-message" class="notice" role="status"></p><div class="dialog-actions"><button id="delete-cancel" type="button">取消</button><button id="delete-confirm" type="button" class="danger">确认删除</button></div></dialog>
+</body></html>

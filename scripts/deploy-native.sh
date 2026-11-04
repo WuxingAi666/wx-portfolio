@@ -9,10 +9,11 @@ test -f /etc/wx-rag/backend.env
 test "$(id -u)" = 0
 
 # Share identical environments while keeping dependency versions available for rollback.
-requirements_hash=$(sha256sum "$release_dir/backend/requirements.txt" | cut -d' ' -f1)
+requirements_hash=$(cat "$release_dir/backend/requirements.txt" "$release_dir/backend/requirements-tooling.txt" | sha256sum | cut -d' ' -f1)
 env_dir="/opt/wx-portfolio/venvs/$requirements_hash"
 if [ ! -f "$env_dir/.installed" ]; then
     python3 -m venv "$env_dir"
+    "$env_dir/bin/python" -m pip install --no-cache-dir -r "$release_dir/backend/requirements-tooling.txt"
     "$env_dir/bin/python" -m pip install --no-cache-dir -r "$release_dir/backend/requirements.txt"
     "$env_dir/bin/python" -m pip check
     touch "$env_dir/.installed"

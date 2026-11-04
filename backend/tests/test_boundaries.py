@@ -95,7 +95,7 @@ class BoundaryTests(unittest.TestCase):
             self.assertEqual(sum(row["count"] for row in guard.stats()["requests"]), 2)
 
     def test_normalized_faiss_persistence_and_integrity(self):
-        with tempfile.TemporaryDirectory() as root:
+        with tempfile.TemporaryDirectory(prefix='RAG-中文路径-') as root:
             data = Path(root) / "data"
             data.mkdir()
             (data / "one.txt").write_text("公开项目资料。" * 30, encoding="utf-8")
